@@ -8,7 +8,6 @@ import { Link, useNavigate } from "react-router-dom";
 import LoginCss from "./Login.module.scss";
 import { jwtDecode } from "jwt-decode";
 
-
 interface FormValues {
   email: string;
   password: string;
@@ -26,11 +25,10 @@ const Login: React.FC = () => {
 
     try {
       const { data } = await api.post("/auth/login", users);
-      // const token = data.token;
-      
-      if (data.message=='success'){
-        localStorage.setItem("userToken",data.token);
-        toast.success('Login successfully!', {
+
+      if (data.message == "success") {
+        localStorage.setItem("userToken", data.token);
+        toast.success("Login successfully!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -40,20 +38,18 @@ const Login: React.FC = () => {
           progress: undefined,
           theme: "light",
           transition: Bounce,
-          });
+        });
 
-          const decoded: any = jwtDecode(data.token);
-      console.log(decoded);
-      console.log(decoded.role);
-      if (decoded.role == 'User'){
-        navigate('/home');
-      }else if(decoded.role =='Admin'){
-        navigate('/admin');
+        const decoded: any = jwtDecode(data.token);
+        console.log(decoded);
+        console.log(decoded.role);
+        if (decoded.role == "User") {
+          navigate("/home");
+        } else if (decoded.role == "Admin") {
+          navigate("/admin");
+        }
       }
-        // navigate('/home');
-    }
-    // console.log(data);
-    }catch(e: any){
+    } catch (e: any) {
       toast.error(e.response.data.error.split("\n")[0], {
         position: "top-center",
         autoClose: false,
@@ -64,11 +60,8 @@ const Login: React.FC = () => {
         progress: undefined,
         theme: "light",
         transition: Bounce,
-        });
-      // console.log(e)
-      // console.log(e.response.data.error.split("\n")[0])
+      });
     }
-    
   };
 
   const formik = useFormik({
@@ -115,78 +108,37 @@ const Login: React.FC = () => {
   ));
 
   return (
-   
     <div className={LoginCss.body}>
-    <div className={LoginCss.wrapper}>
+      <div className={LoginCss.wrapper}>
         <form onSubmit={formik.handleSubmit} action="">
-        <h2>Login</h2>
-        <div className={LoginCss.inputBox}>
-          {renderInputs[0]}
-        </div>
-        <div className={LoginCss.inputBox}>
-          {renderInputs[1]}                   
-        </div>
+          <h1>Login</h1>
+          <div className={LoginCss.inputBox}>{renderInputs[0]}</div>
+          <div className={LoginCss.inputBox}>{renderInputs[1]}</div>
 
           <div className={LoginCss.rememberForgot}>
-            <label> 
-            <input type="checkbox" />Remember Me
+            <label>
+              <input type="checkbox" />
+              Remember Me
             </label>
             <a href="#">Forgot Password?</a>
           </div>
-          <button type="submit" className={LoginCss.btn} disabled={!formik.isValid}>
+          <button
+            type="submit"
+            className={LoginCss.btn}
+            disabled={!formik.isValid}
+          >
             Login
           </button>
 
           <div className={LoginCss.registerLink}>
-            <p>Don't have an account? <Link to="/register">Register</Link></p>
+            <p>
+              Don't have an account? <Link to="/register">Register</Link>
+            </p>
           </div>
         </form>
+      </div>
     </div>
-    </div>
-   
-
-    
   );
-
-  // <div className="register-container">
-  //     <div className="container">
-  //       <h2>Login</h2>
-  //       <form onSubmit={formik.handleSubmit} className="login-form">
-  //         {renderInputs}
-  //         <button type="submit" disabled={!formik.isValid}>
-  //           Login
-  //         </button>
-  //       </form>
-  //     </div>
-  //   </div>
 };
 
 export default Login;
-
-{/* <div className={LoginCss.body}>
-    <div className={LoginCss.wrapper}>
-        <form onSubmit={formik.handleSubmit} action="">
-        <h1>Login</h1>
-        <div className={LoginCss.inputBox}>
-          {renderInputs[0]}
-        </div>
-        <div className={LoginCss.inputBox}>
-          {renderInputs[1]}                   
-        </div>
-
-          <div className={LoginCss.rememberForgot}>
-            <label> 
-            <input type="checkbox" />Remember Me
-            </label>
-            <a href="#">Forgot Password?</a>
-          </div>
-          <button type="submit" className={LoginCss.btn} disabled={!formik.isValid}>
-            Login
-          </button>
-
-          <div className={LoginCss.registerLink}>
-            <p>Don't have an account? <Link to="/register">Register</Link></p>
-          </div>
-        </form>
-    </div>
-    </div> */}

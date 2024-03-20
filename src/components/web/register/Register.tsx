@@ -152,17 +152,6 @@ const Register: React.FC = () => {
         </form>
       </div>
     </div>
-    // <div className="register-container">
-    //   <div className="container">
-    //     <h2>Register</h2>
-    //     <form onSubmit={formik.handleSubmit} className="register-form">
-    //       {renderInputs}
-    //       <button type="submit" disabled={!formik.isValid}>
-    //         Register
-    //       </button>
-    //     </form>
-    //   </div>
-    // </div>
   );
 };
 

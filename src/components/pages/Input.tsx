@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import InputCss from "./Input.module.scss";
 
 interface InputProps {
@@ -15,51 +15,33 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({
-  type = 'text',
+  type = "text",
   id,
   name,
-  // title,
   value,
   onChange,
   errors,
   onBlur,
   touched,
-  placeholder
+  placeholder,
 }) => {
   return (
     <>
-      {/* <div className="input-group mb-3"> */}
-        {/* <label htmlFor={id}>{title}</label> */}
-        <input
-          type={type}
-          name={name}
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
-          className={InputCss.input}
-          id={id}
-          placeholder={placeholder}
-        />
-        {touched[name] && errors[name] && (
-          <p className="text text-danger"> {errors[name]} </p>
-        )}
-      {/* </div> */}
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        className={InputCss.input}
+        id={id}
+        placeholder={placeholder}
+      />
+      {touched[name] && errors[name] && (
+        <p className="text text-danger"> {errors[name]} </p>
+      )}
     </>
   );
 };
 
 export default Input;
-// import React from 'react'
-
-// export default function input({type='text', id,name, title,value,onChange,errors,onBlur,touched}) {
-//   return (
-//     <>
-//     <div className="input-group mb-3">
-
-//         <label htmlFor={id}>{title}</label>
-//         <input type={type} name={name} value={value} onChange={onChange} onBlur={onBlur}  class="form-control" id={id} />
-//         {touched[name]&&errors[name] && <p className='text text-danger'> {errors[name]} </p>}
-//      </div>
-//     </>
-//   )
-// }

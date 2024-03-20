@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import NavbarCss from "./Navbar.module.scss";
 
 const Navbar: React.FC = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className={`navbar navbar-expand-lg ${NavbarCss.bgGrey}`}>
         <div className="container">
           <a className="navbar-brand" href="#">
             BZU Library Chatbot
@@ -23,9 +24,9 @@ const Navbar: React.FC = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/home">
                   Home
-                </a>
+                </Link>
               </li>
             </ul>
             <ul className="navbar-nav">

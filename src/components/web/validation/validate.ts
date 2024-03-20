@@ -26,4 +26,3 @@ export const loginSchema = yup.object({
     .min(8, "Must be at least three char")
     .max(30, "Maximum 30 char"),
 });
-

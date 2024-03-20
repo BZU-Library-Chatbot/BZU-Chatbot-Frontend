@@ -1,31 +1,52 @@
-import React from 'react';
-// import {useNavigate } from "react-router-dom";
+import React from "react";
 import { useFormik } from "formik";
 import api from "../../../services/Api";
 import InputHome from "../../pages/InputHome";
-import Sidebar from '../sidebar/Sidebar';
+import Sidebar from "../sidebar/Sidebar";
 import HomeCss from "./Home.module.scss";
+import { useState } from "react";
+import { MdOutlineFileUpload } from "react-icons/md";
 
 interface FormValues {
   message: string;
 }
 
-const Home: React.FC = () => {
+interface ConversationItem {
+  userMessage: string;
+  botResponse: string | null;
+}
 
-  // const navigate = useNavigate();
+const Home: React.FC = () => {
+  const [conversation, setConversation] = useState<ConversationItem[]>([]);
+
   const initialValues: FormValues = {
     message: "",
   };
 
   const onSubmit = async (message: FormValues) => {
-    try{
-      const  response  = await api.post("/chatbot/sendMessage", message);
-      console.log(response.data.message);
-    }catch(err){
+    try {
+      const updatedConversation = [
+        ...conversation,
+        { userMessage: message.message, botResponse: null },
+      ];
+      setConversation(updatedConversation);
+
+      formik.resetForm();
+
+      const response = await api.post("/chatbot/sendMessage", message);
+      const botResponse = response.data.message;
+      console.log("Res: ", botResponse);
+
+      const lastIdx = updatedConversation.length - 1;
+      const updatedConversationWithResponse = [
+        ...updatedConversation.slice(0, lastIdx),
+        { ...updatedConversation[lastIdx], botResponse },
+      ];
+      setConversation(updatedConversationWithResponse);
+    } catch (err) {
       console.error(err);
-    } 
-    
-  } 
+    }
+  };
 
   const formik = useFormik({
     initialValues,
@@ -33,8 +54,10 @@ const Home: React.FC = () => {
   });
 
   const handleSendMessage = () => {
-    onSubmit(formik.values);
-    console.log(formik.values);
+    if (formik.values.message.trim() !== "") {
+      onSubmit(formik.values);
+      console.log("Question", formik.values);
+    }
   };
 
   const inputs = [
@@ -46,8 +69,8 @@ const Home: React.FC = () => {
       value: formik.values.message,
       placeholder: "Enter your Message",
       onChange: formik.handleChange,
-    }
-  ]
+    },
+  ];
 
   const renderInputs = inputs.map((input, index) => (
     <InputHome
@@ -65,34 +88,53 @@ const Home: React.FC = () => {
     />
   ));
 
-  return (
-
-    <div className={HomeCss.wrapper}>
-      <Sidebar />
-      <section className={HomeCss.main}>
-        <h1>BZU Library Chatbot</h1>
-        <ul className={HomeCss.feed}>
-
-
-        </ul>
-        <div className={HomeCss.bottomSection}>
-          <form action="" onSubmit={formik.handleSubmit}></form>
-          <div className={HomeCss.inputContainer}>
-            {renderInputs}
-            <div className={HomeCss.submit} onClick={handleSendMessage} >➢</div>
-          </div>
-          <p className={HomeCss.info}>
-          © 2023-2024 BZU-Library-Chatbot - All Right Reserved.</p>
-        </div>
-      </section>
+  const renderConversation = conversation.map((item, index) => (
+    <div key={index} className={HomeCss.cont}>
+      <div className={HomeCss.userMessageContainer}>
+        <p className={HomeCss.userMessage}>{item.userMessage}</p>
+      </div>
+      <div className={HomeCss.botMessageContainer}>
+        <p className={HomeCss.botMessage}>
+          {item.botResponse ? item.botResponse : "Analyzing..."}
+        </p>
+      </div>
     </div>
-    // <div className={HomeCss.container}>
-    //   <form className={HomeCss.messageBox} action="">
-    //     {renderInputs}
-    //     <button className={HomeCss.sendButton} type="submit">Send</button>
-    //   </form>
-      
-    // </div>
+  ));
+
+  return (
+    <div className={HomeCss.wrapper}>
+      <div className={HomeCss.container}>
+        <Sidebar />
+        <section className={HomeCss.main}>
+          <div className={HomeCss.feed}>{renderConversation}</div>
+          <div className={HomeCss.bottomSection}>
+            <form action="" onSubmit={formik.handleSubmit}></form>
+            <div className={HomeCss.inputContainer}>
+              <div>{renderInputs}</div>
+              <div
+                className={HomeCss.submit}
+                onClick={
+                  formik.values.message.trim() !== ""
+                    ? handleSendMessage
+                    : undefined
+                }
+                style={{
+                  cursor:
+                    formik.values.message.trim() === ""
+                      ? "not-allowed"
+                      : "pointer",
+                }}
+              >
+                <MdOutlineFileUpload />
+              </div>
+            </div>
+            <p className={HomeCss.info}>
+              © 2023-2024 BZU-Library-Chatbot - All Right Reserved.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
   );
 };
 
