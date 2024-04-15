@@ -1,11 +1,12 @@
 import React from "react";
 import { useFormik } from "formik";
-import api from "../../../services/Api";
 import InputHome from "../../pages/InputHome";
 import Sidebar from "../sidebar/Sidebar";
 import HomeCss from "./Home.module.scss";
-import { useState } from "react";
 import { MdOutlineFileUpload } from "react-icons/md";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { fetchSessions, loadMessages, sendMessage } from "./api";
 
 interface FormValues {
   message: string;
@@ -18,6 +19,38 @@ interface ConversationItem {
 
 const Home: React.FC = () => {
   const [conversation, setConversation] = useState<ConversationItem[]>([]);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const { id } = useParams<{ id: any }>();
+  const navigate = useNavigate();
+  const [sessions, setSessions] = useState<any[]>([]);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const activeSessionIndex = () => {
+    const index = sessions.indexOf((session: any) => {
+      session._id == id;
+    });
+    return index != -1 ? index : null;
+  };
+
+  useEffect(() => {
+    setSessionId(id);
+    const loader = async () => {
+      const messages = await loadMessages(id);
+      console.log(messages);
+
+      setConversation(
+        messages.map((message: any) => {
+          return {
+            userMessage: message.message,
+            botResponse: message.response,
+          };
+        })
+      );
+      setSessions(await fetchSessions());
+    };
+    loader();
+    setActiveIndex(activeSessionIndex());
+  }, [id]);
 
   const initialValues: FormValues = {
     message: "",
@@ -32,10 +65,12 @@ const Home: React.FC = () => {
       setConversation(updatedConversation);
 
       formik.resetForm();
+      const response: any = await sendMessage(sessionId, message, navigate);
 
-      const response = await api.post("/chatbot/sendMessage", message);
-      const botResponse = response.data.message;
-      console.log("Res: ", botResponse);
+      if (!sessionId) {
+        navigate(`/home/${response.data.sessionId}`);
+      }
+      const botResponse = response.data.response;
 
       const lastIdx = updatedConversation.length - 1;
       const updatedConversationWithResponse = [
@@ -56,7 +91,6 @@ const Home: React.FC = () => {
   const handleSendMessage = () => {
     if (formik.values.message.trim() !== "") {
       onSubmit(formik.values);
-      console.log("Question", formik.values);
     }
   };
 
@@ -101,10 +135,19 @@ const Home: React.FC = () => {
     </div>
   ));
 
+  const handleSessionClick = (sessionId: string) => {
+    navigate(`/home/${sessionId}`);
+  };
+
   return (
     <div className={HomeCss.wrapper}>
       <div className={HomeCss.container}>
-        <Sidebar />
+        <Sidebar
+          onSessionClick={handleSessionClick}
+          setConversation={setConversation}
+          sessions={sessions}
+          activeIndex={activeIndex}
+        />
         <section className={HomeCss.main}>
           <div className={HomeCss.feed}>{renderConversation}</div>
           <div className={HomeCss.bottomSection}>

@@ -3,10 +3,12 @@ import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
 import { loginSchema } from "../validation/validate";
-import api from "../../../services/Api";
 import { Link, useNavigate } from "react-router-dom";
 import LoginCss from "./Login.module.scss";
 import { jwtDecode } from "jwt-decode";
+import { useState, useEffect } from "react";
+import authService from "../../../services/authService";
+import { login } from "./api";
 
 interface FormValues {
   email: string;
@@ -14,20 +16,32 @@ interface FormValues {
 }
 
 const Login: React.FC = () => {
+  const [isAuth, setIsAuth] = useState(authService.isAuthenticated()); 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth) {
+      const decoded: any = jwtDecode(authService.loadToken());
+      if (decoded.role == "User") {
+        navigate("/home");
+      } else if (decoded.role == "Admin") {
+        navigate("/admin");
+      }
+    }
+  }, [isAuth]);
+
   const initialValues: FormValues = {
     email: "",
     password: "",
   };
 
-  const onSubmit = async (users: FormValues) => {
-    console.log("users=", users);
-
+  const onSubmit = async (user: FormValues) => {
     try {
-      const { data } = await api.post("/auth/login", users);
+      const  data  = await login(user);
 
       if (data.message == "success") {
-        localStorage.setItem("userToken", data.token);
+        authService.saveToken(data.token);
+        authService.saveRefreshToken(data.refreshToken);
         toast.success("Login successfully!", {
           position: "top-center",
           autoClose: 5000,
@@ -39,15 +53,7 @@ const Login: React.FC = () => {
           theme: "light",
           transition: Bounce,
         });
-
-        const decoded: any = jwtDecode(data.token);
-        console.log(decoded);
-        console.log(decoded.role);
-        if (decoded.role == "User") {
-          navigate("/home");
-        } else if (decoded.role == "Admin") {
-          navigate("/admin");
-        }
+        setIsAuth(true);
       }
     } catch (e: any) {
       toast.error(e.response.data.error.split("\n")[0], {

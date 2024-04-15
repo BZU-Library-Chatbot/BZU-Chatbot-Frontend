@@ -3,10 +3,9 @@ import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
 import { registerSchema } from "../validation/validate";
-import RegisterCss from   "./Register.module.scss";
-import api from "../../../services/Api";
+import RegisterCss from "./Register.module.scss";
 import { Link } from "react-router-dom";
-
+import { register } from "./api";
 
 interface FormValues {
   userName: string;
@@ -23,29 +22,27 @@ const Register: React.FC = () => {
     cPassword: "",
   };
 
-
-  const onSubmit = async (users: FormValues) => {
-    console.log(users);
+  const onSubmit = async (user: FormValues) => {
     try {
-      const data = await api.post("/auth/signup", users);
-      console.log(data);
-      console.log(data.data.message);
-      
+      const data = await register(user);
       if (data.data.message == "success") {
         formik.resetForm();
-        toast.success('Account created successfully! Please verify your email to login!', {
-          position: "top-center",
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-          });
+        toast.success(
+          "Account created successfully! Please verify your email to login!",
+          {
+            position: "top-center",
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          }
+        );
       }
-    }catch(e : any){
+    } catch (e: any) {
       toast.error(e.response.data.error.split("\n")[0], {
         position: "top-center",
         autoClose: false,
@@ -56,9 +53,8 @@ const Register: React.FC = () => {
         progress: undefined,
         theme: "light",
         transition: Bounce,
-        });
+      });
     }
-
   };
 
   const formik = useFormik({
@@ -123,32 +119,28 @@ const Register: React.FC = () => {
   ));
 
   return (
-
     <div className={RegisterCss.body}>
       <div className={RegisterCss.wrapper}>
-        <form onSubmit={formik.handleChange} action="">
+        <form onSubmit={formik.handleSubmit} action="">
           <h1>Register</h1>
-          <div className={RegisterCss.inputBox}>
-            {renderInputs[0]}
-          </div>
-          <div className={RegisterCss.inputBox}>
-            {renderInputs[1]}
-          </div>
-          <div className={RegisterCss.inputBox}>
-            {renderInputs[2]}
-          </div>
-          <div className={RegisterCss.inputBox}>
-            {renderInputs[3]}
-          </div>
+          <div className={RegisterCss.inputBox}>{renderInputs[0]}</div>
+          <div className={RegisterCss.inputBox}>{renderInputs[1]}</div>
+          <div className={RegisterCss.inputBox}>{renderInputs[2]}</div>
+          <div className={RegisterCss.inputBox}>{renderInputs[3]}</div>
 
-          <button type="submit" className={RegisterCss.btn} disabled={!formik.isValid}>
-          Register
+          <button
+            type="submit"
+            className={RegisterCss.btn}
+            disabled={!formik.isValid}
+          >
+            Register
           </button>
 
           <div className={RegisterCss.loginLink}>
-            <p>Already have an account? <Link to="/login">Login</Link></p>
+            <p>
+              Already have an account? <Link to="/login">Login</Link>
+            </p>
           </div>
-
         </form>
       </div>
     </div>

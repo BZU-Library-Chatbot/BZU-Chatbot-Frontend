@@ -4,19 +4,34 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { IoChatbubbleSharp } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import authService from "../../../services/authService";
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  onSessionClick: (sessionId: string) => void;
+  setConversation: any;
+  sessions: any[];
+  activeIndex: any;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({
+  onSessionClick,
+  setConversation,
+  sessions,
+  activeIndex,
+}) => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [, setScreenWidth] = useState(window.innerWidth);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-      if (window.innerWidth <= 768) {
-        setCollapsed(false);
-      }
-    };
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth);
+    if (window.innerWidth <= 768) {
+      setCollapsed(false);
+    }
+  };
 
+  useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -27,12 +42,23 @@ const Sidebar: React.FC = () => {
     setCollapsed(!collapsed);
   };
 
-  const closeSidenav = () => {
-    setCollapsed(false);
+  // const closeSidenav = () => {
+  //   setCollapsed(false);
+  // };
+
+  const createNewChat = async () => {
+    setConversation([]);
+    navigate("/home");
+
   };
 
   const handleLogout = () => {
-    console.log("Logout clicked");
+    authService.removeToken();
+    navigate("/login");
+  };
+
+  const handleSessionClick = (index: number) => {
+    onSessionClick(sessions[index]._id);
   };
 
   return (
@@ -46,187 +72,35 @@ const Sidebar: React.FC = () => {
           <AiOutlineMenu />
         </button>
         {collapsed && (
-          <div className={SidebarCss["logo-text"]}>
+          <div className={SidebarCss["logo-text"]} onClick={createNewChat}>
             <FaPlus /> New chat
           </div>
         )}
-        {collapsed && (
-          <button className={SidebarCss["btn-close"]} onClick={closeSidenav}>
-            <i
-              className={`${SidebarCss["fal"]} ${SidebarCss["fa-times"]} ${SidebarCss["close-icon"]}`}
-            ></i>
-          </button>
-        )}
+        {collapsed && null}
       </div>
       <ul className={SidebarCss["sidenav-nav"]}>
-        <li className={SidebarCss["sidenav-nav-item"]}>
-          <a
-            className={SidebarCss["sidenav-nav-link"]}
-            href="/session1"
-            onClick={() => closeSidenav()}
+        {sessions.map((session: any, index) => (
+          <li
+            key={index}
+            className={`${SidebarCss["sidenav-nav-item"]} ${
+              activeIndex === index ? SidebarCss.active : ""
+            }`}
           >
-            <i className={`${SidebarCss["sidenav-link-icon"]}`}>
-              <IoChatbubbleSharp />
-            </i>
-            {collapsed && (
-              <span className={SidebarCss["sidenav-link-text"]}>Session </span>
-            )}
-          </a>
-        </li>
-        <li className={SidebarCss["sidenav-nav-item"]}>
-          <a
-            className={SidebarCss["sidenav-nav-link"]}
-            href="/session1"
-            onClick={() => closeSidenav()}
-          >
-            <i className={`${SidebarCss["sidenav-link-icon"]}`}>
-              <IoChatbubbleSharp />
-            </i>
-            {collapsed && (
-              <span className={SidebarCss["sidenav-link-text"]}>Session </span>
-            )}
-          </a>
-        </li>
-        <li className={SidebarCss["sidenav-nav-item"]}>
-          <a
-            className={SidebarCss["sidenav-nav-link"]}
-            href="/session1"
-            onClick={() => closeSidenav()}
-          >
-            <i className={`${SidebarCss["sidenav-link-icon"]}`}>
-              <IoChatbubbleSharp />
-            </i>
-            {collapsed && (
-              <span className={SidebarCss["sidenav-link-text"]}>Session </span>
-            )}
-          </a>
-        </li>
-        <li className={SidebarCss["sidenav-nav-item"]}>
-          <a
-            className={SidebarCss["sidenav-nav-link"]}
-            href="/session1"
-            onClick={() => closeSidenav()}
-          >
-            <i className={`${SidebarCss["sidenav-link-icon"]}`}>
-              <IoChatbubbleSharp />
-            </i>
-            {collapsed && (
-              <span className={SidebarCss["sidenav-link-text"]}>Session </span>
-            )}
-          </a>
-        </li>
-        <li className={SidebarCss["sidenav-nav-item"]}>
-          <a
-            className={SidebarCss["sidenav-nav-link"]}
-            href="/session2"
-            onClick={() => closeSidenav()}
-          >
-            <i className={`${SidebarCss["sidenav-link-icon"]}`}>
-              <IoChatbubbleSharp />
-            </i>
-            {collapsed && (
-              <span className={SidebarCss["sidenav-link-text"]}>Session</span>
-            )}
-          </a>
-        </li>
-        <li className={SidebarCss["sidenav-nav-item"]}>
-          <a
-            className={SidebarCss["sidenav-nav-link"]}
-            href="/session2"
-            onClick={() => closeSidenav()}
-          >
-            <i className={`${SidebarCss["sidenav-link-icon"]}`}>
-              <IoChatbubbleSharp />
-            </i>
-            {collapsed && (
-              <span className={SidebarCss["sidenav-link-text"]}>Session</span>
-            )}
-          </a>
-        </li>
-        <li className={SidebarCss["sidenav-nav-item"]}>
-          <a
-            className={SidebarCss["sidenav-nav-link"]}
-            href="/session2"
-            onClick={() => closeSidenav()}
-          >
-            <i className={`${SidebarCss["sidenav-link-icon"]}`}>
-              <IoChatbubbleSharp />
-            </i>
-            {collapsed && (
-              <span className={SidebarCss["sidenav-link-text"]}>Session</span>
-            )}
-          </a>
-        </li>
-        <li className={SidebarCss["sidenav-nav-item"]}>
-          <a
-            className={SidebarCss["sidenav-nav-link"]}
-            href="/session2"
-            onClick={() => closeSidenav()}
-          >
-            <i className={`${SidebarCss["sidenav-link-icon"]}`}>
-              <IoChatbubbleSharp />
-            </i>
-            {collapsed && (
-              <span className={SidebarCss["sidenav-link-text"]}>Session</span>
-            )}
-          </a>
-        </li>
-        <li className={SidebarCss["sidenav-nav-item"]}>
-          <a
-            className={SidebarCss["sidenav-nav-link"]}
-            href="/session2"
-            onClick={() => closeSidenav()}
-          >
-            <i className={`${SidebarCss["sidenav-link-icon"]}`}>
-              <IoChatbubbleSharp />
-            </i>
-            {collapsed && (
-              <span className={SidebarCss["sidenav-link-text"]}>Session</span>
-            )}
-          </a>
-        </li>
-        <li className={SidebarCss["sidenav-nav-item"]}>
-          <a
-            className={SidebarCss["sidenav-nav-link"]}
-            href="/session2"
-            onClick={() => closeSidenav()}
-          >
-            <i className={`${SidebarCss["sidenav-link-icon"]}`}>
-              <IoChatbubbleSharp />
-            </i>
-            {collapsed && (
-              <span className={SidebarCss["sidenav-link-text"]}>Session</span>
-            )}
-          </a>
-        </li>
-        <li className={SidebarCss["sidenav-nav-item"]}>
-          <a
-            className={SidebarCss["sidenav-nav-link"]}
-            href="/session2"
-            onClick={() => closeSidenav()}
-          >
-            <i className={`${SidebarCss["sidenav-link-icon"]}`}>
-              <IoChatbubbleSharp />
-            </i>
-            {collapsed && (
-              <span className={SidebarCss["sidenav-link-text"]}>Session</span>
-            )}
-          </a>
-        </li>
-        <li className={SidebarCss["sidenav-nav-item"]}>
-          <a
-            className={SidebarCss["sidenav-nav-link"]}
-            href="/session2"
-            onClick={() => closeSidenav()}
-          >
-            <i className={`${SidebarCss["sidenav-link-icon"]}`}>
-              <IoChatbubbleSharp />
-            </i>
-            {collapsed && (
-              <span className={SidebarCss["sidenav-link-text"]}>Session</span>
-            )}
-          </a>
-        </li>
+            <button
+              className={SidebarCss["sidenav-nav-link"]}
+              onClick={() => handleSessionClick(index)}
+            >
+              <i className={`${SidebarCss["sidenav-link-icon"]}`}>
+                <IoChatbubbleSharp />
+              </i>
+              {collapsed && (
+                <span className={SidebarCss["sidenav-link-text"]}>
+                  {session.title}
+                </span>
+              )}
+            </button>
+          </li>
+        ))}
       </ul>
 
       <div className={SidebarCss.logout}>

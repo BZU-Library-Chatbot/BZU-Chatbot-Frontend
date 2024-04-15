@@ -1,8 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import NavbarCss from "./Navbar.module.scss";
 
 const Navbar: React.FC = () => {
+  const location = useLocation();
+  const isLoggedIn = localStorage.getItem("userToken") !== null;
+
+  const renderLoginLink = () => {
+    if (isLoggedIn && location.pathname.startsWith("/home")) {
+      return null;
+    }
+    return (
+      <li className="nav-item">
+        <Link className="nav-link" to="/login">
+          Login
+        </Link>
+      </li>
+    );
+  };
+
   return (
     <>
       <nav className={`navbar navbar-expand-lg ${NavbarCss.bgGrey}`}>
@@ -50,9 +66,10 @@ const Navbar: React.FC = () => {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/login">
+                    {renderLoginLink()}
+                    {/* <Link className="dropdown-item" to="/login">
                       Login
-                    </Link>
+                    </Link> */}
                   </li>
                 </ul>
               </li>
