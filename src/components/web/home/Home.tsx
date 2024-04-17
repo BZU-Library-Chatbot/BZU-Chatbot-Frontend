@@ -36,7 +36,6 @@ const Home: React.FC = () => {
     setSessionId(id);
     const loader = async () => {
       const messages = await loadMessages(id);
-      console.log(messages);
 
       setConversation(
         messages.map((message: any) => {
@@ -79,7 +78,6 @@ const Home: React.FC = () => {
       ];
       setConversation(updatedConversationWithResponse);
     } catch (err) {
-      console.error(err);
     }
   };
 

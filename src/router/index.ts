@@ -2,9 +2,6 @@ import axios from "axios";
 
 const getToken = () => {
   const token = localStorage.getItem("userToken");
-  if (!token) {
-    console.error("Token not found");
-  }
   return token;
 };
 
@@ -47,7 +44,6 @@ axiosInstance.interceptors.response.use(
         originalRequest.headers.Authorization = `Aziza__${newToken}`;
         return axiosInstance(originalRequest);
       } catch (error) {
-        console.error("Refresh token failed:", error);
         throw error;
       }
     }

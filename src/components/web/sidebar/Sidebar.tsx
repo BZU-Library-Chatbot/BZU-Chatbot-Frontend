@@ -42,10 +42,6 @@ const Sidebar: React.FC<SidebarProps> = ({
     setCollapsed(!collapsed);
   };
 
-  // const closeSidenav = () => {
-  //   setCollapsed(false);
-  // };
-
   const createNewChat = async () => {
     setConversation([]);
     navigate("/home");
@@ -79,7 +75,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         {collapsed && null}
       </div>
       <ul className={SidebarCss["sidenav-nav"]}>
-        {sessions.map((session: any, index) => (
+        {sessions?.map((session: any, index) => (
           <li
             key={index}
             className={`${SidebarCss["sidenav-nav-item"]} ${
