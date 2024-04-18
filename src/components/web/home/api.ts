@@ -25,7 +25,6 @@ export const loadMessages = async (id: any) => {
 export const sendMessage = async (
   sessionId: any,
   message: any,
-  navigate: any
 ) => {
   try {
     let response;
