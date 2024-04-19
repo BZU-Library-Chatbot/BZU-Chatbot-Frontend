@@ -12,7 +12,7 @@ i18n.use(initReactI18next).init({
       translation: Arabic,
     },
   },
-  lng: "en", // Default language
+  lng: "ar", // Default language
   fallbackLng: "en",
 
   interpolation: {
