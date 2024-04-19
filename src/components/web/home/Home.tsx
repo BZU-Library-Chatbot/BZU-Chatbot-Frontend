@@ -7,6 +7,7 @@ import { MdOutlineFileUpload } from "react-icons/md";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchSessions, loadMessages, sendMessage } from "./api";
+import authService from "../../../services/authService";
 
 interface FormValues {
   message: string;
@@ -24,32 +25,47 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const [sessions, setSessions] = useState<any[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [dots, setDots] = useState("");
+  const [intervalId, setIntervalId] = useState<any>(null);
 
   const activeSessionIndex = () => {
-    const index = sessions.indexOf((session: any) => {
-      session._id == id;
-    });
+    const index = sessions.findIndex((session: any) => session._id == id);
     return index != -1 ? index : null;
   };
 
   useEffect(() => {
-    setSessionId(id);
     const loader = async () => {
-      const messages = await loadMessages(id);
-
-      setConversation(
-        messages.map((message: any) => {
-          return {
-            userMessage: message.message,
-            botResponse: message.response,
-          };
-        })
-      );
-      setSessions(await fetchSessions());
+      if (authService.isAuthenticated()) {
+        setSessions(await fetchSessions());
+      }
     };
     loader();
-    setActiveIndex(activeSessionIndex());
+  }, [sessions]);
+
+  useEffect(() => {
+    setSessionId(id);
+    if (id) {
+      const loader = async () => {
+        const messages = await loadMessages(id);
+
+        setConversation(
+          messages.map((message: any) => {
+            return {
+              userMessage: message.message,
+              botResponse: message.response,
+            };
+          })
+        );
+      };
+      loader();
+    }
   }, [id]);
+
+  useEffect(() => {
+    if (sessions) {
+      setActiveIndex(activeSessionIndex());
+    }
+  }, [sessions, id]);
 
   const initialValues: FormValues = {
     message: "",
@@ -64,21 +80,20 @@ const Home: React.FC = () => {
       setConversation(updatedConversation);
 
       formik.resetForm();
-      const response: any = await sendMessage(sessionId, message, navigate);
-
+      const response: any = await sendMessage(sessionId, message);
       if (!sessionId) {
         navigate(`/home/${response.data.sessionId}`);
       }
-      const botResponse = response.data.response;
 
+      const botResponse = response.data.response;
       const lastIdx = updatedConversation.length - 1;
       const updatedConversationWithResponse = [
         ...updatedConversation.slice(0, lastIdx),
         { ...updatedConversation[lastIdx], botResponse },
       ];
       setConversation(updatedConversationWithResponse);
-    } catch (err) {
-    }
+      stopUpdatingDots(intervalId);
+    } catch (err) {}
   };
 
   const formik = useFormik({
@@ -88,8 +103,25 @@ const Home: React.FC = () => {
 
   const handleSendMessage = () => {
     if (formik.values.message.trim() !== "") {
+      setIntervalId(startUpdatingDots());
       onSubmit(formik.values);
     }
+  };
+
+  const startUpdatingDots = () => {
+    setDots("");
+    setIntervalId(
+      setInterval(() => {
+        setDots((prevDots) => (prevDots == "..." ? "" : "." + prevDots));
+      }, 1000)
+    );
+
+    return intervalId;
+  };
+
+  const stopUpdatingDots = (intervalId: any) => {
+    clearInterval(intervalId);
+    setIntervalId(null);
   };
 
   const inputs = [
@@ -126,8 +158,12 @@ const Home: React.FC = () => {
         <p className={HomeCss.userMessage}>{item.userMessage}</p>
       </div>
       <div className={HomeCss.botMessageContainer}>
-        <p className={HomeCss.botMessage}>
-          {item.botResponse ? item.botResponse : "Analyzing..."}
+        <p
+          className={`${HomeCss.botMessage} ${
+            !item.botResponse ? HomeCss.dots : ""
+          }`}
+        >
+          {item.botResponse ? item.botResponse : dots}
         </p>
       </div>
     </div>
