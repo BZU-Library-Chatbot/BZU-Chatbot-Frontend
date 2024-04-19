@@ -4,13 +4,20 @@ import NavbarCss from "./Navbar.module.scss";
 import { SelectButton } from "primereact/selectbutton";
 import languageService from "../../../services/languageService";
 import authService from "../../../services/authService";
+import i18n from "i18next";
+import { useTranslation } from "react-i18next";
 
 const Navbar: React.FC = () => {
+  const { t } = useTranslation();
   const options = ["en", "ar"];
   const [language, setLanguage] = React.useState(options[1]);
 
   useEffect(() => {
-    languageService.saveLanguage(language);
+    const changeLanguage = async () => {
+      languageService.saveLanguage(language);
+      await i18n.changeLanguage(language);
+    };
+    changeLanguage();
   }, [language]);
 
   const renderAuthLinks = () => {
@@ -21,7 +28,7 @@ const Navbar: React.FC = () => {
       <>
         <li>
           <Link className="dropdown-item" to="/register">
-            Register
+            {t("global.register")}
           </Link>
         </li>
         <li>
@@ -29,7 +36,7 @@ const Navbar: React.FC = () => {
         </li>
         <li>
           <Link className="dropdown-item" to="/login">
-            Login
+            {t("global.login")}
           </Link>
         </li>
       </>
@@ -40,8 +47,8 @@ const Navbar: React.FC = () => {
     <>
       <nav className={`navbar navbar-expand-lg ${NavbarCss.bgGrey}`}>
         <div className={`container ${NavbarCss.container}`}>
-          <a className={`navbar-brand`} href="#">
-            BZU Library Chatbot
+          <a className={`navbar-brand`} href="/">
+            {t("global.title")}
           </a>
 
           <button
@@ -60,13 +67,6 @@ const Navbar: React.FC = () => {
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
             >
-              <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <Link className="nav-link" to="/home">
-                    Home
-                  </Link>
-                </li>
-              </ul>
               <ul className="navbar-nav">
                 <li className="nav-item dropdown">
                   <a
@@ -76,9 +76,17 @@ const Navbar: React.FC = () => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    Dropdown
+                    {t("navbar.menu")}
                   </a>
                   <ul className="dropdown-menu">
+                    <li className="nav-item">
+                      <Link className="dropdown-item" to="/home">
+                        {t("global.home")}
+                      </Link>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
                     {renderAuthLinks()}
                     <li>
                       <hr className="dropdown-divider" />

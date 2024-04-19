@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchSessions, loadMessages, sendMessage } from "./api";
 import authService from "../../../services/authService";
+import { useTranslation } from "react-i18next";
 
 interface FormValues {
   message: string;
@@ -19,6 +20,7 @@ interface ConversationItem {
 }
 
 const Home: React.FC = () => {
+  const { t } = useTranslation();
   const [conversation, setConversation] = useState<ConversationItem[]>([]);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const { id } = useParams<{ id: any }>();
@@ -206,7 +208,7 @@ const Home: React.FC = () => {
               </div>
             </div>
             <p className={HomeCss.info}>
-              © 2023-2024 BZU-Library-Chatbot - All Right Reserved.
+              {t("global.copyRights")}
             </p>
           </div>
         </section>
