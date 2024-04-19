@@ -7,10 +7,9 @@ import authService from "../../../services/authService";
 
 const Navbar: React.FC = () => {
   const options = [
-    { label: "en", value: "en" },
-    { label: "ar", value: "ar" },
+    "en", "ar"
   ];
-  const [language, setLanguage] = React.useState(options[1].value);
+  const [language, setLanguage] = React.useState(options[1]);
 
   useEffect(() => {
     languageService.saveLanguage(language);
