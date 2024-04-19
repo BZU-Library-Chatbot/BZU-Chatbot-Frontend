@@ -6,21 +6,24 @@ import languageService from "../../../services/languageService";
 import authService from "../../../services/authService";
 
 const Navbar: React.FC = () => {
-  const options = [
-    "en", "ar"
-  ];
+  const options = ["en", "ar"];
   const [language, setLanguage] = React.useState(options[1]);
 
   useEffect(() => {
     languageService.saveLanguage(language);
   }, [language]);
 
-  const renderLoginLink = () => {
+  const renderAuthLinks = () => {
     if (authService.isAuthenticated()) {
       return null;
     }
     return (
       <>
+        <li>
+          <Link className="dropdown-item" to="/register">
+            Register
+          </Link>
+        </li>
         <li>
           <hr className="dropdown-divider" />
         </li>
@@ -40,7 +43,7 @@ const Navbar: React.FC = () => {
           <a className={`navbar-brand`} href="#">
             BZU Library Chatbot
           </a>
-     
+
           <button
             className="navbar-toggler"
             type="button"
@@ -76,13 +79,7 @@ const Navbar: React.FC = () => {
                     Dropdown
                   </a>
                   <ul className="dropdown-menu">
-                    <li>
-                      <Link className="dropdown-item" to="/register">
-                        Register
-                      </Link>
-                    </li>
-
-                    {renderLoginLink()}
+                    {renderAuthLinks()}
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
