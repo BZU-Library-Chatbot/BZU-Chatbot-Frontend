@@ -1,6 +1,8 @@
 const English = {
   admin: {},
-  home: {},
+  home: {
+    enterMessage: "Enter your message here...",
+  },
   login: {
     email: "Email",
     password: "Password",

@@ -20,3 +20,17 @@
 ::placeholder {
   color: rgba(255, 255, 255, 0.255);
 }
+
+.submit {
+  cursor: pointer;
+  font-size: 30px;
+  position: absolute;
+  top: 15px;
+  left: 20px;
+}
+
+[dir="ltr"] .submit {
+  top: 15px;
+  right: 20px;
+  left: initial;
+}

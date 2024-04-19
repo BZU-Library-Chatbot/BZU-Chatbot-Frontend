@@ -1,3 +1,5 @@
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "@fortawesome/fontawesome-free/js/all.min.js";
 import React, { useEffect } from "react";
 import Router from "./layouts/routes.tsx";
 import languageService from "./services/languageService.ts";
@@ -15,6 +17,11 @@ const App: React.FC = () => {
       await i18n.changeLanguage(languageService.loadLanguage());
     };
     changeLanguage();
+    if (languageService.loadLanguage() === "ar") {
+      document.body.dir = "rtl";
+    } else {
+      document.body.dir = "ltr";
+    }
   }, []);
 
   return (

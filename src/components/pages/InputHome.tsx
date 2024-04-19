@@ -12,6 +12,8 @@ interface InputProps {
   errors: { [key: string]: string };
   onBlur: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   touched: { [key: string]: boolean };
+  message: string;
+  handleSendMessage: () => void;
 }
 
 const InputHome: React.FC<InputProps> = ({
@@ -23,26 +25,33 @@ const InputHome: React.FC<InputProps> = ({
   onBlur,
   touched,
   placeholder,
+  message,
+  handleSendMessage,
 }) => {
   return (
-    <>
-      <>
-        <div className="input-group mb-3">
-          <textarea
-            name={name}
-            value={value}
-            onChange={onChange}
-            onBlur={onBlur}
-            placeholder={placeholder}
-            className={HomeInputCss.message}
-            id={id}
-          />
-          {touched[name] && errors[name] && (
-            <p className="text text-danger"> {errors[name]} </p>
-          )}
-        </div>
-      </>
-    </>
+    <div className="input-group mb-3">
+      <textarea
+        name={name}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        placeholder={placeholder}
+        className={HomeInputCss.message}
+        id={id}
+      />
+      {touched[name] && errors[name] && (
+        <p className="text text-danger"> {errors[name]} </p>
+      )}
+      <div
+        className={HomeInputCss.submit}
+        onClick={message.trim() !== "" ? handleSendMessage : undefined}
+        style={{
+          cursor: message.trim() === "" ? "not-allowed" : "pointer",
+        }}
+      >
+        <i className="fa-regular fa-paper-plane"></i>
+      </div>
+    </div>
   );
 };
 

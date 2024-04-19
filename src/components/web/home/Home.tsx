@@ -3,7 +3,6 @@ import { useFormik } from "formik";
 import InputHome from "../../pages/InputHome";
 import Sidebar from "../sidebar/Sidebar";
 import HomeCss from "./Home.module.scss";
-import { MdOutlineFileUpload } from "react-icons/md";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchSessions, loadMessages, sendMessage } from "./api";
@@ -131,14 +130,15 @@ const Home: React.FC = () => {
       id: "message",
       type: "text",
       name: "message",
-      title: "message",
+      title: `${t("home.enterMessage")}`,
       value: formik.values.message,
-      placeholder: "Enter your Message",
+      placeholder: `${t("home.enterMessage")}`,
       onChange: formik.handleChange,
     },
   ];
 
   const renderInputs = inputs.map((input, index) => (
+    <>
     <InputHome
       type={input.type}
       id={input.id}
@@ -151,7 +151,12 @@ const Home: React.FC = () => {
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
       touched={formik.touched}
+      message={formik.values.message}
+      handleSendMessage={handleSendMessage}
     />
+
+    </>
+    
   ));
 
   const renderConversation = conversation.map((item, index) => (
@@ -189,27 +194,11 @@ const Home: React.FC = () => {
           <div className={HomeCss.bottomSection}>
             <form action="" onSubmit={formik.handleSubmit}></form>
             <div className={HomeCss.inputContainer}>
-              <div>{renderInputs}</div>
-              <div
-                className={HomeCss.submit}
-                onClick={
-                  formik.values.message.trim() !== ""
-                    ? handleSendMessage
-                    : undefined
-                }
-                style={{
-                  cursor:
-                    formik.values.message.trim() === ""
-                      ? "not-allowed"
-                      : "pointer",
-                }}
-              >
-                <MdOutlineFileUpload />
+              <div>
+                {renderInputs}
               </div>
             </div>
-            <p className={HomeCss.info}>
-              {t("global.copyRights")}
-            </p>
+            <p className={HomeCss.info}>{t("global.copyRights")}</p>
           </div>
         </section>
       </div>
