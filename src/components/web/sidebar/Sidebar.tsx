@@ -6,6 +6,7 @@ import { FiLogOut } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import authService from "../../../services/authService";
+import { useTranslation } from "react-i18next";
 
 interface SidebarProps {
   onSessionClick: (sessionId: string) => void;
@@ -20,6 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   sessions,
   activeIndex,
 }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [, setScreenWidth] = useState(window.innerWidth);
@@ -45,7 +47,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   const createNewChat = async () => {
     setConversation([]);
     navigate("/home");
-
   };
 
   const handleLogout = () => {
@@ -69,7 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </button>
         {collapsed && (
           <div className={SidebarCss["logo-text"]} onClick={createNewChat}>
-            <FaPlus /> New chat
+            <FaPlus /> {t("sidebar.newChat")}
           </div>
         )}
         {collapsed && null}
@@ -103,7 +104,9 @@ const Sidebar: React.FC<SidebarProps> = ({
         <button className={SidebarCss["btn"]} onClick={handleLogout}>
           <FiLogOut />
           {collapsed && (
-            <span className={SidebarCss["sidenav-link-text"]}>Logout</span>
+            <span className={SidebarCss["sidenav-link-text"]}>
+              {t("sidebar.logout")}
+            </span>
           )}
         </button>
       </div>

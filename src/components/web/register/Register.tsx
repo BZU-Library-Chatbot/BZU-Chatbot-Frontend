@@ -6,6 +6,7 @@ import { registerSchema } from "../validation/validate";
 import RegisterCss from "./Register.module.scss";
 import { Link } from "react-router-dom";
 import { register } from "./api";
+import { useTranslation } from "react-i18next";
 
 interface FormValues {
   userName: string;
@@ -15,6 +16,7 @@ interface FormValues {
 }
 
 const Register: React.FC = () => {
+  const { t } = useTranslation();
   const initialValues: FormValues = {
     userName: "",
     email: "",
@@ -27,20 +29,17 @@ const Register: React.FC = () => {
       const data = await register(user);
       if (data.data.message == "success") {
         formik.resetForm();
-        toast.success(
-          "Account created successfully! Please verify your email to login!",
-          {
-            position: "top-center",
-            autoClose: false,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-          }
-        );
+        toast.success(`${t("register.registerSuccess")}`, {
+          position: "top-center",
+          autoClose: false,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       }
     } catch (e: any) {
       toast.error(e.response.data.error.split("\n")[0], {
@@ -68,8 +67,8 @@ const Register: React.FC = () => {
       id: "username",
       type: "text",
       name: "userName",
-      title: "User Name",
-      placeholder: "Username",
+      title: `${t("register.username")}`,
+      placeholder: `${t("register.username")}`,
       value: formik.values.userName,
       onChange: formik.handleChange,
     },
@@ -77,8 +76,8 @@ const Register: React.FC = () => {
       id: "email",
       type: "email",
       name: "email",
-      placeholder: "Email",
-      title: "User Email",
+      placeholder: `${t("register.email")}`,
+      title: `${t("register.email")}`,
       value: formik.values.email,
       onChange: formik.handleChange,
     },
@@ -86,8 +85,8 @@ const Register: React.FC = () => {
       id: "password",
       type: "password",
       name: "password",
-      placeholder: "Password",
-      title: "User Password",
+      placeholder: `${t("register.password")}`,
+      title: `${t("register.password")}`,
       value: formik.values.password,
       onChange: formik.handleChange,
     },
@@ -95,8 +94,8 @@ const Register: React.FC = () => {
       id: "cPassword",
       type: "password",
       name: "cPassword",
-      placeholder: "Confirm password",
-      title: "Confirm Password",
+      placeholder: `${t("register.confirmPassword")}`,
+      title: `${t("register.confirmPassword")}`,
       value: formik.values.cPassword,
       onChange: formik.handleChange,
     },
@@ -122,7 +121,7 @@ const Register: React.FC = () => {
     <div className={RegisterCss.body}>
       <div className={RegisterCss.wrapper}>
         <form onSubmit={formik.handleSubmit} action="">
-          <h1>Register</h1>
+          <h1>{t("global.register")}</h1>
           <div className={RegisterCss.inputBox}>{renderInputs[0]}</div>
           <div className={RegisterCss.inputBox}>{renderInputs[1]}</div>
           <div className={RegisterCss.inputBox}>{renderInputs[2]}</div>
@@ -133,12 +132,13 @@ const Register: React.FC = () => {
             className={RegisterCss.btn}
             disabled={!formik.isValid}
           >
-            Register
+            {t("global.register")}
           </button>
 
           <div className={RegisterCss.loginLink}>
             <p>
-              Already have an account? <Link to="/login">Login</Link>
+              {t("register.alreadyHaveAccount")}
+              <Link to="/login">{t("global.login")}</Link>
             </p>
           </div>
         </form>

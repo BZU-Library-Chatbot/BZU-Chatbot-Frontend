@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 import { useState, useEffect } from "react";
 import authService from "../../../services/authService";
 import { login } from "./api";
+import { useTranslation } from "react-i18next";
 
 interface FormValues {
   email: string;
@@ -16,7 +17,8 @@ interface FormValues {
 }
 
 const Login: React.FC = () => {
-  const [isAuth, setIsAuth] = useState(authService.isAuthenticated()); 
+  const { t } = useTranslation();
+  const [isAuth, setIsAuth] = useState(authService.isAuthenticated());
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,12 +39,12 @@ const Login: React.FC = () => {
 
   const onSubmit = async (user: FormValues) => {
     try {
-      const  data  = await login(user);
+      const data = await login(user);
 
       if (data.message == "success") {
         authService.saveToken(data.token);
         authService.saveRefreshToken(data.refreshToken);
-        toast.success("Login successfully!", {
+        toast.success(`${t("login.loginSuccess")}`, {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -81,17 +83,17 @@ const Login: React.FC = () => {
       id: "email",
       type: "email",
       name: "email",
-      title: "User Email",
+      title: `${t("login.email")}`,
+      placeholder: `${t("login.email")}`,
       value: formik.values.email,
-      placeholder: "Email",
       onChange: formik.handleChange,
     },
     {
       id: "password",
       type: "password",
       name: "password",
-      title: "User Password",
-      placeholder: "Password",
+      title: `${t("login.password")}`,
+      placeholder: `${t("login.password")}`,
       value: formik.values.password,
       onChange: formik.handleChange,
     },
@@ -117,28 +119,29 @@ const Login: React.FC = () => {
     <div className={LoginCss.body}>
       <div className={LoginCss.wrapper}>
         <form onSubmit={formik.handleSubmit} action="">
-          <h1>Login</h1>
+          <h1> {t("global.login")} </h1>
           <div className={LoginCss.inputBox}>{renderInputs[0]}</div>
           <div className={LoginCss.inputBox}>{renderInputs[1]}</div>
 
           <div className={LoginCss.rememberForgot}>
             <label>
               <input type="checkbox" />
-              Remember Me
+              {t("login.rememberMe")}
             </label>
-            <a href="#">Forgot Password?</a>
+            <a href="#">{t("login.forgetPassword")}</a>
           </div>
           <button
             type="submit"
             className={LoginCss.btn}
             disabled={!formik.isValid}
           >
-            Login
+            {t("global.login")}
           </button>
 
           <div className={LoginCss.registerLink}>
             <p>
-              Don't have an account? <Link to="/register">Register</Link>
+              {t("login.noAccount")}{" "}
+              <Link to="/register">{t("global.register")}</Link>
             </p>
           </div>
         </form>
