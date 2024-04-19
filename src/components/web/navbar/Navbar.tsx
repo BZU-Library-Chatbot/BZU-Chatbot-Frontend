@@ -18,6 +18,11 @@ const Navbar: React.FC = () => {
       await i18n.changeLanguage(language);
     };
     changeLanguage();
+    if (languageService.loadLanguage() === "ar") {
+      document.body.dir = "rtl";
+    } else {
+      document.body.dir = "ltr";
+    }
   }, [language]);
 
   const renderAuthLinks = () => {
@@ -46,7 +51,9 @@ const Navbar: React.FC = () => {
   return (
     <>
       <nav className={`navbar navbar-expand-lg ${NavbarCss.bgGrey}`}>
-        <div className={`container ${NavbarCss.container}`}>
+        <div
+          className={`container ${NavbarCss.container} ${NavbarCss.navbarContainer}`}
+        >
           <a className={`navbar-brand`} href="/">
             {t("global.title")}
           </a>
