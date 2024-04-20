@@ -32,6 +32,9 @@ const Navbar: React.FC = () => {
     return (
       <>
         <li>
+          <hr className="dropdown-divider" />
+        </li>
+        <li>
           <Link className="dropdown-item" to="/register">
             {t("global.register")}
           </Link>
@@ -94,6 +97,12 @@ const Navbar: React.FC = () => {
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
+                    <li className="nav-item">
+                      <Link className="dropdown-item" to="/about">
+                        {t("global.about")}
+                      </Link>
+                    </li>
+
                     {renderAuthLinks()}
                     <li>
                       <hr className="dropdown-divider" />
