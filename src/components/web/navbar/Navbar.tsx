@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
   const options = ["en", "ar"];
-  const [language, setLanguage] = React.useState(options[1]);
+  const [language, setLanguage] = React.useState(languageService.loadLanguage());
 
   useEffect(() => {
     const changeLanguage = async () => {

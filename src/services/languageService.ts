@@ -3,6 +3,7 @@ const languageService = {
     return localStorage.getItem("language");
   },
   saveLanguage(language: any) {
+    console.log("language", language);
     localStorage.setItem("language", language);
   },
   removeToken() {
