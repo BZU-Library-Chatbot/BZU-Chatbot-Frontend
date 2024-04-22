@@ -5,6 +5,7 @@ import Home from "../components/web/home/Home.tsx";
 import Admin from "../components/web/admin/Admin.tsx";
 import Login from "../components/web/login/Login.tsx";
 import ErrorPage from "../components/web/errorPage/index.tsx";
+import About from "../components/web/about/index.tsx";
 
 const Router = () => {
   const routes = [
@@ -36,7 +37,10 @@ const Router = () => {
           path: "admin",
           element: <Admin />,
         },
-
+        {
+          path: "about",
+          element: <About />,
+        },
         {
           path: "*",
           element: <ErrorPage />,

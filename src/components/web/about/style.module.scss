@@ -1,0 +1,263 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #427d9d;
+  color: #f5f5f5;
+}
+
+.aboutBody {
+  width: 60%;
+  height: 100%;
+  font-family: poppins;
+
+  header {
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    column-gap: 50px;
+    flex-wrap: wrap;
+
+    .title {
+      flex: 1;
+    }
+
+    .content {
+      flex: 2;
+    }
+
+    .title {
+      h3 {
+        font-size: 36px;
+      }
+    }
+
+    .content {
+      h5 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+  
+  main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 50px;
+    row-gap: 70px;
+    padding: 50px 0px;
+
+    .profile {
+      display: flex;
+      justify-content: center;
+      position: relative;
+
+      figure {
+        width: 85%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        img {
+          width: 200px;
+          aspect-ratio: 2/3;
+          max-height: 300px;
+        }
+
+        .imageInfo {
+          display: flex;
+          justify-content: space-evenly;
+          margin-top: 12px;
+          width: 200px;
+
+          figcaption {
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: capitalize;
+            width: 60%;
+          }
+          .social {
+            width: 40%;
+            display: flex;
+            justify-content: space-evenly;
+            font-size: 20px;
+            margin-top: 0;
+
+            .link {
+              color: #f5f5f5;
+            }
+
+            .link:hover {
+              color: #974205;
+            }
+          }
+        }
+        [dir="ltr"] &::after {
+          content: attr(data-value);
+          width: 100%;
+          transform-origin: 0 0;
+          transform: rotate(90deg);
+          position: absolute;
+          text-transform: uppercase;
+          font-size: 12px;
+          right: -92%;
+          color: #974205;
+        }
+
+        [dir="rtl"] &::after {
+          content: attr(data-value);
+          width: 100%;
+          transform-origin: 0 0;
+          transform: rotate(90deg);
+          position: absolute;
+          text-transform: uppercase;
+          font-size: 12px;
+          right: -40px;
+          color: #974205;
+        }
+      }
+
+      &:nth-child(2) {
+        margin-top: 70px;
+      }
+      &:nth-child(4) {
+        margin-top: -70px;
+      }
+      &:nth-child(6) {
+        margin-top: -70px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1560px) {
+  .aboutBody {
+    width: 70%;
+
+    main {
+      column-gap: 50px;
+    }
+  }
+}
+
+@media screen and (max-width: 1340px) {
+  .aboutBody {
+    width: 80%;
+
+    main {
+      column-gap: 35px;
+    }
+  }
+}
+
+@media screen and (max-width: 1132px) {
+  .aboutBody {
+    width: 90%;
+
+    main {
+      column-gap: 25px;
+    }
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .aboutBody {
+    width: 100%;
+
+    main {
+      column-gap: 0px;
+    }
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .aboutBody {
+    width: 90%;
+    height: auto;
+    margin: 50px auto 10px;
+
+    header {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      row-gap: 20px;
+
+      .title {
+        align-self: flex-start;
+
+        h3 {
+          font-size: 30px;
+        }
+      }
+    }
+
+    main {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 0px;
+      row-gap: 0px;
+
+      .profile {
+        &:nth-child(2),
+        &:nth-child(4),
+        &:nth-child(6) {
+          margin-top: 50px;
+        }
+        &:nth-child(3),
+        &:nth-child(5) {
+          margin-top: 0px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .aboutBody {
+    width: 100%;
+
+    main {
+      column-gap: 0px;
+    }
+  }
+}
+@media screen and (max-width: 560px) {
+  html {
+    overflow-y: scroll;
+  }
+  .aboutBody {
+    margin: 1rem;
+
+    main {
+      display: flex !important;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      column-gap: 40px;
+
+      figure {
+        &::after {
+          display: none;
+        }
+      }
+
+      .profile {
+        &:nth-child(1) {
+          margin-top: 0px;
+        }
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(5) {
+          margin-top: 40px;
+        }
+      }
+    }
+  }
+}

@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
   const options = ["en", "ar"];
-  const [language, setLanguage] = React.useState(options[1]);
+  const [language, setLanguage] = React.useState(languageService.loadLanguage());
 
   useEffect(() => {
     const changeLanguage = async () => {
@@ -31,6 +31,9 @@ const Navbar: React.FC = () => {
     }
     return (
       <>
+        <li>
+          <hr className="dropdown-divider" />
+        </li>
         <li>
           <Link className="dropdown-item" to="/register">
             {t("global.register")}
@@ -94,6 +97,12 @@ const Navbar: React.FC = () => {
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
+                    <li className="nav-item">
+                      <Link className="dropdown-item" to="/about">
+                        {t("global.about")}
+                      </Link>
+                    </li>
+
                     {renderAuthLinks()}
                     <li>
                       <hr className="dropdown-divider" />
