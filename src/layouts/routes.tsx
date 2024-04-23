@@ -1,11 +1,11 @@
 import { useRoutes } from "react-router-dom";
-import Layout from "./Layout.tsx";
-import Register from "../components/web/register/Register.tsx";
-import Home from "../components/web/home/Home.tsx";
-import Admin from "../components/web/admin/Admin.tsx";
-import Login from "../components/web/login/Login.tsx";
-import ErrorPage from "../components/web/errorPage/index.tsx";
-import About from "../components/web/about/index.tsx";
+import Layout from "./Layout";
+import Register from "../components/web/register/Register";
+import Home from "../components/web/home/Home";
+import Admin from "../components/web/admin/Admin";
+import Login from "../components/web/login/Login";
+import ErrorPage from "../components/web/errorPage/index";
+import About from "../components/web/about/index";
 
 const Router = () => {
   const routes = [

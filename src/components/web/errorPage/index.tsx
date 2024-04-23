@@ -6,9 +6,7 @@ const index = () => {
   return (
     <div>
       <h1>{t("errorPage.header")}</h1>
-      <p className="zoom-area">
-      {t("errorPage.body")}
-      </p>
+      <p className="zoom-area">{t("errorPage.body")}</p>
       <section className="error-container">
         <span>4</span>
         <span>
@@ -17,8 +15,8 @@ const index = () => {
         <span>4</span>
       </section>
       <div className="link-container">
-        <a target="_blank" href="/" className="more-link">
-        {t("errorPage.backToHome")}
+        <a href="/" className="more-link">
+          {t("errorPage.backToHome")}
         </a>
       </div>
     </div>

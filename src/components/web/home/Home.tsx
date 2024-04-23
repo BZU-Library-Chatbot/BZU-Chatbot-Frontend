@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { fetchSessions, loadMessages, sendMessage } from "./api";
 import authService from "../../../services/authService";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 interface FormValues {
   message: string;
@@ -37,7 +38,12 @@ const Home: React.FC = () => {
   useEffect(() => {
     const loader = async () => {
       if (authService.isAuthenticated()) {
-        setSessions(await fetchSessions());
+        const response = await fetchSessions();
+        if (response?.status < 300) {
+          setSessions(response.data.sessions);
+        } else {
+          toast.error(t("global.serverError"));
+        }
       }
     };
     loader();
@@ -47,16 +53,19 @@ const Home: React.FC = () => {
     setSessionId(id);
     if (id) {
       const loader = async () => {
-        const messages = await loadMessages(id);
-
-        setConversation(
-          messages.map((message: any) => {
-            return {
-              userMessage: message.message,
-              botResponse: message.response,
-            };
-          })
-        );
+        const response = await loadMessages(id);
+        if (response?.status < 300) {
+          setConversation(
+            response?.data?.messages.map((message: any) => {
+              return {
+                userMessage: message.message,
+                botResponse: message.response,
+              };
+            })
+          );
+        } else {
+          toast.error(t("global.serverError"));
+        }
       };
       loader();
     }
@@ -73,15 +82,15 @@ const Home: React.FC = () => {
   };
 
   const onSubmit = async (message: FormValues) => {
-    try {
-      const updatedConversation = [
-        ...conversation,
-        { userMessage: message.message, botResponse: null },
-      ];
-      setConversation(updatedConversation);
+    const updatedConversation = [
+      ...conversation,
+      { userMessage: message.message, botResponse: null },
+    ];
+    setConversation(updatedConversation);
 
-      formik.resetForm();
-      const response: any = await sendMessage(sessionId, message);
+    formik.resetForm();
+    const response: any = await sendMessage(sessionId, message);
+    if (response?.status < 300) {
       if (!sessionId) {
         navigate(`/home/${response.data.sessionId}`);
       }
@@ -94,7 +103,9 @@ const Home: React.FC = () => {
       ];
       setConversation(updatedConversationWithResponse);
       stopUpdatingDots(intervalId);
-    } catch (err) {}
+    } else {
+      toast.error(t("global.serverError"));
+    }
   };
 
   const formik = useFormik({
@@ -114,7 +125,7 @@ const Home: React.FC = () => {
     setIntervalId(
       setInterval(() => {
         setDots((prevDots) => (prevDots == "..." ? "" : "." + prevDots));
-      }, 1000)
+      }, 750)
     );
 
     return intervalId;
@@ -139,24 +150,22 @@ const Home: React.FC = () => {
 
   const renderInputs = inputs.map((input, index) => (
     <>
-    <InputHome
-      type={input.type}
-      id={input.id}
-      name={input.name}
-      title={input.title}
-      value={input.value}
-      key={index}
-      placeholder={input.placeholder}
-      errors={formik.errors}
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
-      touched={formik.touched}
-      message={formik.values.message}
-      handleSendMessage={handleSendMessage}
-    />
-
+      <InputHome
+        type={input.type}
+        id={input.id}
+        name={input.name}
+        title={input.title}
+        value={input.value}
+        key={index}
+        placeholder={input.placeholder}
+        errors={formik.errors}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        touched={formik.touched}
+        message={formik.values.message}
+        handleSendMessage={handleSendMessage}
+      />
     </>
-    
   ));
 
   const renderConversation = conversation.map((item, index) => (
@@ -194,9 +203,7 @@ const Home: React.FC = () => {
           <div className={HomeCss.bottomSection}>
             <form action="" onSubmit={formik.handleSubmit}></form>
             <div className={HomeCss.inputContainer}>
-              <div>
-                {renderInputs}
-              </div>
+              <div>{renderInputs}</div>
             </div>
             <p className={HomeCss.info}>{t("global.copyRights")}</p>
           </div>

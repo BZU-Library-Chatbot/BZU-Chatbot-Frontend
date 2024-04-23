@@ -25,24 +25,23 @@ const Register: React.FC = () => {
   };
 
   const onSubmit = async (user: FormValues) => {
-    try {
-      const data = await register(user);
-      if (data.data.message == "success") {
-        formik.resetForm();
-        toast.success(`${t("register.registerSuccess")}`, {
-          position: "top-center",
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
-      }
-    } catch (e: any) {
-      toast.error(e.response.data.error.split("\n")[0], {
+    const response = await register(user);
+    if (response?.status < 300 && response.data.message == "success") {
+      const { data } = response;
+      formik.resetForm();
+      toast.success(`${t("register.registerSuccess")}`, {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    } else {
+      toast.error(response.response.data.stack.split("\n")[0], {
         position: "top-center",
         autoClose: false,
         hideProgressBar: false,

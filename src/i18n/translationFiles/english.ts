@@ -46,6 +46,7 @@ const English = {
     title: "BZU Library Chatbot",
     home: "Home",
     about: "About",
+    serverError: "Internal Server Error!",
   },
   errorPage: {
     header: "404 Error Page",

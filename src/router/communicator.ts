@@ -43,8 +43,9 @@ axiosInstance.interceptors.response.use(
         localStorage.setItem("userToken", newToken);
         originalRequest.headers.Authorization = `Aziza__${newToken}`;
         return axiosInstance(originalRequest);
-      } catch (error) {
-        throw error;
+      } catch (error: any) {
+        const status = error.response?.status || 500;
+        return Promise.reject({ status });
       }
     }
     return Promise.reject(error);

@@ -38,27 +38,25 @@ const Login: React.FC = () => {
   };
 
   const onSubmit = async (user: FormValues) => {
-    try {
-      const data = await login(user);
-
-      if (data.message == "success") {
-        authService.saveToken(data.token);
-        authService.saveRefreshToken(data.refreshToken);
-        toast.success(`${t("login.loginSuccess")}`, {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
-        setIsAuth(true);
-      }
-    } catch (e: any) {
-      toast.error(e.response.data.error.split("\n")[0], {
+    const response = await login(user);
+    if (response?.status < 300 && response.data.message == "success") {
+      const { data } = response;
+      authService.saveToken(data.token);
+      authService.saveRefreshToken(data.refreshToken);
+      toast.success(`${t("login.loginSuccess")}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      setIsAuth(true);
+    } else {
+      toast.error(response.response.data.stack.split("\n")[0], {
         position: "top-center",
         autoClose: false,
         hideProgressBar: false,
