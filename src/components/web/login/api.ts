@@ -1,11 +1,10 @@
-import axiosInstance from "../../../router/index.ts";
-import { toast } from "react-toastify";
+import axiosInstance from "../../../router/communicator";
 
 export const login = async (user: any) => {
   try {
-    const { data } = await axiosInstance.post("/auth/login", user);
-    return data;
+    const response = await axiosInstance.post("/auth/login", user);
+    return response;
   } catch (error: any) {
-    toast.error(error.message);
+    return error;
   }
 };

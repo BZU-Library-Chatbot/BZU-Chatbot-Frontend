@@ -1,13 +1,11 @@
-import axiosInstance from "../../../router/index.ts";
-import { toast } from "react-toastify";
+import axiosInstance from "../../../router/communicator";
 
 export const fetchSessions = async () => {
   try {
     const response = await axiosInstance.get("/session");
-    const { sessions } = response.data;
-    return sessions;
+    return response;
   } catch (error: any) {
-    toast.error(error.message);
+    return error;
   }
 };
 
@@ -15,17 +13,13 @@ export const loadMessages = async (id: any) => {
   try {
     if (!id) return [];
     const response = await axiosInstance.get(`/session/${id}`);
-    const { messages } = response.data;
-    return messages;
+    return response;
   } catch (error: any) {
-    toast.error(error.message);
+    return error;
   }
 };
 
-export const sendMessage = async (
-  sessionId: any,
-  message: any,
-) => {
+export const sendMessage = async (sessionId: any, message: any) => {
   try {
     let response;
     if (sessionId) {
@@ -40,6 +34,6 @@ export const sendMessage = async (
     }
     return response;
   } catch (error: any) {
-    toast.error(error.message);
+    return error;
   }
 };
