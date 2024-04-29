@@ -56,7 +56,7 @@ const Home: React.FC = () => {
         const response = await loadMessages(id);
         if (response?.status < 300) {
           setConversation(
-            response?.data?.messages.map((message: any) => {
+            response?.data?.messages?.map((message: any) => {
               return {
                 userMessage: message.message,
                 botResponse: message.response,
@@ -148,7 +148,7 @@ const Home: React.FC = () => {
     },
   ];
 
-  const renderInputs = inputs.map((input, index) => (
+  const renderInputs = inputs?.map((input, index) => (
     <>
       <InputHome
         type={input.type}
@@ -168,7 +168,7 @@ const Home: React.FC = () => {
     </>
   ));
 
-  const renderConversation = conversation.map((item, index) => (
+  const renderConversation = conversation?.map((item, index) => (//here
     <div key={index} className={HomeCss.cont}>
       <div className={HomeCss.userMessageContainer}>
         <p className={HomeCss.userMessage}>{item.userMessage}</p>
