@@ -29,7 +29,7 @@ const InputHome: React.FC<InputProps> = ({
   handleSendMessage,
 }) => {
   const handleKeyPress = (event: any) => {
-    if (event.key === "Enter" && message.trim() !== "") {
+    if (event.key == "Enter" && message.trim() != "") {
       handleSendMessage();
     }
   };

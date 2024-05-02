@@ -5,7 +5,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #f5f5f5;
 }
 
 .aboutBody {
@@ -89,10 +88,6 @@
             justify-content: space-evenly;
             font-size: 20px;
             margin-top: 0;
-
-            .link {
-              color: #f5f5f5;
-            }
 
             .link:hover {
               color: #974205;

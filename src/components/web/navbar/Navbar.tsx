@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.scss";
 import languageService from "../../../services/languageService";
-import authService from "../../../services/authService";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 
@@ -73,39 +72,10 @@ const Navbar: React.FC = () => {
             </li>
           </React.Fragment>
         ))}
-        {renderAuthLinks()}
       </ul>
     );
   };
 
-  const renderAuthLinks = () => {
-    if (authService.isAuthenticated()) {
-      return null;
-    }
-    return (
-      <React.Fragment>
-        <li>
-          <hr className="dropdown-divider" />
-        </li>
-        <li className={`nav-item ${styles.navListItem}`} onClick={linkClick}>
-          <Link className={`text-capitalize ${styles.navLink}`} to={`/login`}>
-            <span> {t(`global.login`)} </span>
-          </Link>
-        </li>
-        <li>
-          <hr className="dropdown-divider" />
-        </li>
-        <li className={`nav-item ${styles.navListItem}`} onClick={linkClick}>
-          <Link
-            className={`text-capitalize ${styles.navLink}`}
-            to={`/register`}
-          >
-            <span> {t(`global.register`)} </span>
-          </Link>
-        </li>
-      </React.Fragment>
-    );
-  };
 
   return (
     <>
