@@ -11,17 +11,12 @@ const Navbar: React.FC = () => {
   const [language, setLanguage] = React.useState(
     languageService.loadLanguage()
   );
-  const [isActive, setIsActive] = useState(false);
   const mainLinks = [
     { title: "home", path: "/home" },
     { title: "about", path: "/about" },
     { title: "settings", path: "/settings" },
   ];
 
-  const toggleMenu = () => {
-    setIsActive(!isActive);
-    console.log("Clicked menu");
-  };
 
   useEffect(() => {
     const changeLanguage = async () => {
