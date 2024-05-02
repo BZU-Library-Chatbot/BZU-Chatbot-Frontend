@@ -17,7 +17,6 @@ const Navbar: React.FC = () => {
     { title: "settings", path: "/settings" },
   ];
 
-
   useEffect(() => {
     const changeLanguage = async () => {
       languageService.saveLanguage(language);
@@ -54,13 +53,11 @@ const Navbar: React.FC = () => {
                 <hr className="dropdown-divider" />
               </li>
             )}
-            <li
-              className={`nav-item ${styles.navListItem}`}
-              onClick={linkClick}
-            >
+            <li className={`nav-item ${styles.navListItem}`}>
               <Link
                 className={`text-capitalize ${styles.navLink}`}
                 to={`${link.path}`}
+                onClick={linkClick}
               >
                 <span> {t(`global.${link.title}`)} </span>
               </Link>
@@ -70,7 +67,6 @@ const Navbar: React.FC = () => {
       </ul>
     );
   };
-
 
   return (
     <>
