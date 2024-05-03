@@ -134,6 +134,7 @@ textarea {
 h1 {
   text-align: center;
   margin: 30px 15px;
+  font-size: 3rem;
 }
 .zoom-area {
   max-width: 490px;
@@ -159,4 +160,9 @@ a.more-link {
   letter-spacing: 1px;
   background-color: darkslategray;
   border-radius: 10px;
+}
+
+.more-link:hover {
+  background-color: darkgoldenrod;
+  color: darkslategray;
 }
