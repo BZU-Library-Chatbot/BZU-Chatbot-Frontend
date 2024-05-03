@@ -10,7 +10,7 @@ const Arabic = {
     aziza: "عزيزة كركرة",
   },
   home: {
-    enterMessage: "أدخل رسالتك هنا...",
+    enterMessage: "أدخل رسالتك هنا",
   },
   login: {
     email: "البريد الالكتروني",

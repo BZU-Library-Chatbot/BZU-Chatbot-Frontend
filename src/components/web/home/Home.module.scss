@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   display: flex;
+  height: 90vh;
 }
 
 .container {
@@ -14,7 +15,6 @@
 }
 
 .main {
-  height: 92vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -25,8 +25,8 @@
 
 .info {
   color: black;
-  font-size: 11px;
-  padding: 10px;
+  font-size: 0.7rem;
+  padding: 0.6rem;
 }
 
 .bottomSection {
@@ -35,6 +35,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 25%;
+  margin-top: 1.5rem;
+  overflow-y: hidden;
 }
 
 .inputContainer {
@@ -52,9 +55,7 @@
   width: 70%;
   flex: 1;
   padding: 20px 30px;
-  overflow-y: auto;
-  scrollbar-width: none;
-  margin-bottom: 5px;
+  overflow-y: overlay;
 }
 
 .feed::-webkit-scrollbar {

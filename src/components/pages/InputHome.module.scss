@@ -1,17 +1,23 @@
+.container {
+  padding: 12px 15px;
+  border-radius: 5px;
+  border: 2px solid darkslategray;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 54px 55px, rgba(0, 0, 0, 0.05) 0 -12px 30px,
+    rgba(0, 0, 0, 0.05) 0 4px 6px, rgba(0, 0, 0, 0.05) 0 12px 3px,
+    rgba(0, 0, 0, 0.05) 0 -3px 5px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
 .message {
   width: 100%;
   border: none;
   background-color: white;
-  padding: 12px 15px;
-  border-radius: 5px;
-  border: 2px solid darkslategray;
-  font-size: 20px;
-  height: 70px;
+  font-size: 1.25rem;
   color: darkslategray;
   font-weight: 550;
-  box-shadow: rgba(0, 0, 0, 0.05) 0 54px 55px, rgba(0, 0, 0, 0.05) 0 -12px 30px,
-    rgba(0, 0, 0, 0.05) 0 4px 6px, rgba(0, 0, 0, 0.05) 0 12px 3px,
-    rgba(0, 0, 0, 0.05) 0 -3px 5px;
+  resize: none;
 }
 
 .message:focus {
@@ -25,14 +31,14 @@
 
 .submit {
   cursor: pointer;
-  font-size: 30px;
-  position: absolute;
-  top: 15px;
-  left: 20px;
+  font-size: 2rem;
+  padding: 0 1rem;
 }
 
-[dir="ltr"] .submit {
-  top: 15px;
-  right: 20px;
-  left: initial;
+
+@media screen and (max-width: 768px){
+  .submit {
+    padding-right: 0;
+    padding-left: 0.5rem;
+  }
 }
