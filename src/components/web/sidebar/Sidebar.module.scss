@@ -2,19 +2,25 @@
 ul {
   padding: 0;
 }
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar width */
+  height: 0; /* Remove scrollbar height */
+  background: transparent; /* Make scrollbar background transparent */
+}
 .sidenav {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   transition: all 0.4s ease;
   z-index: 1;
-  top: 0;
   width: 5%;
   min-width: 5rem;
   box-shadow: 0.013rem 0 0.5rem 0 #8690a3;
   align-items: center;
-  height: max-content;
+  height: 100%;
   min-height: 92vh;
   background: linear-gradient(to top, #4f709c, #545b77);
+  overflow-y: hidden;
 
   .btn {
     border: solid 0.5px rgba(255, 255, 255, 0.5);
@@ -88,11 +94,10 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100% - 3.65rem);
   cursor: pointer;
-  overflow-y: auto;
+  overflow-y: overlay;
   overflow-x: hidden;
-  scrollbar-width: none;
+  scroll-behavior: smooth;
   height: 80.5%;
   margin-top: 1rem;
 
@@ -147,7 +152,6 @@ ul {
 }
 
 .logout {
-  bottom: 1rem;
   width: 100%;
   text-align: center;
 }

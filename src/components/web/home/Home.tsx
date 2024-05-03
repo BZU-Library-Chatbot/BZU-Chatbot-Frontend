@@ -93,6 +93,7 @@ const Home: React.FC = () => {
     if (response?.status < 300) {
       if (!sessionId) {
         sessions.push(response.data.session);
+        setActiveIndex(0);
         navigate(`/home/${response.data.sessionId}`);
       }
 
@@ -193,6 +194,7 @@ const Home: React.FC = () => {
 
   const handleSessionClick = (sessionId: string) => {
     navigate(`/home/${sessionId}`);
+    setConversation([]);
   };
 
   return (
