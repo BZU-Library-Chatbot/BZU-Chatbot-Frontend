@@ -1,13 +1,14 @@
 .message {
   width: 100%;
   border: none;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: white;
   padding: 12px 15px;
   border-radius: 5px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid darkslategray;
   font-size: 20px;
   height: 70px;
-  color: #fff;
+  color: darkslategray;
+  font-weight: 550;
   box-shadow: rgba(0, 0, 0, 0.05) 0 54px 55px, rgba(0, 0, 0, 0.05) 0 -12px 30px,
     rgba(0, 0, 0, 0.05) 0 4px 6px, rgba(0, 0, 0, 0.05) 0 12px 3px,
     rgba(0, 0, 0, 0.05) 0 -3px 5px;
@@ -18,7 +19,8 @@
 }
 
 ::placeholder {
-  color: rgba(255, 255, 255, 0.255);
+  color: rgba(47, 79, 79, 0.719);
+  font-size: 1.5rem;
 }
 
 .submit {

@@ -47,16 +47,16 @@ const Home: React.FC = () => {
       }
     };
     loader();
-  }, [sessions]);
+  }, []);
 
   useEffect(() => {
     setSessionId(id);
-    if (id) {
+    if (id && conversation.length === 0) {
       const loader = async () => {
         const response = await loadMessages(id);
         if (response?.status < 300) {
           setConversation(
-            response?.data?.messages.map((message: any) => {
+            response?.data?.messages?.map((message: any) => {
               return {
                 userMessage: message.message,
                 botResponse: message.response,
@@ -92,6 +92,8 @@ const Home: React.FC = () => {
     const response: any = await sendMessage(sessionId, message);
     if (response?.status < 300) {
       if (!sessionId) {
+        sessions.push(response.data.session);
+        setActiveIndex(0);
         navigate(`/home/${response.data.sessionId}`);
       }
 
@@ -148,7 +150,7 @@ const Home: React.FC = () => {
     },
   ];
 
-  const renderInputs = inputs.map((input, index) => (
+  const renderInputs = inputs?.map((input, index) => (
     <>
       <InputHome
         type={input.type}
@@ -168,25 +170,31 @@ const Home: React.FC = () => {
     </>
   ));
 
-  const renderConversation = conversation.map((item, index) => (
-    <div key={index} className={HomeCss.cont}>
-      <div className={HomeCss.userMessageContainer}>
-        <p className={HomeCss.userMessage}>{item.userMessage}</p>
+  const renderConversation = conversation?.map(
+    (
+      item,
+      index 
+    ) => (
+      <div key={index} className={HomeCss.cont}>
+        <div className={HomeCss.userMessageContainer}>
+          <p className={HomeCss.userMessage}>{item.userMessage}</p>
+        </div>
+        <div className={HomeCss.botMessageContainer}>
+          <p
+            className={`${HomeCss.botMessage} ${
+              !item.botResponse ? HomeCss.dots : ""
+            }`}
+          >
+            {item.botResponse ? item.botResponse : dots}
+          </p>
+        </div>
       </div>
-      <div className={HomeCss.botMessageContainer}>
-        <p
-          className={`${HomeCss.botMessage} ${
-            !item.botResponse ? HomeCss.dots : ""
-          }`}
-        >
-          {item.botResponse ? item.botResponse : dots}
-        </p>
-      </div>
-    </div>
-  ));
+    )
+  );
 
   const handleSessionClick = (sessionId: string) => {
     navigate(`/home/${sessionId}`);
+    setConversation([]);
   };
 
   return (

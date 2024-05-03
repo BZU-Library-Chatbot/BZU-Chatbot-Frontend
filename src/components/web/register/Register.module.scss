@@ -8,14 +8,12 @@
   justify-content: center;
   align-items: center;
   min-height: 92vh;
-  background: linear-gradient(to bottom, #041e42, #164863, #427d9d);
 }
 
 .wrapper {
   width: 420px;
   background-color: transparent;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
   backdrop-filter: blur(20px);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
@@ -37,15 +35,15 @@
 
 .wrapper .btn {
   width: 100%;
+  background: darkslategray;
   height: 45px;
-  background: #fff;
   border: none;
   outline: none;
   border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   cursor: pointer;
   font-size: 20px;
-  color: #333;
+  color: white;
   font-style: bold;
   font-weight: 600;
   font-family: "Times New Roman", Times, serif;
@@ -58,7 +56,7 @@
 }
 
 .loginLink p a {
-  color: #fff;
+  margin: 1rem;
   text-decoration: none;
   font-weight: 600;
 }

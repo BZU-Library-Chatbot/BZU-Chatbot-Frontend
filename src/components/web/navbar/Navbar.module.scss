@@ -1,5 +1,9 @@
-.bgGrey {
-  background-color: rgb(255, 255, 255) !important;
+.navbarCustom {
+  border-bottom: 1.5px solid gray;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  background: linear-gradient(to bottom, #4f709c, #545b77);
 }
 
 .container {
@@ -7,10 +11,13 @@
   flex-direction: row;
   justify-content: space-evenly;
   width: 100%;
+  max-width: 80%;
 }
 
 .rightNavBar {
-  width: 20%;
+  width: max-content;
+  text-align: center;
+  flex-grow: 0;
 }
 
 .selector {
@@ -21,4 +28,47 @@
 
 .navbarContainer {
   direction: ltr;
+}
+
+.active {
+  color: black;
+  border-bottom: 1.5px solid black;
+}
+
+.logo {
+  color: burlywood;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.navLink {
+  cursor: pointer;
+  color: burlywood;
+  margin: 0 1.5rem;
+  text-align: center;
+  width: max-content;
+  text-decoration: none;
+  font-weight: 550;
+}
+
+.navLink:hover {
+  color: maroon;
+}
+
+
+
+@media screen and (max-width: 991px) {
+  .rightNavBar {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: linear-gradient(to top, #4f709c, #545b77);
+    width: max-content;
+    height: max-content;
+    z-index: 4;
+    .navListItem {
+      margin: 2rem 0;
+      height: 40%;
+    }
+  }
 }

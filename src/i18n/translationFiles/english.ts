@@ -47,6 +47,7 @@ const English = {
     home: "Home",
     about: "About",
     serverError: "Internal Server Error!",
+    settings: "Settings",
   },
   errorPage: {
     header: "404 Error Page",

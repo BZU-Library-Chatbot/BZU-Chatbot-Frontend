@@ -28,6 +28,11 @@ const InputHome: React.FC<InputProps> = ({
   message,
   handleSendMessage,
 }) => {
+  const handleKeyPress = (event: any) => {
+    if (event.key == "Enter" && message.trim() != "") {
+      handleSendMessage();
+    }
+  };
   return (
     <div className="input-group mb-3">
       <textarea
@@ -45,6 +50,7 @@ const InputHome: React.FC<InputProps> = ({
       <div
         className={HomeInputCss.submit}
         onClick={message.trim() !== "" ? handleSendMessage : undefined}
+        onKeyDown={handleKeyPress}
         style={{
           cursor: message.trim() === "" ? "not-allowed" : "pointer",
         }}
