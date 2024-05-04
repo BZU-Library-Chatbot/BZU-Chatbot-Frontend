@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useFormik } from "formik";
 import InputHome from "../../pages/InputHome";
 import Sidebar from "../sidebar/Sidebar";
@@ -29,10 +29,27 @@ const Home: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [dots, setDots] = useState("");
   const [intervalId, setIntervalId] = useState<any>(null);
+  const chatContainerRef: any = useRef(null);
 
   const activeSessionIndex = () => {
     const index = sessions.findIndex((session: any) => session._id == id);
     return index != -1 ? index : null;
+  };
+
+  const scrollToBottom = () => {
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  };
+
+  const loadMoreMessages = async () => {
+    console.log('====================================');
+    console.log('load more messages');
+    console.log('====================================');
+  };
+
+  const handleScroll = () => {
+    if (chatContainerRef.current.scrollTop === 0) {
+      loadMoreMessages();
+    }
   };
 
   useEffect(() => {
@@ -47,16 +64,16 @@ const Home: React.FC = () => {
       }
     };
     loader();
-  }, [sessions]);
+  }, []);
 
   useEffect(() => {
     setSessionId(id);
-    if (id) {
+    if (id && conversation.length === 0) {
       const loader = async () => {
         const response = await loadMessages(id);
         if (response?.status < 300) {
           setConversation(
-            response?.data?.messages.map((message: any) => {
+            response?.data?.messages?.map((message: any) => {
               return {
                 userMessage: message.message,
                 botResponse: message.response,
@@ -77,6 +94,10 @@ const Home: React.FC = () => {
     }
   }, [sessions, id]);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [conversation]);
+
   const initialValues: FormValues = {
     message: "",
   };
@@ -92,6 +113,8 @@ const Home: React.FC = () => {
     const response: any = await sendMessage(sessionId, message);
     if (response?.status < 300) {
       if (!sessionId) {
+        sessions.push(response.data.session);
+        setActiveIndex(0);
         navigate(`/home/${response.data.sessionId}`);
       }
 
@@ -148,7 +171,7 @@ const Home: React.FC = () => {
     },
   ];
 
-  const renderInputs = inputs.map((input, index) => (
+  const renderInputs = inputs?.map((input, index) => (
     <>
       <InputHome
         type={input.type}
@@ -158,17 +181,15 @@ const Home: React.FC = () => {
         value={input.value}
         key={index}
         placeholder={input.placeholder}
-        errors={formik.errors}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        touched={formik.touched}
         message={formik.values.message}
         handleSendMessage={handleSendMessage}
       />
     </>
   ));
 
-  const renderConversation = conversation.map((item, index) => (
+  const renderConversation = conversation?.map((item, index) => (
     <div key={index} className={HomeCss.cont}>
       <div className={HomeCss.userMessageContainer}>
         <p className={HomeCss.userMessage}>{item.userMessage}</p>
@@ -187,6 +208,7 @@ const Home: React.FC = () => {
 
   const handleSessionClick = (sessionId: string) => {
     navigate(`/home/${sessionId}`);
+    setConversation([]);
   };
 
   return (
@@ -199,7 +221,13 @@ const Home: React.FC = () => {
           activeIndex={activeIndex}
         />
         <section className={HomeCss.main}>
-          <div className={HomeCss.feed}>{renderConversation}</div>
+          <div
+            className={HomeCss.feed}
+            ref={chatContainerRef}
+            onScroll={handleScroll}
+          >
+            {renderConversation}
+          </div>
           <div className={HomeCss.bottomSection}>
             <form action="" onSubmit={formik.handleSubmit}></form>
             <div className={HomeCss.inputContainer}>

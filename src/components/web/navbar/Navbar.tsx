@@ -1,16 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import NavbarCss from "./Navbar.module.scss";
-import { SelectButton } from "primereact/selectbutton";
+import styles from "./Navbar.module.scss";
 import languageService from "../../../services/languageService";
-import authService from "../../../services/authService";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
   const options = ["en", "ar"];
-  const [language, setLanguage] = React.useState(languageService.loadLanguage());
+  const [language, setLanguage] = React.useState(
+    languageService.loadLanguage()
+  );
+  const mainLinks = [
+    { title: "home", path: "/home" },
+    { title: "about", path: "/about" },
+    { title: "settings", path: "/settings" },
+  ];
 
   useEffect(() => {
     const changeLanguage = async () => {
@@ -25,39 +30,51 @@ const Navbar: React.FC = () => {
     }
   }, [language]);
 
-  const renderAuthLinks = () => {
-    if (authService.isAuthenticated()) {
-      return null;
+  const removeLastActive = () => {
+    const active = document.querySelector(`.${styles.active}`);
+    if (active) {
+      active.classList.remove(styles.active);
     }
+  };
+
+  const linkClick = (e: any) => {
+    removeLastActive();
+    const element = e.target as HTMLElement;
+    element.classList.add(`${styles.active}`);
+  };
+
+  const renderNavLinks = () => {
     return (
-      <>
-        <li>
-          <hr className="dropdown-divider" />
-        </li>
-        <li>
-          <Link className="dropdown-item" to="/register">
-            {t("global.register")}
-          </Link>
-        </li>
-        <li>
-          <hr className="dropdown-divider" />
-        </li>
-        <li>
-          <Link className="dropdown-item" to="/login">
-            {t("global.login")}
-          </Link>
-        </li>
-      </>
+      <ul className={`navbar-nav ${styles.navList} h-100`}>
+        {mainLinks.map((link, index) => (
+          <React.Fragment key={index}>
+            {index > 0 && (
+              <li>
+                <hr className="dropdown-divider" />
+              </li>
+            )}
+            <li className={`nav-item ${styles.navListItem}`}>
+              <Link
+                className={`text-capitalize ${styles.navLink}`}
+                to={`${link.path}`}
+                onClick={linkClick}
+              >
+                <span> {t(`global.${link.title}`)} </span>
+              </Link>
+            </li>
+          </React.Fragment>
+        ))}
+      </ul>
     );
   };
 
   return (
     <>
-      <nav className={`navbar navbar-expand-lg ${NavbarCss.bgGrey}`}>
+      <nav className={`navbar navbar-expand-lg ${styles.navbarCustom}`}>
         <div
-          className={`container ${NavbarCss.container} ${NavbarCss.navbarContainer}`}
+          className={`container ${styles.container} ${styles.navbarContainer}`}
         >
-          <a className={`navbar-brand`} href="/">
+          <a className={`navbar-brand ${styles.logo}`} href="/">
             {t("global.title")}
           </a>
 
@@ -72,52 +89,11 @@ const Navbar: React.FC = () => {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <div className={`${NavbarCss.rightNavBar}`}>
-            <div
-              className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
-              <ul className="navbar-nav">
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {t("navbar.menu")}
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li className="nav-item">
-                      <Link className="dropdown-item" to="/home">
-                        {t("global.home")}
-                      </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li className="nav-item">
-                      <Link className="dropdown-item" to="/about">
-                        {t("global.about")}
-                      </Link>
-                    </li>
-
-                    {renderAuthLinks()}
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li className={`${NavbarCss.selector}`}>
-                      <SelectButton
-                        value={language}
-                        onChange={(e: any) => setLanguage(e.value)}
-                        options={options}
-                      />
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
+          <div
+            className={`collapse navbar-collapse ${styles.rightNavBar}`}
+            id="navbarSupportedContent"
+          >
+            {renderNavLinks()}
           </div>
         </div>
       </nav>

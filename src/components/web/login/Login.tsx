@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
 import { loginSchema } from "../validation/validate";
 import { Link, useNavigate } from "react-router-dom";
-import LoginCss from "./Login.module.scss";
+import styles from "./Login.module.scss";
 import { jwtDecode } from "jwt-decode";
 import { useState, useEffect } from "react";
 import authService from "../../../services/authService";
@@ -114,14 +114,14 @@ const Login: React.FC = () => {
   ));
 
   return (
-    <div className={LoginCss.body}>
-      <div className={LoginCss.wrapper}>
+    <div className={styles.body}>
+      <div className={styles.wrapper}>
         <form onSubmit={formik.handleSubmit} action="">
           <h1> {t("global.login")} </h1>
-          <div className={LoginCss.inputBox}>{renderInputs[0]}</div>
-          <div className={LoginCss.inputBox}>{renderInputs[1]}</div>
+          <div className={styles.inputBox}>{renderInputs[0]}</div>
+          <div className={styles.inputBox}>{renderInputs[1]}</div>
 
-          <div className={LoginCss.rememberForgot}>
+          <div className={styles.rememberForgot}>
             <label>
               <input type="checkbox" />
               {t("login.rememberMe")}
@@ -130,16 +130,18 @@ const Login: React.FC = () => {
           </div>
           <button
             type="submit"
-            className={LoginCss.btn}
+            className={styles.btn}
             disabled={!formik.isValid}
           >
             {t("global.login")}
           </button>
 
-          <div className={LoginCss.registerLink}>
+          <div className={styles.registerLink}>
             <p>
               {t("login.noAccount")}{" "}
-              <Link to="/register">{t("global.register")}</Link>
+              <Link to="/register" className={`${styles.link}`}>
+                {t("global.register")}
+              </Link>
             </p>
           </div>
         </form>

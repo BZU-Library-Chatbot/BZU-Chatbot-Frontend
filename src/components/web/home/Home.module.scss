@@ -1,10 +1,10 @@
 .wrapper {
-  color: #fff;
+  color: darkslategray;
   font-family: "Open Sans", sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to bottom, #041e42, #164863, #427d9d);
   display: flex;
+  height: 90vh;
 }
 
 .container {
@@ -15,7 +15,6 @@
 }
 
 .main {
-  height: 92vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -25,9 +24,9 @@
 }
 
 .info {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 11px;
-  padding: 10px;
+  color: black;
+  font-size: 0.7rem;
+  padding: 0.6rem;
 }
 
 .bottomSection {
@@ -36,13 +35,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 25%;
+  margin-top: 1.5rem;
+  overflow-y: hidden;
 }
 
 .inputContainer {
   position: relative;
   width: 50%;
 }
-
 
 .cont {
   width: 100%;
@@ -54,9 +55,7 @@
   width: 70%;
   flex: 1;
   padding: 20px 30px;
-  overflow-y: auto;
-  scrollbar-width: none;
-  margin-bottom: 5px;
+  overflow-y: overlay;
 }
 
 .feed::-webkit-scrollbar {
@@ -73,10 +72,10 @@
 .userMessage {
   background-color: transparent;
   padding: 10px;
-  color: #fff;
+  color: darkslategray;
   width: fit-content;
   border-radius: 10px;
-  border: solid 1px rgba(255, 255, 255, 0.5);
+  border: solid 1px #000;
   margin: 15px;
   max-width: 70%;
   align-self: flex-start;
@@ -90,9 +89,8 @@
 
 .botMessage {
   margin-left: auto;
-  background-color: #427d9d;
-  border: solid 1px rgba(255, 255, 255, 0.5);
-  color: #fff;
+  border: solid 1px black;
+  color: darkslategray;
   width: fit-content;
   border-radius: 10px;
   padding: 10px;

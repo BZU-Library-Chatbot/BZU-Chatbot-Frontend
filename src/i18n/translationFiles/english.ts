@@ -13,7 +13,7 @@ const English = {
     aziza: "Aziza Karakra",
   },
   home: {
-    enterMessage: "Enter your message here...",
+    enterMessage: "Enter your message here",
   },
   login: {
     email: "Email",
@@ -47,6 +47,7 @@ const English = {
     home: "Home",
     about: "About",
     serverError: "Internal Server Error!",
+    settings: "Settings",
   },
   errorPage: {
     header: "404 Error Page",

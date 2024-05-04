@@ -3,7 +3,7 @@ import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
 import { registerSchema } from "../validation/validate";
-import RegisterCss from "./Register.module.scss";
+import styles from "./Register.module.scss";
 import { Link } from "react-router-dom";
 import { register } from "./api";
 import { useTranslation } from "react-i18next";
@@ -117,27 +117,29 @@ const Register: React.FC = () => {
   ));
 
   return (
-    <div className={RegisterCss.body}>
-      <div className={RegisterCss.wrapper}>
+    <div className={styles.body}>
+      <div className={styles.wrapper}>
         <form onSubmit={formik.handleSubmit} action="">
           <h1>{t("global.register")}</h1>
-          <div className={RegisterCss.inputBox}>{renderInputs[0]}</div>
-          <div className={RegisterCss.inputBox}>{renderInputs[1]}</div>
-          <div className={RegisterCss.inputBox}>{renderInputs[2]}</div>
-          <div className={RegisterCss.inputBox}>{renderInputs[3]}</div>
+          <div className={styles.inputBox}>{renderInputs[0]}</div>
+          <div className={styles.inputBox}>{renderInputs[1]}</div>
+          <div className={styles.inputBox}>{renderInputs[2]}</div>
+          <div className={styles.inputBox}>{renderInputs[3]}</div>
 
           <button
             type="submit"
-            className={RegisterCss.btn}
+            className={styles.btn}
             disabled={!formik.isValid}
           >
             {t("global.register")}
           </button>
 
-          <div className={RegisterCss.loginLink}>
+          <div className={styles.loginLink}>
             <p>
               {t("register.alreadyHaveAccount")}
-              <Link to="/login">{t("global.login")}</Link>
+              <Link to="/login" className={`${styles.link}`}>
+                {t("global.login")}
+              </Link>
             </p>
           </div>
         </form>
