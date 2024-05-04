@@ -6,6 +6,7 @@ import Admin from "../components/web/admin/Admin";
 import Login from "../components/web/login/Login";
 import ErrorPage from "../components/web/errorPage/index";
 import About from "../components/web/about/index";
+import SendCode from "../components/web/sendCode/SendCode";
 
 const Router = () => {
   const routes = [
@@ -28,6 +29,10 @@ const Router = () => {
         {
           path: "login",
           element: <Login />,
+        },
+        {
+          path: "sendCode",
+          element: <SendCode />,
         },
         {
           path: `home/:id`,
