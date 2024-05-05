@@ -39,6 +39,13 @@ const English = {
     newChat: "New Chat",
     logout: "Logout",
   },
+  settings:{
+    language: "Language",
+    save: "Save",
+    saved: "Settings saved successfully!",
+    passwordChanged: "Password changed successfully!",
+    changeImage: "Change Image",
+  },
   global: {
     login: "Login",
     register: "Register",

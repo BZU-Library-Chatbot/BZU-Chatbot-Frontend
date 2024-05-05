@@ -12,4 +12,15 @@
 
 ::placeholder {
   color: rgba(47, 79, 79, 0.719);
+  font-size: 1.25rem !important;
+}
+
+.input:focus {
+  border: 2px solid darkcyan;
+}
+
+@media screen and (max-width: 460px) {
+  ::placeholder {
+    font-size: 1rem !important;
+  }
 }

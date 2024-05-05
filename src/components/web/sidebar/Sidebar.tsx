@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import SidebarCss from "./Sidebar.module.scss";
+import styles from "./Sidebar.module.scss";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoChatbubbleSharp } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
@@ -54,44 +54,48 @@ const Sidebar: React.FC<SidebarProps> = ({
     navigate("/login");
   };
 
+  const handleSettings = () => {
+    navigate("/settings");
+  };
+
   const handleSessionClick = (index: number) => {
     onSessionClick(sessions[index]._id);
   };
 
   return (
     <div
-      className={`${SidebarCss.sidenav} ${
-        collapsed ? SidebarCss["sidenav-collapsed"] : ""
+      className={`${styles.sidenav} ${
+        collapsed ? styles["sidenav-collapsed"] : ""
       }`}
     >
-      <div className={SidebarCss["logo-container"]}>
-        <button className={SidebarCss.logo} onClick={toggleCollapse}>
+      <div className={styles["logo-container"]}>
+        <button className={styles.logo} onClick={toggleCollapse}>
           <AiOutlineMenu />
         </button>
         {collapsed && (
-          <div className={SidebarCss["logo-text"]} onClick={createNewChat}>
+          <div className={styles["logo-text"]} onClick={createNewChat}>
             <FaPlus /> {t("sidebar.newChat")}
           </div>
         )}
         {collapsed && null}
       </div>
-      <ul className={SidebarCss["sidenav-nav"]}>
+      <ul className={styles["sidenav-nav"]}>
         {sessions?.map((session: any, index) => (
           <li
             key={index}
-            className={`${SidebarCss["sidenav-nav-item"]} ${
-              activeIndex === index ? SidebarCss.active : ""
+            className={`${styles["sidenav-nav-item"]} ${
+              activeIndex === index ? styles.active : ""
             }`}
           >
             <button
-              className={SidebarCss["sidenav-nav-link"]}
+              className={styles["sidenav-nav-link"]}
               onClick={() => handleSessionClick(index)}
             >
-              <i className={`${SidebarCss["sidenav-link-icon"]}`}>
+              <i className={`${styles["sidenav-link-icon"]}`}>
                 <IoChatbubbleSharp />
               </i>
               {collapsed && (
-                <span className={SidebarCss["sidenav-link-text"]}>
+                <span className={styles["sidenav-link-text"]}>
                   {session.title}
                 </span>
               )}
@@ -100,12 +104,23 @@ const Sidebar: React.FC<SidebarProps> = ({
         ))}
       </ul>
 
-      <div className={SidebarCss.logout}>
-        <button className={SidebarCss["btn"]} onClick={handleLogout}>
+      <div className={styles.buttons}>
+        <button className={styles["btn"]} onClick={handleLogout}>
           <FiLogOut />
           {collapsed && (
-            <span className={SidebarCss["sidenav-link-text"]}>
+            <span className={styles["sidenav-link-text"]}>
               {t("sidebar.logout")}
+            </span>
+          )}
+        </button>
+        <button
+          className={`${styles["btn"]} ${!collapsed && styles.settings}`}
+          onClick={handleSettings}
+        >
+          <i className="fa-solid fa-gear"></i>
+          {collapsed && (
+            <span className={`${styles["sidenav-link-text"]}`}>
+              {t("global.settings")}
             </span>
           )}
         </button>

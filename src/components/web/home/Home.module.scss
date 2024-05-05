@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   display: flex;
+  height: 92vh;
 }
 
 .container {
@@ -49,12 +50,10 @@
 }
 
 .feed {
-  width: 70%;
+  width: 75%;
   flex: 1;
-  padding: 20px 30px;
-  overflow-y: auto;
-  scrollbar-width: none;
-  margin-bottom: 5px;
+  padding: 1.25rem 2rem;
+  overflow-y: overlay;
 }
 
 .feed::-webkit-scrollbar {
@@ -62,42 +61,55 @@
 }
 
 .userMessageContainer {
-  width: 100%;
+  width: 70%;
   display: flex;
   justify-content: flex-start;
   align-self: flex-start;
+  margin: 1rem 0;
+}
+
+.msgContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  img {
+    width: 2rem;
+    height: 2rem;
+    margin: 0 1rem;
+    border-radius: 50%;
+  }
+  p {
+    margin: 0;
+  }
 }
 
 .userMessage {
   background-color: transparent;
-  padding: 10px;
+  padding: 0.5rem;
   color: darkslategray;
   width: fit-content;
   border-radius: 10px;
   border: solid 1px #000;
-  margin: 15px;
   max-width: 70%;
-  align-self: flex-start;
+  min-width: 35px;
 }
 
 .botMessageContainer {
-  width: 100%;
+  width: 70%;
   display: flex;
   justify-content: flex-end;
+  align-self: flex-end;
 }
 
 .botMessage {
-  margin-left: auto;
   border: solid 1px black;
   color: darkslategray;
   width: fit-content;
   border-radius: 10px;
-  padding: 10px;
-  margin: 15px;
+  padding: 0.5rem;
   max-width: 70%;
   min-width: 35px;
-  min-height: 46px;
-  text-align: start;
 }
 
 .dots {

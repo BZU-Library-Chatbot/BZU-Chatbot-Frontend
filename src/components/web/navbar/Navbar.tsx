@@ -1,47 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.scss";
-import languageService from "../../../services/languageService";
-import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
-  const options = ["en", "ar"];
-  const [language, setLanguage] = React.useState(
-    languageService.loadLanguage()
-  );
+
   const mainLinks = [
     { title: "home", path: "/home" },
     { title: "about", path: "/about" },
-    { title: "settings", path: "/settings" },
   ];
-
-  useEffect(() => {
-    const changeLanguage = async () => {
-      languageService.saveLanguage(language);
-      await i18n.changeLanguage(language);
-    };
-    changeLanguage();
-    if (languageService.loadLanguage() === "ar") {
-      document.body.dir = "rtl";
-    } else {
-      document.body.dir = "ltr";
-    }
-  }, [language]);
-
-  const removeLastActive = () => {
-    const active = document.querySelector(`.${styles.active}`);
-    if (active) {
-      active.classList.remove(styles.active);
-    }
-  };
-
-  const linkClick = (e: any) => {
-    removeLastActive();
-    const element = e.target as HTMLElement;
-    element.classList.add(`${styles.active}`);
-  };
 
   const renderNavLinks = () => {
     return (
@@ -57,7 +25,6 @@ const Navbar: React.FC = () => {
               <Link
                 className={`text-capitalize ${styles.navLink}`}
                 to={`${link.path}`}
-                onClick={linkClick}
               >
                 <span> {t(`global.${link.title}`)} </span>
               </Link>
@@ -79,7 +46,7 @@ const Navbar: React.FC = () => {
           </a>
 
           <button
-            className="navbar-toggler"
+            className={`navbar-toggler ${styles.toggleBtn}`}
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"

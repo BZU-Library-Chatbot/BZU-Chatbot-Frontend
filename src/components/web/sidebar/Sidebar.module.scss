@@ -38,14 +38,20 @@ ul {
     background-color: transparent;
 
     .logo {
-      background-color: lightcyan;
+      background-color: transparent;
       text-align: center;
       border-radius: 15%;
       padding: 0.4rem 0.75rem;
       font-size: 1.5rem;
       font-weight: 900;
       cursor: pointer;
-      border: solid 0.5px rgba(255, 255, 255, 0.5);
+      border: none;
+      color: lightcyan;
+    }
+
+    .logo:hover {
+      background-color: white;
+      color: #4f709c;
     }
 
     .logo-text {
@@ -151,27 +157,31 @@ ul {
   }
 }
 
-.logout {
+.buttons {
   width: 100%;
   text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 1rem;
 }
 
-.logout .btn {
+.buttons .btn {
   border: solid 0.5px lightcyan;
   background-color: transparent;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
+  padding: 0.5rem;
   color: lightcyan;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 1rem;
 }
 
-.logout .btn:hover {
+.buttons .btn:hover {
   background-color: white;
   color: #4f709c;
 }
 
-.logout .btn .sidenav-link-text {
-  margin-left: 0.5rem;
+@media screen and (max-width: 991px) {
+  .settings {
+    display: none;
+  }
 }

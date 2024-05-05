@@ -6,6 +6,7 @@ import Admin from "../components/web/admin/Admin";
 import Login from "../components/web/login/Login";
 import ErrorPage from "../components/web/errorPage/index";
 import About from "../components/web/about/index";
+import Settings from "../components/web/settings/index";
 
 const Router = () => {
   const routes = [
@@ -40,6 +41,10 @@ const Router = () => {
         {
           path: "about",
           element: <About />,
+        },
+        {
+          path: "settings",
+          element: <Settings />,
         },
         {
           path: "*",

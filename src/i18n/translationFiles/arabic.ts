@@ -36,13 +36,21 @@ const Arabic = {
     newChat: "دردشة جديدة",
     logout: "تسجيل الخروج",
   },
+  settings: {
+    language: "اللغة",
+    save: "حفظ",
+    saved: "تم حفظ الإعدادات بنجاح!",
+    passwordChanged: "تم تغيير كلمة المرور بنجاح!",
+    changeImage: "تغيير الصورة",
+  },
   global: {
     login: "تسجيل الدخول",
     register: "إنشاء حساب",
-    copyRights: "© 2023-2024 BZU-Library-Chatbot - All Right Reserved.",
+    copyRights: "© 2023-2024 BZU-Library-Chatbot - جميع الحقوق محفوظة.",
     title: "BZU Library Chatbot",
     home: "الصفحة الرئيسية",
     about: "حول",
+    settings: "الإعدادات",
   },
   errorPage: {
     header: "404 الصفحة غير موجودة",

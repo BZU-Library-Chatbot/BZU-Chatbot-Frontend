@@ -2,13 +2,16 @@ import React from "react";
 import { useFormik } from "formik";
 import InputHome from "../../pages/InputHome";
 import Sidebar from "../sidebar/Sidebar";
-import HomeCss from "./Home.module.scss";
+import styles from "./Home.module.scss";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchSessions, loadMessages, sendMessage } from "./api";
 import authService from "../../../services/authService";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import chatbotImage from "../../../assets/Images/chatbot-icon.svg";
+import userImageIcon from "../../../assets/Images/user-icon.svg";
+import tariqImage from "../../../assets/Images/tariq.jpg";
 
 interface FormValues {
   message: string;
@@ -29,10 +32,27 @@ const Home: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [dots, setDots] = useState("");
   const [intervalId, setIntervalId] = useState<any>(null);
+  const chatContainerRef: any = React.createRef<HTMLDivElement>();
 
   const activeSessionIndex = () => {
     const index = sessions.findIndex((session: any) => session._id == id);
     return index != -1 ? index : null;
+  };
+
+  const scrollToBottom = () => {
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  };
+
+  const loadMoreMessages = async () => {
+    console.log("====================================");
+    console.log("load more messages");
+    console.log("====================================");
+  };
+
+  const handleScroll = () => {
+    if (chatContainerRef.current.scrollTop === 0) {
+      loadMoreMessages();
+    }
   };
 
   useEffect(() => {
@@ -170,27 +190,29 @@ const Home: React.FC = () => {
     </>
   ));
 
-  const renderConversation = conversation?.map(
-    (
-      item,
-      index 
-    ) => (
-      <div key={index} className={HomeCss.cont}>
-        <div className={HomeCss.userMessageContainer}>
-          <p className={HomeCss.userMessage}>{item.userMessage}</p>
+  const renderConversation = conversation?.map((item, index) => (
+    <div key={index} className={styles.cont}>
+      <div className={styles.userMessageContainer}>
+        <div className={styles.msgContainer}>
+          <img src={userImageIcon} alt="userImageIcon" />
+          <p className={styles.userMessage}>{item.userMessage}</p>
         </div>
-        <div className={HomeCss.botMessageContainer}>
+      </div>
+      <div className={styles.botMessageContainer}>
+        <div className={styles.msgContainer}>
           <p
-            className={`${HomeCss.botMessage} ${
-              !item.botResponse ? HomeCss.dots : ""
+            className={`${styles.botMessage} ${
+              !item.botResponse ? styles.dots : ""
             }`}
           >
             {item.botResponse ? item.botResponse : dots}
           </p>
+
+          <img src={chatbotImage} alt="chatbotImage" />
         </div>
       </div>
-    )
-  );
+    </div>
+  ));
 
   const handleSessionClick = (sessionId: string) => {
     navigate(`/home/${sessionId}`);
@@ -198,22 +220,28 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className={HomeCss.wrapper}>
-      <div className={HomeCss.container}>
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
         <Sidebar
           onSessionClick={handleSessionClick}
           setConversation={setConversation}
           sessions={sessions}
           activeIndex={activeIndex}
         />
-        <section className={HomeCss.main}>
-          <div className={HomeCss.feed}>{renderConversation}</div>
-          <div className={HomeCss.bottomSection}>
+        <section className={styles.main}>
+          <div
+            className={styles.feed}
+            ref={chatContainerRef}
+            onScroll={handleScroll}
+          >
+            {renderConversation}
+          </div>
+          <div className={styles.bottomSection}>
             <form action="" onSubmit={formik.handleSubmit}></form>
-            <div className={HomeCss.inputContainer}>
+            <div className={styles.inputContainer}>
               <div>{renderInputs}</div>
             </div>
-            <p className={HomeCss.info}>{t("global.copyRights")}</p>
+            <p className={styles.info}>{t("global.copyRights")}</p>
           </div>
         </section>
       </div>

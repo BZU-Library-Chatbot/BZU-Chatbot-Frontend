@@ -26,3 +26,20 @@ export const loginSchema = yup.object({
     .min(8, "Must be at least three char")
     .max(30, "Maximum 30 char"),
 });
+
+export const changePasswordSchema = yup.object({
+  oldPassword: yup
+    .string()
+    .required("Password is Required")
+    .min(8, "Must be at least three char")
+    .max(30, "Maximum 30 char"),
+  newPassword: yup
+    .string()
+    .required("New password is Required")
+    .min(8, "Must be at least three char")
+    .max(30, "Maximum 30 char"),
+  cPassword: yup
+    .string()
+    .oneOf([yup.ref("newPassword"), undefined], "Passwords must match")
+    .required("Confirm Password is required"),
+});
