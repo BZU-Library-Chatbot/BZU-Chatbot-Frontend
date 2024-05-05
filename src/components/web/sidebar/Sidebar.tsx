@@ -7,6 +7,8 @@ import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import authService from "../../../services/authService";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from 'react-redux';
+import { clearUser } from '../../../redux/userSlice';
 
 interface SidebarProps {
   onSessionClick: (sessionId: string) => void;
@@ -23,6 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch(); 
   const [collapsed, setCollapsed] = useState(false);
   const [, setScreenWidth] = useState(window.innerWidth);
 
@@ -51,6 +54,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const handleLogout = () => {
     authService.removeToken();
+    dispatch(clearUser());
     navigate("/login");
   };
 

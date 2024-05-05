@@ -8,12 +8,16 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import "./i18n/config";
 import i18 from "i18next";
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 i18.init();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
-    <ToastContainer />
-    <App />
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <ToastContainer />
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
