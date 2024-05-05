@@ -15,7 +15,6 @@
 }
 
 .main {
-  height: 92vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -26,8 +25,8 @@
 
 .info {
   color: black;
-  font-size: 11px;
-  padding: 10px;
+  font-size: 0.7rem;
+  padding: 0.6rem;
 }
 
 .bottomSection {
@@ -36,6 +35,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 25%;
+  margin-top: 1.5rem;
+  overflow-y: hidden;
 }
 
 .inputContainer {

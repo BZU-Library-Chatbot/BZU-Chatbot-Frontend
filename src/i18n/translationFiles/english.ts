@@ -13,7 +13,7 @@ const English = {
     aziza: "Aziza Karakra",
   },
   home: {
-    enterMessage: "Enter your message here...",
+    enterMessage: "Enter your message here",
   },
   login: {
     email: "Email",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useFormik } from "formik";
 import InputHome from "../../pages/InputHome";
 import Sidebar from "../sidebar/Sidebar";
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [dots, setDots] = useState("");
   const [intervalId, setIntervalId] = useState<any>(null);
-  const chatContainerRef: any = React.createRef<HTMLDivElement>();
+  const chatContainerRef: any = useRef(null);
 
   const activeSessionIndex = () => {
     const index = sessions.findIndex((session: any) => session._id == id);
@@ -44,9 +44,9 @@ const Home: React.FC = () => {
   };
 
   const loadMoreMessages = async () => {
-    console.log("====================================");
-    console.log("load more messages");
-    console.log("====================================");
+    console.log('====================================');
+    console.log('load more messages');
+    console.log('====================================');
   };
 
   const handleScroll = () => {
@@ -96,6 +96,10 @@ const Home: React.FC = () => {
       setActiveIndex(activeSessionIndex());
     }
   }, [sessions, id]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [conversation]);
 
   const initialValues: FormValues = {
     message: "",
@@ -180,10 +184,8 @@ const Home: React.FC = () => {
         value={input.value}
         key={index}
         placeholder={input.placeholder}
-        errors={formik.errors}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        touched={formik.touched}
         message={formik.values.message}
         handleSendMessage={handleSendMessage}
       />
