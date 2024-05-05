@@ -39,12 +39,26 @@ const English = {
     newChat: "New Chat",
     logout: "Logout",
   },
-  settings:{
+  settings: {
     language: "Language",
-    save: "Save",
+    change: "Change Password",
     saved: "Settings saved successfully!",
     passwordChanged: "Password changed successfully!",
     changeImage: "Change Image",
+    oldPassword: "Old Password",
+    newPassword: "New Password",
+    confirmPassword: "Confirm Password",
+    johnDoe: "John, Doe",
+    exampleEmail: "someone@example.com",
+    passwordRequirements: "Password requirements",
+    requirementsText:
+      "To create a new password, you have to meet all of the following requirements:",
+    requirements: [
+      "Minimum 8 character",
+      "At least one special character",
+      "At least one number",
+      "Can’t be the same as a previous password",
+    ],
   },
   global: {
     login: "Login",

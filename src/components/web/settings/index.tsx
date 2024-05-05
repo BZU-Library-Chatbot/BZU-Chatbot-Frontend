@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import ProfileImage from "../profileImage/index";
@@ -7,19 +7,22 @@ import { changePassword } from "./api";
 import { Bounce, toast } from "react-toastify";
 import { useFormik } from "formik";
 import { changePasswordSchema } from "../validation/validate";
+import { SelectButton } from "primereact/selectbutton";
+import languageService from "../../../services/languageService";
+import i18n from "i18next";
 
 interface FormValues {
   oldPassword: string;
   newPassword: string;
-  confirmPassword: string;
+  cPassword: string;
 }
 
 const index = () => {
-  const { t } = useTranslation();
+  const { t }: any = useTranslation();
   const initialValues: FormValues = {
     oldPassword: "",
     newPassword: "",
-    confirmPassword: "",
+    cPassword: "",
   };
 
   const onSubmit = async (values: FormValues) => {
@@ -58,165 +61,125 @@ const index = () => {
     validationSchema: changePasswordSchema,
   });
 
+  const inputs = [
+    {
+      id: "oldPassword",
+      type: "oldPassword",
+      name: "oldPassword",
+      title: `${t("login.oldPassword")}`,
+      placeholder: `${t("settings.oldPassword")}`,
+      value: formik.values.oldPassword,
+      onChange: formik.handleChange,
+    },
+    {
+      id: "newPassword",
+      type: "newPassword",
+      name: "newPassword",
+      title: `${t("settings.newPassword")}`,
+      placeholder: `${t("settings.newPassword")}`,
+      value: formik.values.newPassword,
+      onChange: formik.handleChange,
+    },
+    {
+      id: "cPassword",
+      type: "cPassword",
+      name: "cPassword",
+      title: `${t("settings.confirmPassword")}`,
+      placeholder: `${t("settings.confirmPassword")}`,
+      value: formik.values.cPassword,
+      onChange: formik.handleChange,
+    },
+  ];
+
+  const renderInputs = inputs.map((input, index) => (
+    <div className="form-group custom-input d-flex flex-column">
+      <Input
+        type={input.type}
+        id={input.id}
+        name={input.name}
+        title={input.title}
+        value={input.value}
+        key={index}
+        placeholder={input.placeholder}
+        errors={formik.errors}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        touched={formik.touched}
+      />
+    </div>
+  ));
+
+  const options = ["en", "ar"];
+  const [language, setLanguage] = useState(languageService.loadLanguage());
+
+  useEffect(() => {
+    const changeLanguage = async () => {
+      languageService.saveLanguage(language);
+      await i18n.changeLanguage(language);
+    };
+    changeLanguage();
+    if (languageService.loadLanguage() === "ar") {
+      document.body.dir = "rtl";
+    } else {
+      document.body.dir = "ltr";
+    }
+  }, [language]);
+
   return (
     <>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-lg-10 col-xl-8 mx-auto">
-            {/* <h1 className="h1 mb-4 page-title">{t("global.settings")}</h1> */}
             <div className="my-4">
-              <form>
-                <div className="row mt-5 align-items-center">
-                  <div className="col-md-3 text-center mb-5">
-                    <div className="avatar avatar-xl">
-                      <ProfileImage />
-                    </div>
-                  </div>
-                  <div className="col">
-                    <div className="row align-items-center">
-                      <div className="col-md-7">
-                        <h4 className="mb-1">Brown, Asher</h4>
-                        <p className="small mb-3">
-                          <span className="badge badge-dark">
-                            New York, USA
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="row mb-4">
-                      <div className="col-md-7">
-                        <p className="text-muted">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Mauris blandit nisl ullamcorper, rutrum metus
-                          in, congue lectus. In hac habitasse platea dictumst.
-                          Cras urna quam, malesuada vitae risus at, pretium
-                          blandit sapien.
-                        </p>
-                      </div>
-                      <div className="col">
-                        <p className="small mb-0 text-muted">
-                          Nec Urna Suscipit Ltd
-                        </p>
-                        <p className="small mb-0 text-muted">
-                          P.O. Box 464, 5975 Eget Avenue
-                        </p>
-                        <p className="small mb-0 text-muted">(537) 315-1481</p>
-                      </div>
-                    </div>
+              <div className="row mt-5 align-items-center">
+                <div className="col-md-3 text-center mb-5">
+                  <div className="avatar avatar-xl">
+                    <ProfileImage />
                   </div>
                 </div>
-                <hr className="my-4" />
-                {/* <div className="form-row">
-                  <div className="form-group col-md-6">
-                    <label htmlFor="firstname">Firstname</label>
-                    <input
-                      type="text"
-                      id="firstname"
-                      className="form-control"
-                      placeholder="Brown"
-                    />
+                <div className="col">
+                  <div className="row align-items-center">
+                    <div className="col-md-7">
+                      <h4 className="mb-1">{t("settings.johnDoe")}</h4>
+                    </div>
                   </div>
-                  <div className="form-group col-md-6">
-                    <label htmlFor="lastname">Lastname</label>
-                    <input
-                      type="text"
-                      id="lastname"
-                      className="form-control"
-                      placeholder="Asher"
-                    />
+                  <div className="row">
+                    <p className="text-muted">{t("settings.exampleEmail")}</p>
                   </div>
                 </div>
-                <div className="form-group">
-                  <label htmlFor="inputEmail4">Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="inputEmail4"
-                    placeholder="brown@asher.me"
+              </div>
+              <hr className="mb-4" />
+              <div className="d-flex justify-content-between align-items-center w-57">
+                <h4>{t("settings.language")}</h4>
+                <div dir="ltr">
+                  <SelectButton
+                    value={language}
+                    onChange={(e: any) => setLanguage(e.value)}
+                    options={options}
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="inputAddress5">Address</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputAddress5"
-                    placeholder="P.O. Box 464, 5975 Eget Avenue"
-                  />
+              </div>
+              <hr className="mt-4" />
+              <form className="row">
+                <div className="col-md-6">{renderInputs}</div>
+                <div className="col-md-6 requirements">
+                  <p className="mb-2">{t("settings.passwordRequirements")}</p>
+                  <p className="small text-muted mb-2">
+                    {t("settings.requirementsText")}
+                  </p>
+                  <ul className="small text-muted pl-4 mb-0">
+                    {t("settings.requirements", { returnObjects: true }).map(
+                      (requirement: any, index: any) => (
+                        <li key={index}>{requirement}</li>
+                      )
+                    )}
+                  </ul>
                 </div>
-                <div className="form-row">
-                  <div className="form-group col-md-6">
-                    <label htmlFor="inputCompany5">Company</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="inputCompany5"
-                      placeholder="Nec Urna Suscipit Ltd"
-                    />
-                  </div>
-                  <div className="form-group col-md-4">
-                    <label htmlFor="inputState5">State</label>
-                    <select id="inputState5" className="form-control">
-                      <option selected>Choose...</option>
-                      <option>...</option>
-                    </select>
-                  </div>
-                  <div className="form-group col-md-2">
-                    <label htmlFor="inputZip5">Zip</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="inputZip5"
-                      placeholder={98232}
-                    />
-                  </div>
+                <div className="d-flex justify-content-center">
+                  <button type="submit" className="btn-custom">
+                    {t("settings.change")}
+                  </button>
                 </div>
-                <hr className="my-4" /> */}
-                <div className="row mb-4">
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      {/* <Input /> */}
-                      <label htmlFor="inputPassword4">Old Password</label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        id="inputPassword5"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="inputPassword5">New Password</label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        id="inputPassword5"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="inputPassword6">Confirm Password</label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        id="inputPassword6"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <p className="mb-2">Password requirements</p>
-                    <p className="small text-muted mb-2">
-                      To create a new password, you have to meet all of the
-                      following requirements:
-                    </p>
-                    <ul className="small text-muted pl-4 mb-0">
-                      <li>Minimum 8 character</li>
-                      <li>At least one special character</li>
-                      <li>At least one number</li>
-                      <li>Can’t be the same as a previous password</li>
-                    </ul>
-                  </div>
-                </div>
-                <button type="submit" className="btn btn-primary">
-                  Save Change
-                </button>
               </form>
             </div>
           </div>
