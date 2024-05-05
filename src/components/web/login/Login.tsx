@@ -10,6 +10,8 @@ import { useState, useEffect } from "react";
 import authService from "../../../services/authService";
 import { login } from "./api";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../../redux/userSlice';
 
 interface FormValues {
   email: string;
@@ -20,6 +22,7 @@ const Login: React.FC = () => {
   const { t } = useTranslation();
   const [isAuth, setIsAuth] = useState(authService.isAuthenticated());
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isAuth) {
@@ -54,6 +57,7 @@ const Login: React.FC = () => {
         theme: "light",
         transition: Bounce,
       });
+      dispatch(setUser(data.user));
       setIsAuth(true);
     } else {
       toast.error(response.response.data.stack.split("\n")[0], {
