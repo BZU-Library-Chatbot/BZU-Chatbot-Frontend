@@ -22,7 +22,6 @@ const SendCode: React.FC = () => {
   
   const onSubmit = async (value: FormValues) => {
     const response = await sendCode(value);
-    console.log(response);
 
     if (response?.status < 300) {
       const { data } = response;
@@ -41,7 +40,7 @@ const SendCode: React.FC = () => {
     } else {
       toast.error(response.response.data.stack.split("\n")[0], {
         position: "top-center",
-        autoClose: false,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
