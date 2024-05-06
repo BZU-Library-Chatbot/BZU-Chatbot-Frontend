@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  min-height: 100vh;
+  min-height: 92vh;
   height: max-content;
   display: flex;
   justify-content: center;
@@ -39,6 +39,7 @@
         font-size: 16px;
         margin-bottom: 10px;
         text-transform: uppercase;
+        font-weight: 600;
       }
       p {
         font-size: 14px;
@@ -78,7 +79,7 @@
 
           figcaption {
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 550;
             text-transform: capitalize;
             width: 60%;
           }
