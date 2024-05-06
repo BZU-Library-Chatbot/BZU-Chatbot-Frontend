@@ -8,6 +8,7 @@ import ErrorPage from "../components/web/errorPage/index";
 import About from "../components/web/about/index";
 import SendCode from "../components/web/sendCode/SendCode";
 import ForgetPassword from "../components/web/forgetpassword/ForgetPassword";
+import Settings from "../components/web/settings/index";
 
 const Router = () => {
   const routes = [
@@ -50,6 +51,10 @@ const Router = () => {
         {
           path: "about",
           element: <About />,
+        },
+        {
+          path: "settings",
+          element: <Settings />,
         },
         {
           path: "*",
