@@ -18,7 +18,6 @@ const index = () => {
     const file = event.target.files[0];
     const image: any = document.getElementById("output");
     image.src = URL.createObjectURL(file);
-    file.path = image.src;
     const response = await changeProfilePicture(file);
     if (response.status === 200) {
       const updatedUser = { ...user, profilePic: response.data.profilePic };
