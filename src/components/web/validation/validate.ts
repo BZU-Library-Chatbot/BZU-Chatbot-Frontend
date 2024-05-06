@@ -26,3 +26,21 @@ export const loginSchema = yup.object({
     .min(8, "Must be at least three char")
     .max(30, "Maximum 30 char"),
 });
+
+export const sendCodeSchema = yup.object({
+  email: yup.string().required("Email is Required").email(),
+});
+
+export const forgetPasswordSchema = yup.object({
+  code: yup.string().required("Code is Required"),
+  password: yup
+    .string()
+    .required("Password is Required")
+    .min(8, "Must be at least three char")
+    .max(30, "Maximum 30 char"),
+  cPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), undefined], "Passwords must match")
+    .required("Confirm Password is required"),
+});
+

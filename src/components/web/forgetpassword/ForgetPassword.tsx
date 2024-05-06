@@ -1,35 +1,44 @@
-import React from 'react'
+import React from "react";
 import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
-import { sendCodeSchema } from "../validation/validate";
-import { useNavigate } from "react-router-dom";
-import styles from "./SendCode.module.scss";
-import { sendCode } from "./api";
+import { forgetPasswordSchema } from "../validation/validate";
+import styles from "./ForgetPassword.module.scss";
+import { forgetPassword } from "./api";
+import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 interface FormValues {
-    email: string;
+  code: string;
+  password: string;
+  cPassword: string;
 }
 
-const SendCode: React.FC = () => {
+const Register: React.FC = () => {
   const { t } = useTranslation();
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const initialValues: FormValues = {
-    email: "",
-  };
-  
-  const onSubmit = async (value: FormValues) => {
-    const response = await sendCode(value);
-    console.log(response);
+  const queryParams = new URLSearchParams(location.search);
+  const email = queryParams.get("email") || "";
 
+  const initialValues: FormValues = {
+    code: "",
+    password: "",
+    cPassword: "",
+  };
+
+  const onSubmit = async (values: FormValues) => {
+    const payload = { ...values, email };
+    const response = await forgetPassword(payload);
     if (response?.status < 300) {
       const { data } = response;
-      navigate(`/forgetPassword/?email=${value.email}`);
-      toast.success(`${t("sendCode.sendCodeSuccess")}`, {
+      formik.resetForm();
+      navigate("/login")
+      toast.success(`${t("forgetPassword.updatePasswordSuccess")}`, {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: false,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -56,19 +65,37 @@ const SendCode: React.FC = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema: sendCodeSchema,
+    validationSchema: forgetPasswordSchema,
   });
 
   const inputs = [
     {
-      id: "email",
-      type: "email",
-      name: "email",
-      title: `${t("sendCode.email")}`,
-      placeholder: `${t("sendCode.email")}`,
-      value: formik.values.email,
+      id: "code",
+      type: "text",
+      name: "code",
+      placeholder: `${t("forgetPassword.code")}`,
+      title: `${t("forgetPassword.code")}`,
+      value: formik.values.code,
       onChange: formik.handleChange,
-    }
+    },
+    {
+      id: "password",
+      type: "password",
+      name: "password",
+      placeholder: `${t("forgetPassword.password")}`,
+      title: `${t("forgetPassword.password")}`,
+      value: formik.values.password,
+      onChange: formik.handleChange,
+    },
+    {
+      id: "cPassword",
+      type: "password",
+      name: "cPassword",
+      placeholder: `${t("forgetPassword.confirmPassword")}`,
+      title: `${t("forgetPassword.confirmPassword")}`,
+      value: formik.values.cPassword,
+      onChange: formik.handleChange,
+    },
   ];
 
   const renderInputs = inputs.map((input, index) => (
@@ -91,19 +118,23 @@ const SendCode: React.FC = () => {
     <div className={styles.body}>
       <div className={styles.wrapper}>
         <form onSubmit={formik.handleSubmit} action="">
-          <h1> {t("global.sendCode")} </h1>
+          <h1>{t("global.forgetPassword")}</h1>
           <div className={styles.inputBox}>{renderInputs[0]}</div>
+          <div className={styles.inputBox}>{renderInputs[1]}</div>
+          <div className={styles.inputBox}>{renderInputs[2]}</div>
+
           <button
             type="submit"
             className={styles.btn}
             disabled={!formik.isValid}
           >
-            {t("sendCode.send")}
+            {t("forgetPassword.confirm")}
           </button>
+
         </form>
       </div>
     </div>
   );
-}
+};
 
-export default SendCode;
+export default Register;

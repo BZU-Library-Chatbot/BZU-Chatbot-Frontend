@@ -1,3 +1,5 @@
+import { sendCode } from "../../components/web/sendCode/api";
+
 const Arabic = {
   admin: {},
   about: {
@@ -29,6 +31,18 @@ const Arabic = {
     registerSuccess:
       "تم إنشاء الحساب بنجاح! يرجى التحقق من بريدك الإلكتروني لتسجيل الدخول!",
   },
+  sendCode: {
+    email: "البريد الالكتروني",
+    send:"أرسال",
+    sendCodeSuccess:"تم ارسال الرمز بنجاح تفقد بريدك الالكتروني",
+  },
+  forgetPassword: {
+    code: "الرمز",
+    password: "كلمة المرور",
+    confirmPassword: "تأكيد كلمة المرور",
+    confirm: "تأكيد",
+    updatePasswordSuccess: "تم تحديث كلمة المرور بنجاح"
+  },
   navbar: {
     menu: "القائمة",
   },
@@ -43,6 +57,8 @@ const Arabic = {
     title: "BZU Library Chatbot",
     home: "الصفحة الرئيسية",
     about: "حول",
+    sendCode: "أرسل كود",
+    forgetPassword: "نسيت كلمة المرور",
   },
   errorPage: {
     header: "404 الصفحة غير موجودة",
