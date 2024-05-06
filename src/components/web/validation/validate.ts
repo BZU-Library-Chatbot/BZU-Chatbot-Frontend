@@ -1,5 +1,7 @@
+import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 
+const { t } = useTranslation();
 export const registerSchema = yup.object({
   userName: yup
     .string()
@@ -31,13 +33,14 @@ export const changePasswordSchema = yup.object({
   oldPassword: yup
     .string()
     .required("Password is Required")
-    .min(8, "Must be at least three char")
-    .max(30, "Maximum 30 char"),
+    .min(8, "Must be at least three characters")
+    .max(30, "Maximum 30 characters"),
   newPassword: yup
     .string()
     .required("New password is Required")
-    .min(8, "Must be at least three char")
-    .max(30, "Maximum 30 char"),
+    .min(8, "Must be at least three characters")
+    .max(30, "Maximum 30 characters")
+    .notOneOf([yup.ref("oldPassword")], t("settings.differentPassword")),
   cPassword: yup
     .string()
     .oneOf([yup.ref("newPassword"), undefined], "Passwords must match")

@@ -59,6 +59,9 @@ const English = {
       "At least one number",
       "Can’t be the same as a previous password",
     ],
+    errorPicture: "Error changing picture!",
+    imageChanged: "Image changed successfully!",
+    differentPassword: "Old password and new password can't be the same!",
   },
   global: {
     login: "Login",

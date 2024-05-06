@@ -11,7 +11,9 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import chatbotImage from "../../../assets/Images/chatbot-icon.svg";
 import userImageIcon from "../../../assets/Images/user-icon.svg";
-import tariqImage from "../../../assets/Images/tariq.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../../../common/api";
+import { setUser } from "../../../redux/userSlice";
 
 interface FormValues {
   message: string;
@@ -33,6 +35,9 @@ const Home: React.FC = () => {
   const [dots, setDots] = useState("");
   const [intervalId, setIntervalId] = useState<any>(null);
   const chatContainerRef: any = useRef(null);
+  const { user } = useSelector((state: any) => state.user);
+  const [userImage, setUserImage] = useState<string>("");
+  const dispatch = useDispatch();
 
   const activeSessionIndex = () => {
     const index = sessions.findIndex((session: any) => session._id == id);
@@ -44,9 +49,9 @@ const Home: React.FC = () => {
   };
 
   const loadMoreMessages = async () => {
-    console.log('====================================');
-    console.log('load more messages');
-    console.log('====================================');
+    console.log("====================================");
+    console.log("load more messages");
+    console.log("====================================");
   };
 
   const handleScroll = () => {
@@ -67,6 +72,22 @@ const Home: React.FC = () => {
       }
     };
     loader();
+    setUserImage(user?.profilePic?.secure_url);
+  }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!user && authService.isAuthenticated()) {
+        const response = await getProfile();
+        if (response?.response?.status < 300) {
+          const userData = response.data.user;
+          dispatch(setUser(userData));
+        } else if (response?.response?.status >= 500) {
+          toast.error(`${t("global.serverError")}`);
+        }
+      }
+    };
+    fetchUser();
   }, []);
 
   useEffect(() => {
@@ -196,7 +217,7 @@ const Home: React.FC = () => {
     <div key={index} className={styles.cont}>
       <div className={styles.userMessageContainer}>
         <div className={styles.msgContainer}>
-          <img src={userImageIcon} alt="userImageIcon" />
+          <img src={userImage || userImageIcon} alt="userImageIcon" />
           <p className={styles.userMessage}>{item.userMessage}</p>
         </div>
       </div>

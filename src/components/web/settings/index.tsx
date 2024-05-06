@@ -4,12 +4,16 @@ import { useTranslation } from "react-i18next";
 import ProfileImage from "../profileImage/index";
 import Input from "../../pages/Input";
 import { changePassword } from "./api";
-import { Bounce, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { changePasswordSchema } from "../validation/validate";
 import { SelectButton } from "primereact/selectbutton";
 import languageService from "../../../services/languageService";
 import i18n from "i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../../../common/api";
+import { setUser } from "../../../redux/userSlice";
+import authService from "../../../services/authService";
 
 interface FormValues {
   oldPassword: string;
@@ -18,7 +22,9 @@ interface FormValues {
 }
 
 const index = () => {
+  const { user } = useSelector((state: any) => state.user);
   const { t }: any = useTranslation();
+  const dispatch = useDispatch();
   const initialValues: FormValues = {
     oldPassword: "",
     newPassword: "",
@@ -27,8 +33,7 @@ const index = () => {
 
   const onSubmit = async (values: FormValues) => {
     const response = await changePassword(values);
-    if (response?.status < 300 && response.data.message == "success") {
-      const { data } = response;
+    if (response?.status < 300) {
       toast.success(`${t("settings.passwordChanged")}`, {
         position: "top-center",
         autoClose: 5000,
@@ -38,10 +43,9 @@ const index = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        transition: Bounce,
       });
-    } else {
-      toast.error(response.response.data.stack.split("\n")[0], {
+    } else if(response?.response?.status < 500) {
+      toast.error(t("settings.differentPassword") , {
         position: "top-center",
         autoClose: false,
         hideProgressBar: false,
@@ -50,10 +54,27 @@ const index = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        transition: Bounce,
       });
     }
+    else {
+      toast.error(`${t("global.serverError")}`);
+    }
   };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!user && authService.isAuthenticated()) {
+        const response = await getProfile();
+        if (response?.status < 300) {
+          const userData = response.data.user;
+          dispatch(setUser(userData));
+        } else if (response?.status >= 500) {
+          toast.error(`${t("global.serverError")}`);
+        }
+      }
+    };
+    fetchUser();
+  }, []);
 
   const formik = useFormik({
     initialValues,
@@ -140,11 +161,15 @@ const index = () => {
                 <div className="col">
                   <div className="row align-items-center">
                     <div className="col-md-7">
-                      <h4 className="mb-1">{t("settings.johnDoe")}</h4>
+                      <h4 className="mb-1">
+                        {user?.userName || t("settings.johnDoe")}
+                      </h4>
                     </div>
                   </div>
                   <div className="row">
-                    <p className="text-muted">{t("settings.exampleEmail")}</p>
+                    <p className="text-muted">
+                      {user?.email || t("settings.exampleEmail")}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -160,7 +185,7 @@ const index = () => {
                 </div>
               </div>
               <hr className="mt-4" />
-              <form className="row">
+              <form className="row" onSubmit={formik.handleSubmit}>
                 <div className="col-md-6">{renderInputs}</div>
                 <div className="col-md-6 requirements">
                   <p className="mb-2">{t("settings.passwordRequirements")}</p>
@@ -176,7 +201,11 @@ const index = () => {
                   </ul>
                 </div>
                 <div className="d-flex justify-content-center">
-                  <button type="submit" className="btn-custom">
+                  <button
+                    type="submit"
+                    className="btn-custom"
+                    disabled={!formik.isValid}
+                  >
                     {t("settings.change")}
                   </button>
                 </div>

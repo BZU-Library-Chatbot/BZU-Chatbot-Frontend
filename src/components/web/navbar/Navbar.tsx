@@ -41,9 +41,9 @@ const Navbar: React.FC = () => {
         <div
           className={`container ${styles.container} ${styles.navbarContainer}`}
         >
-          <a className={`navbar-brand ${styles.logo}`} href="/">
+          <Link className={`navbar-brand ${styles.logo}`} to="/">
             {t("global.title")}
-          </a>
+          </Link>
 
           <button
             className={`navbar-toggler ${styles.toggleBtn}`}
