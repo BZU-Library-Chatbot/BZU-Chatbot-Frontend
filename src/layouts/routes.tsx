@@ -33,11 +33,11 @@ const Router = () => {
           element: <Login />,
         },
         {
-          path: "code",
+          path: "send-code",
           element: <SendCode />,
         },
         {
-          path: "forgetPassword",
+          path: "reset-password",
           element: <ForgetPassword />,
         },
         {

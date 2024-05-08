@@ -37,14 +37,14 @@ const English = {
   sendCode: {
     email: "Email",
     send: "send",
-    sendCodeSuccess:"Code sent successfully, Check your email.",
+    success:"Code sent successfully, Check your email.",
   },
   forgetPassword: {
     code: "Code",
     password: "Password",
     confirmPassword: "Confirm Password",
     confirm: "Confirm",
-    updatePasswordSuccess: "Password updated successfully"
+    success: "Password updated successfully"
   },
   navbar: {
     menu: "Menu",

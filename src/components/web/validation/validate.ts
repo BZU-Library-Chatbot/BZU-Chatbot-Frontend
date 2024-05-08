@@ -32,12 +32,11 @@ export const sendCodeSchema = yup.object({
 });
 
 export const forgetPasswordSchema = yup.object({
-  code: yup.string().required("Code is Required"),
+  code: yup.string().required("Code is Required").min(4).max(4),
   password: yup
     .string()
     .required("Password is Required")
-    .min(8, "Must be at least three char")
-    .max(30, "Maximum 30 char"),
+    .min(8, "Must be at least three char"),
   cPassword: yup
     .string()
     .oneOf([yup.ref("password"), undefined], "Passwords must match")

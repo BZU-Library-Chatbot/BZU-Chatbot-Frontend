@@ -36,7 +36,7 @@ const Register: React.FC = () => {
       const { data } = response;
       formik.resetForm();
       navigate("/login")
-      toast.success(`${t("forgetPassword.updatePasswordSuccess")}`, {
+      toast.success(`${t("forgetPassword.success")}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

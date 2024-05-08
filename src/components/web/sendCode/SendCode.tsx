@@ -25,8 +25,8 @@ const SendCode: React.FC = () => {
 
     if (response?.status < 300) {
       const { data } = response;
-      navigate(`/forgetPassword/?email=${value.email}`);
-      toast.success(`${t("sendCode.sendCodeSuccess")}`, {
+      navigate(`/reset-password/?email=${value.email}`);
+      toast.success(`${t("sendCode.success")}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

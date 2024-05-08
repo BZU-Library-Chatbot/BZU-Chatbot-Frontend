@@ -34,14 +34,14 @@ const Arabic = {
   sendCode: {
     email: "البريد الالكتروني",
     send:"أرسال",
-    sendCodeSuccess:"تم ارسال الرمز بنجاح تفقد بريدك الالكتروني",
+    success:"تم ارسال الرمز بنجاح تفقد بريدك الالكتروني",
   },
   forgetPassword: {
     code: "الرمز",
     password: "كلمة المرور",
     confirmPassword: "تأكيد كلمة المرور",
     confirm: "تأكيد",
-    updatePasswordSuccess: "تم تحديث كلمة المرور بنجاح"
+    success: "تم تحديث كلمة المرور بنجاح"
   },
   navbar: {
     menu: "القائمة",
