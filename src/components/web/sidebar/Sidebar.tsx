@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../../../redux/userSlice";
 import { toast, Bounce } from "react-toastify";
-import { sidebar } from "./api";
+import { changeSessionTitle } from "./api";
 
 interface SidebarProps {
   onSessionClick: (sessionId: string) => void;
@@ -25,7 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   setConversation,
   sessions,
   activeIndex,
-  setSessions
+  setSessions,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -82,14 +82,14 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const handleTitleSubmit = async (index: number) => {
-    try {
-      const sessionId = sessions[index]._id;
-      const response = await sidebar({ title: newTitle }, sessionId);  
-      const updatedSessions = [...sessions]; 
-      updatedSessions[index].title = newTitle; 
+    const sessionId = sessions[index]._id;
+    const response = await changeSessionTitle({ title: newTitle }, sessionId);
+    if (response?.status < 300 && response.data.message == "Success") {
+      const updatedSessions = [...sessions];
+      updatedSessions[index].title = newTitle;
       setSessions(updatedSessions);
       setEditingIndex(null);
-    } catch (error) {
+    } else {
       toast.error("Failed to update title", {
         position: "top-right",
         autoClose: 5000,
@@ -103,7 +103,10 @@ const Sidebar: React.FC<SidebarProps> = ({
     }
   };
 
-  const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+  const handleEnterKey = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
     if (event.key === "Enter") {
       handleTitleSubmit(index);
     }
@@ -140,7 +143,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 value={newTitle}
                 onChange={handleTitleChange}
                 onBlur={() => handleTitleSubmit(index)}
-                autoFocus 
+                autoFocus
                 onKeyDown={(event) => handleEnterKey(event, index)}
               />
             ) : (
@@ -149,7 +152,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                 onClick={() => handleSessionClick(index)}
                 onDoubleClick={() => handleDoubleClick(index)}
               >
-                <i className={`${styles["sidenav-link-icon"]} ${!collapsed && "w-100"} ${collapsed && styles.me16px}`}>
+                <i
+                  className={`${styles["sidenav-link-icon"]} ${
+                    !collapsed && "w-100"
+                  } ${collapsed && styles.me16px}`}
+                >
                   <IoChatbubbleSharp />
                 </i>
                 {collapsed && (
@@ -166,7 +173,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       <div className={styles.buttons}>
         <button className={styles["btn"]} onClick={handleLogout}>
           <FiLogOut />
-          {collapsed && (                   
+          {collapsed && (
             <span className={styles["sidenav-link-text"]}>
               {t("sidebar.logout")}
             </span>
