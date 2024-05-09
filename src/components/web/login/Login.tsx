@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import authService from "../../../services/authService";
 import { login } from "./api";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from '../../../redux/userSlice';
 
 interface FormValues {

@@ -73,8 +73,22 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const handleDoubleClick = (index: number) => {
-    setEditingIndex(index);
-    setNewTitle(sessions[index].title);
+    if (authService.isAuthenticated()) {
+      setEditingIndex(index);
+      setNewTitle(sessions[index].title);
+    }
+    else {
+      toast.error("Only registered users can edit session title", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Bounce,
+      });
+    }
   };
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,7 +98,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const handleTitleSubmit = async (index: number) => {
     const sessionId = sessions[index]._id;
     const response = await changeSessionTitle({ title: newTitle }, sessionId);
-    if (response?.status < 300 && response.data.message == "Success") {
+    if (response?.status < 500) {
       const updatedSessions = [...sessions];
       updatedSessions[index].title = newTitle;
       setSessions(updatedSessions);
