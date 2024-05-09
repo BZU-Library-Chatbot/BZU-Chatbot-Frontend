@@ -34,6 +34,7 @@ const Arabic = {
   sendCode: {
     email: "البريد الالكتروني",
     send:"أرسال",
+    login: "عد الى صفحة تسحيل الدخول",
     success:"تم ارسال الرمز بنجاح تفقد بريدك الالكتروني",
   },
   forgetPassword: {
@@ -41,6 +42,7 @@ const Arabic = {
     password: "كلمة المرور",
     confirmPassword: "تأكيد كلمة المرور",
     confirm: "تأكيد",
+    login: "عد الى صفحة تسحيل الدخول",
     success: "تم تحديث كلمة المرور بنجاح"
   },
   navbar: {

@@ -1,15 +1,14 @@
-import React from 'react'
 import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
 import { sendCodeSchema } from "../validation/validate";
-import { useNavigate } from "react-router-dom";
 import styles from "./SendCode.module.scss";
 import { sendCode } from "./api";
 import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
 
 interface FormValues {
-    email: string;
+  email: string;
 }
 
 const SendCode: React.FC = () => {
@@ -19,7 +18,7 @@ const SendCode: React.FC = () => {
   const initialValues: FormValues = {
     email: "",
   };
-  
+
   const onSubmit = async (value: FormValues) => {
     const response = await sendCode(value);
 
@@ -67,7 +66,7 @@ const SendCode: React.FC = () => {
       placeholder: `${t("sendCode.email")}`,
       value: formik.values.email,
       onChange: formik.handleChange,
-    }
+    },
   ];
 
   const renderInputs = inputs.map((input, index) => (
@@ -99,10 +98,16 @@ const SendCode: React.FC = () => {
           >
             {t("sendCode.send")}
           </button>
+
+          <div className={styles.loginLink}>
+            <Link to="/login" className={`${styles.link}`}>
+              {t("sendCode.login")}
+            </Link>
+          </div>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default SendCode;

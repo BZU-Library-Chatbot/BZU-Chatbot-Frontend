@@ -1,8 +1,8 @@
 import axiosInstance from "../../../router/communicator";
 
-export const sendCode = async (value: any) => {
+export const sendCode = async (email: any) => {
   try {
-    const response = await axiosInstance.patch("/auth/sendCode", value);
+    const response = await axiosInstance.patch("/auth/sendCode", email);
     return response;
   } catch (error: any) {
     return error;

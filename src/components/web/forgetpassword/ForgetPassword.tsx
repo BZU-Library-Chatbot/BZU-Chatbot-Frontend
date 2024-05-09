@@ -1,4 +1,3 @@
-import React from "react";
 import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
@@ -7,7 +6,7 @@ import styles from "./ForgetPassword.module.scss";
 import { forgetPassword } from "./api";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface FormValues {
   code: string;
@@ -35,7 +34,7 @@ const Register: React.FC = () => {
     if (response?.status < 300) {
       const { data } = response;
       formik.resetForm();
-      navigate("/login")
+      navigate("/login");
       toast.success(`${t("forgetPassword.success")}`, {
         position: "top-center",
         autoClose: 5000,
@@ -131,6 +130,11 @@ const Register: React.FC = () => {
             {t("forgetPassword.confirm")}
           </button>
 
+          <div className={styles.loginLink}>
+            <Link to="/login" className={`${styles.link}`}>
+              {t("forgetPassword.login")}
+            </Link>
+          </div>
         </form>
       </div>
     </div>

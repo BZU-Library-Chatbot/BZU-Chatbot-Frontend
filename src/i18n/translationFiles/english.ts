@@ -37,6 +37,7 @@ const English = {
   sendCode: {
     email: "Email",
     send: "send",
+    login: "Back to Login",
     success:"Code sent successfully, Check your email.",
   },
   forgetPassword: {
@@ -44,6 +45,7 @@ const English = {
     password: "Password",
     confirmPassword: "Confirm Password",
     confirm: "Confirm",
+    login: "Back to Login",
     success: "Password updated successfully"
   },
   navbar: {
