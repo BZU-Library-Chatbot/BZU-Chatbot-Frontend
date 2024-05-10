@@ -7,14 +7,17 @@ import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import authService from "../../../services/authService";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from 'react-redux';
-import { clearUser } from '../../../redux/userSlice';
+import { useDispatch } from "react-redux";
+import { clearUser } from "../../../redux/userSlice";
+import { toast, Bounce } from "react-toastify";
+import { changeSessionTitle } from "./api";
 
 interface SidebarProps {
   onSessionClick: (sessionId: string) => void;
   setConversation: any;
   sessions: any[];
   activeIndex: any;
+  setSessions: any;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -22,12 +25,15 @@ const Sidebar: React.FC<SidebarProps> = ({
   setConversation,
   sessions,
   activeIndex,
+  setSessions,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const [, setScreenWidth] = useState(window.innerWidth);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [newTitle, setNewTitle] = useState("");
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth);
@@ -66,6 +72,70 @@ const Sidebar: React.FC<SidebarProps> = ({
     onSessionClick(sessions[index]._id);
   };
 
+  const handleDoubleClick = (index: number) => {
+    if (authService.isAuthenticated()) {
+      setEditingIndex(index);
+      setNewTitle(sessions[index].title);
+    } else {
+      toast.error("Only registered users can edit session title", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Bounce,
+      });
+    }
+  };
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTitle(event.target.value);
+  };
+
+  const handleTitleSubmit = async (index: number) => {
+    const sessionId = sessions[index]._id;
+    const response = await changeSessionTitle({ title: newTitle }, sessionId);
+    if (response?.status < 300) {
+      const updatedSessions = [...sessions];
+      updatedSessions[index].title = newTitle;
+      setSessions(updatedSessions);
+      setEditingIndex(null);
+    } else if (response?.status < 500) {
+      toast.error(`sidebar.faildUpadateTitle`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Bounce,
+      });
+    } else {
+      toast.error(t(`global.serverError`), {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Bounce,
+      });
+    }
+  };
+
+  const handleEnterKey = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    if (event.key === "Enter") {
+      handleTitleSubmit(index);
+    }
+  };
+
   return (
     <div
       className={`${styles.sidenav} ${
@@ -91,19 +161,35 @@ const Sidebar: React.FC<SidebarProps> = ({
               activeIndex === index ? styles.active : ""
             }`}
           >
-            <button
-              className={styles["sidenav-nav-link"]}
-              onClick={() => handleSessionClick(index)}
-            >
-              <i className={`${styles["sidenav-link-icon"]}`}>
-                <IoChatbubbleSharp />
-              </i>
-              {collapsed && (
-                <span className={styles["sidenav-link-text"]}>
-                  {session.title}
-                </span>
-              )}
-            </button>
+            {editingIndex === index ? (
+              <input
+                type="text"
+                value={newTitle}
+                onChange={handleTitleChange}
+                onBlur={() => handleTitleSubmit(index)}
+                autoFocus
+                onKeyDown={(event) => handleEnterKey(event, index)}
+              />
+            ) : (
+              <button
+                className={styles["sidenav-nav-link"]}
+                onClick={() => handleSessionClick(index)}
+                onDoubleClick={() => handleDoubleClick(index)}
+              >
+                <i
+                  className={`${styles["sidenav-link-icon"]} ${
+                    !collapsed && "w-100"
+                  } ${collapsed && styles.me16px}`}
+                >
+                  <IoChatbubbleSharp />
+                </i>
+                {collapsed && (
+                  <span className={styles["sidenav-link-text"]}>
+                    {session.title}
+                  </span>
+                )}
+              </button>
+            )}
           </li>
         ))}
       </ul>

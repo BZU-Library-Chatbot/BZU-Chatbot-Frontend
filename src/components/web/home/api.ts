@@ -2,7 +2,7 @@ import axiosInstance from "../../../router/communicator";
 
 export const fetchSessions = async () => {
   try {
-    const response = await axiosInstance.get("/session");
+    const response = await axiosInstance.get("/session", {params: {size:15}});
     return response;
   } catch (error: any) {
     return error;

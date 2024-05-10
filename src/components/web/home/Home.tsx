@@ -62,7 +62,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const loader = async () => {
-      if (authService.isAuthenticated()) {
+      if (authService.isAuthenticated() && sessions.length == 0) {
         const response = await fetchSessions();
         if (response?.status < 300) {
           setSessions(response.data.sessions);
@@ -137,8 +137,8 @@ const Home: React.FC = () => {
     const response: any = await sendMessage(sessionId, message);
     if (response?.status < 300) {
       if (!sessionId) {
-        sessions.push(response.data.session);
-        setActiveIndex(0);
+        sessions.unshift(response.data.session);
+        setActiveIndex(sessions.length-1);
         navigate(`/home/${response.data.sessionId}`);
       }
 
@@ -238,8 +238,10 @@ const Home: React.FC = () => {
   ));
 
   const handleSessionClick = (sessionId: string) => {
-    navigate(`/home/${sessionId}`);
-    setConversation([]);
+    if ( id != sessionId){
+      navigate(`/home/${sessionId}`);
+      setConversation([]);
+    }
   };
 
   return (
@@ -250,6 +252,7 @@ const Home: React.FC = () => {
           setConversation={setConversation}
           sessions={sessions}
           activeIndex={activeIndex}
+          setSessions={setSessions}
         />
         <section className={styles.main}>
           <div
