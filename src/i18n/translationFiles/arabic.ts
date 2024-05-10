@@ -35,6 +35,7 @@ const Arabic = {
   sidebar: {
     newChat: "دردشة جديدة",
     logout: "تسجيل الخروج",
+    faildUpadateTitle: "فشل تحديث عنوان المحادثة",
   },
   settings: {
     language: "اللغة",

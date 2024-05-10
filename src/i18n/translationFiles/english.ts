@@ -38,6 +38,7 @@ const English = {
   sidebar: {
     newChat: "New Chat",
     logout: "Logout",
+    faildUpadateTitle: "Faild to Upaate Conversation Title",
   },
   settings: {
     language: "Language",

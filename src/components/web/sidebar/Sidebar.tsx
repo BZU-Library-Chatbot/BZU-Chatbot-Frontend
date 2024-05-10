@@ -76,8 +76,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     if (authService.isAuthenticated()) {
       setEditingIndex(index);
       setNewTitle(sessions[index].title);
-    }
-    else {
+    } else {
       toast.error("Only registered users can edit session title", {
         position: "top-right",
         autoClose: 5000,
@@ -98,13 +97,24 @@ const Sidebar: React.FC<SidebarProps> = ({
   const handleTitleSubmit = async (index: number) => {
     const sessionId = sessions[index]._id;
     const response = await changeSessionTitle({ title: newTitle }, sessionId);
-    if (response?.status < 500) {
+    if (response?.status < 300) {
       const updatedSessions = [...sessions];
       updatedSessions[index].title = newTitle;
       setSessions(updatedSessions);
       setEditingIndex(null);
+    } else if (response?.status < 500) {
+      toast.error(`sidebar.faildUpadateTitle`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Bounce,
+      });
     } else {
-      toast.error("Failed to update title", {
+      toast.error(t(`global.serverError`), {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
