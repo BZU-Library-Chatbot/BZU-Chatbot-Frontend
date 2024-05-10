@@ -130,7 +130,7 @@ const Login: React.FC = () => {
               <input type="checkbox" />
               {t("login.rememberMe")}
             </label>
-            <a href="#">{t("login.forgetPassword")}</a>
+            <Link to="/send-code">{t("login.forgetPassword")}</Link>
           </div>
           <button
             type="submit"

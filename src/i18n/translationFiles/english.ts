@@ -1,3 +1,5 @@
+import { sendCode } from "../../components/web/sendCode/api";
+
 const English = {
   admin: {},
   about: {
@@ -31,6 +33,20 @@ const English = {
     alreadyHaveAccount: "Already have an account?",
     registerSuccess:
       "Account created successfully! Please verify your email to login!",
+  },
+  sendCode: {
+    email: "Email",
+    send: "send",
+    login: "Back to Login",
+    success:"Code sent successfully, Check your email.",
+  },
+  forgetPassword: {
+    code: "Code",
+    password: "Password",
+    confirmPassword: "Confirm Password",
+    confirm: "Confirm",
+    login: "Back to Login",
+    success: "Password updated successfully"
   },
   navbar: {
     menu: "Menu",
@@ -73,6 +89,8 @@ const English = {
     about: "About",
     serverError: "Internal Server Error!",
     settings: "Settings",
+    sendCode: "Send Code",
+    forgetPassword: "Forget Password",
   },
   errorPage: {
     header: "404 Error Page",

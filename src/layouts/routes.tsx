@@ -6,6 +6,8 @@ import Admin from "../components/web/admin/Admin";
 import Login from "../components/web/login/Login";
 import ErrorPage from "../components/web/errorPage/index";
 import About from "../components/web/about/index";
+import SendCode from "../components/web/sendCode/SendCode";
+import ForgetPassword from "../components/web/forgetpassword/ForgetPassword";
 import Settings from "../components/web/settings/index";
 
 const Router = () => {
@@ -29,6 +31,14 @@ const Router = () => {
         {
           path: "login",
           element: <Login />,
+        },
+        {
+          path: "send-code",
+          element: <SendCode />,
+        },
+        {
+          path: "reset-password",
+          element: <ForgetPassword />,
         },
         {
           path: `home/:id`,
