@@ -35,25 +35,6 @@
   margin: 0 0 3.5rem 0;
 }
 
-.wrapper .rememberForgot {
-  display: flex;
-  justify-content: space-evenly;
-  font-size: 0.8rem;
-  margin-bottom: 1rem;
-}
-
-.rememberForgot label input {
-  margin-right: 3px;
-}
-
-.rememberForgot a {
-  text-decoration: none;
-}
-
-.rememberForgot a:hover {
-  text-decoration: underline;
-}
-
 .wrapper .btn {
   width: 100%;
   height: 45px;
@@ -68,6 +49,7 @@
   color: whitesmoke;
   font-weight: 600;
   font-family: "Times New Roman", Times, serif;
+  margin-bottom: 10%;
 }
 
 .wrapper .btn:hover {
@@ -75,10 +57,9 @@
   color: darkslategray;
 }
 
-.wrapper .registerLink {
+.wrapper .loginLink {
   font-size: 1rem;
   text-align: center;
-  margin: 1.2rem 0 1rem;
 }
 
 .link {
@@ -88,10 +69,4 @@
 
 .link:hover {
   text-decoration: underline;
-  color: red;
-}
-
-.wrapper .btn:hover {
-  background-color: darkgoldenrod;
-  color: darkslategray;
 }
