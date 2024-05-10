@@ -36,7 +36,7 @@ export const sendCodeSchema = yup.object({
 });
 
 export const forgetPasswordSchema = yup.object({
-  code: yup.string().required("Code is Required").min(4).max(4),
+  code: yup.string().min(4).max(4).required("Code is Required"),
   password: yup
     .string()
     .min(8, "Password must be at least 8 characters long")
