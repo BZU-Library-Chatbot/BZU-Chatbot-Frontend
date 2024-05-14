@@ -1,71 +1,98 @@
 import * as yup from "yup";
+import { useTranslation } from "react-i18next";
 
-export const registerSchema = yup.object({
-  userName: yup
-    .string()
-    .required("Username is required")
-    .min(3, "Must be at least three char")
-    .max(30, "Maximum 30 char"),
-  email: yup.string().required("Email is Required").email(),
-  password: yup
-    .string()
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[0-9]/, "Password must contain at least one number")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .required("Password is required"),
-  cPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), undefined], "Passwords must match")
-    .required("Confirm Password is required"),
-});
+export const RegisterSchema = () => {
+  const { t } = useTranslation();
 
-export const loginSchema = yup.object({
-  email: yup.string().required("Email is Required").email(),
-  password: yup
-    .string()
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[0-9]/, "Password must contain at least one number")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .required("Password is required"),
-});
+  return yup.object({
+    userName: yup
+      .string()
+      .required(t("validation.usernameRequired"))
+      .min(3, t("validation.userNameMinLength"))
+      .max(30, t("validation.userNameMaxLength")),
+    email: yup
+      .string()
+      .required(t("validation.emailRequired"))
+      .email(t("validation.validEmail")),
+    password: yup
+      .string()
+      .min(8, t("validation.passwordLength"))
+      .matches(/[0-9]/, t("validation.containsNumber"))
+      .matches(/[a-z]/, t("validation.containsLowercase"))
+      .matches(/[A-Z]/, t("validation.containsUppercase"))
+      .required(t("validation.PasswordRequired")),
+    cPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), undefined], t("validation.passwordMatch"))
+      .required(t("validation.cPasswordRequired")),
+  });
+};
 
-export const sendCodeSchema = yup.object({
-  email: yup.string().required("Email is Required").email(),
-});
+export const LoginSchema = () => {
+  const { t } = useTranslation();
 
-export const forgetPasswordSchema = yup.object({
-  code: yup.string().min(4).max(4).required("Code is Required"),
-  password: yup
-    .string()
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[0-9]/, "Password must contain at least one number")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .required("Password is required"),
-  cPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), undefined], "Passwords must match")
-    .required("Confirm Password is required"),
-});
+  return yup.object({
+    email: yup
+      .string()
+      .required(t("validation.emailRequired"))
+      .email(t("validation.validEmail")),
+    password: yup.string().required(t("validation.PasswordRequired")),
+  });
+};
 
-export const changePasswordSchema = yup.object({
-  oldPassword: yup
-    .string()
-    .required("Password is Required")
-    .min(8, "Must be at least three characters")
-    .max(30, "Maximum 30 characters"),
-  newPassword: yup
-    .string()
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[0-9]/, "Password must contain at least one number")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .required("Password is required")
-    .notOneOf([yup.ref("oldPassword")]),
-  cPassword: yup
-    .string()
-    .oneOf([yup.ref("newPassword"), undefined], "Passwords must match")
-    .required("Confirm Password is required"),
-});
+export const SendCodeSchema = () => {
+  const { t } = useTranslation();
+
+  return yup.object({
+    email: yup
+      .string()
+      .required(t("validation.emailRequired"))
+      .email(t("validation.validEmail")),
+  });
+};
+
+export const ForgetPasswordSchema = () => {
+  const { t } = useTranslation();
+
+  return yup.object({
+    code: yup
+      .string()
+      .min(4, t("validation.codeLength"))
+      .max(4, t("validation.codeLength"))
+      .required(t("validation.codeRequired")),
+    password: yup
+      .string()
+      .min(8, t("validation.passwordLength"))
+      .matches(/[0-9]/, t("validation.containsNumber"))
+      .matches(/[a-z]/, t("validation.containsLowercase"))
+      .matches(/[A-Z]/, t("validation.containsUppercase"))
+      .required(t("validation.PasswordRequired")),
+    cPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), undefined], t("validation.passwordMatch"))
+      .required(t("validation.cPasswordRequired")),
+  });
+};
+
+export const ChangePasswordSchema = () => {
+  const { t } = useTranslation();
+
+  return yup.object({
+    oldPassword: yup
+      .string()
+      .min(8, t("validation.passwordLength"))
+      .required(t("validation.PasswordRequired")),
+    newPassword: yup
+      .string()
+      .min(8, t("validation.passwordLength"))
+      .matches(/[0-9]/, t("validation.containsNumber"))
+      .matches(/[a-z]/, t("validation.containsLowercase"))
+      .matches(/[A-Z]/, t("validation.containsUppercase"))
+      .required(t("validation.PasswordRequired"))
+      .notOneOf([yup.ref("oldPassword")], t("validation.newPasswordRequired")),
+    cPassword: yup
+      .string()
+      .oneOf([yup.ref("newPassword"), undefined], t("validation.passwordMatch"))
+      .required(t("validation.cPasswordRequired")),
+  });
+};

@@ -6,7 +6,7 @@ import Input from "../../pages/Input";
 import { changePassword } from "./api";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { changePasswordSchema } from "../validation/validate";
+import { ChangePasswordSchema } from "../validation/validate";
 import { SelectButton } from "primereact/selectbutton";
 import languageService from "../../../services/languageService";
 import i18n from "i18next";
@@ -25,6 +25,8 @@ const index = () => {
   const { user } = useSelector((state: any) => state.user);
   const { t }: any = useTranslation();
   const dispatch = useDispatch();
+  const validationSchema = ChangePasswordSchema();
+
   const initialValues: FormValues = {
     oldPassword: "",
     newPassword: "",
@@ -79,13 +81,13 @@ const index = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema: changePasswordSchema,
+    validationSchema: validationSchema,
   });
 
   const inputs = [
     {
       id: "oldPassword",
-      type: "oldPassword",
+      type: "password",
       name: "oldPassword",
       title: `${t("login.oldPassword")}`,
       placeholder: `${t("settings.oldPassword")}`,
@@ -94,7 +96,7 @@ const index = () => {
     },
     {
       id: "newPassword",
-      type: "newPassword",
+      type: "password",
       name: "newPassword",
       title: `${t("settings.newPassword")}`,
       placeholder: `${t("settings.newPassword")}`,
@@ -103,7 +105,7 @@ const index = () => {
     },
     {
       id: "cPassword",
-      type: "cPassword",
+      type: "password",
       name: "cPassword",
       title: `${t("settings.confirmPassword")}`,
       placeholder: `${t("settings.confirmPassword")}`,

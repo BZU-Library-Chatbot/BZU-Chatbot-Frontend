@@ -1,7 +1,7 @@
 import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
-import { forgetPasswordSchema } from "../validation/validate";
+import { ForgetPasswordSchema } from "../validation/validate";
 import styles from "./ForgetPassword.module.scss";
 import { forgetPassword } from "./api";
 import { useLocation } from "react-router-dom";
@@ -18,6 +18,7 @@ const Register: React.FC = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const validationSchema = ForgetPasswordSchema();
 
   const queryParams = new URLSearchParams(location.search);
   const email = queryParams.get("email") || "";
@@ -64,7 +65,7 @@ const Register: React.FC = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema: forgetPasswordSchema,
+    validationSchema: validationSchema,
   });
 
   const inputs = [

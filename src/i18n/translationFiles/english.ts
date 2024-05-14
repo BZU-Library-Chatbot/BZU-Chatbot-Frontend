@@ -97,6 +97,23 @@ const English = {
     body: "Sorry, the page you are looking for could not be found.",
     backToHome: "Back to home",
   },
+  validation: {
+    usernameRequired: "Username is required",
+    userNameMinLength: "Must be at least three char",
+    userNameMaxLength: "Maximum 30 char",
+    emailRequired: "Email is Required",
+    validEmail: "Email must be a valid email",
+    passwordLength: "Must be at least 8 characters",
+    containsNumber: "Must contain at least one number",
+    containsLowercase: "Must contain at least one lowercase letter",
+    containsUppercase: "Must contain at least one uppercase letter",
+    PasswordRequired: "Password is required",
+    passwordMatch: "Password must match",
+    cPasswordRequired: "Confirm Password is required",
+    codeRequired: "Code is Required",
+    codeLength: "code must be 4 only characters",
+    newPasswordRequired: "Your new password cannot be the same as your old password",
+  }
 };
 
 export default English;

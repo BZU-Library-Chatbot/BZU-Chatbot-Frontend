@@ -2,7 +2,7 @@ import React from "react";
 import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
-import { registerSchema } from "../validation/validate";
+import { RegisterSchema } from "../validation/validate";
 import styles from "./Register.module.scss";
 import { Link } from "react-router-dom";
 import { register } from "./api";
@@ -17,6 +17,8 @@ interface FormValues {
 
 const Register: React.FC = () => {
   const { t } = useTranslation();
+  const validationSchema = RegisterSchema();
+
   const initialValues: FormValues = {
     userName: "",
     email: "",
@@ -58,7 +60,7 @@ const Register: React.FC = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema: registerSchema,
+    validationSchema: validationSchema,
   });
 
   const inputs = [
