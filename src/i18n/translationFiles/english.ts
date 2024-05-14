@@ -1,4 +1,3 @@
-import { sendCode } from "../../components/web/sendCode/api";
 
 const English = {
   admin: {},
@@ -97,6 +96,12 @@ const English = {
     body: "Sorry, the page you are looking for could not be found.",
     backToHome: "Back to home",
   },
+  feedback: {
+    title: "Add Feedback",
+    body: "How was the response?",
+    submit: "Submit Feedback",
+    Close: "Close",
+  }
 };
 
 export default English;

@@ -14,6 +14,8 @@ import userImageIcon from "../../../assets/Images/user-icon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../../common/api";
 import { setUser } from "../../../redux/userSlice";
+import RatingStar from "../ratingStar/RatingStar";
+import Feedback from "../feedback/Feedback";
 
 interface FormValues {
   message: string;
@@ -38,6 +40,17 @@ const Home: React.FC = () => {
   const { user } = useSelector((state: any) => state.user);
   const [userImage, setUserImage] = useState<string>("");
   const dispatch = useDispatch();
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [rating, setRating] = useState<number>(0);
+
+  const handleStarClick = (rating: number) => {
+    setRating(rating);
+    setShowFeedback(true);
+  };
+
+  const handleCloseFeedback = () => {
+    setShowFeedback(false);
+  };
 
   const activeSessionIndex = () => {
     const index = sessions.findIndex((session: any) => session._id == id);
@@ -101,6 +114,7 @@ const Home: React.FC = () => {
               return {
                 userMessage: message.message,
                 botResponse: message.response,
+                _id: message._id,
               };
             })
           );
@@ -138,7 +152,7 @@ const Home: React.FC = () => {
     if (response?.status < 300) {
       if (!sessionId) {
         sessions.unshift(response.data.session);
-        setActiveIndex(sessions.length-1);
+        setActiveIndex(sessions.length - 1);
         navigate(`/home/${response.data.sessionId}`);
       }
 
@@ -213,7 +227,7 @@ const Home: React.FC = () => {
     </>
   ));
 
-  const renderConversation = conversation?.map((item, index) => (
+  const renderConversation = conversation?.map((item: any, index) => (
     <div key={index} className={styles.cont}>
       <div className={styles.userMessageContainer}>
         <div className={styles.msgContainer}>
@@ -230,15 +244,27 @@ const Home: React.FC = () => {
           >
             {item.botResponse ? item.botResponse : dots}
           </p>
-
           <img src={chatbotImage} alt="chatbotImage" />
         </div>
+
+        <div className={styles.ratingStar}></div>
       </div>
+      {item.botResponse ? (
+        <>
+          <RatingStar onStarClick={handleStarClick} />
+          <Feedback
+            show={showFeedback}
+            handleClose={handleCloseFeedback}
+            rating={rating}
+            interactionId={item._id}
+          />
+        </>
+      ) : null}
     </div>
   ));
 
   const handleSessionClick = (sessionId: string) => {
-    if ( id != sessionId){
+    if (id != sessionId) {
       navigate(`/home/${sessionId}`);
       setConversation([]);
     }

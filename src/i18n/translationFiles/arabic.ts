@@ -94,6 +94,13 @@ const Arabic = {
     body: "للاسف، الصفحة التي تبحث عنها غير موجودة.",
     backToHome: "الرجوع الى الصفحة الرئيسية",
   },
+  feedback: {
+    title: "أضف تغذية راجعة",
+    body: "كيف كانت الاجابة؟",
+    submit: "تأكيد",
+    Close: "أغلاق",
+
+  }
 };
 
 export default Arabic;
