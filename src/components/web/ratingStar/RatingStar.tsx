@@ -32,7 +32,7 @@ const RatingStar: React.FC<{
             className={
               index <= (hover || rating)
                 ? `${styles.active}`
-                : `${styles.inactive}`
+                : ""
             }
             onClick={() => handleClick(index)}
             onMouseEnter={() => handleMouseEnter(index)}

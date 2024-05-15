@@ -73,7 +73,7 @@ function Feedback({ show, handleClose, rating, interactionId }: FeedbackProps) {
             {t("feedback.Close")}
           </Button>
           <Button className={styles.customButton} onClick={handleSubmit}>
-            {t("feedback.submit")}
+            {t("global.submit")}
           </Button>
         </Modal.Footer>
       </Modal>

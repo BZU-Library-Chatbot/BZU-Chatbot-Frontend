@@ -90,6 +90,7 @@ const English = {
     settings: "Settings",
     sendCode: "Send Code",
     forgetPassword: "Forget Password",
+    submit: "Submit Feedback",
   },
   errorPage: {
     header: "404 Error Page",
@@ -99,7 +100,6 @@ const English = {
   feedback: {
     title: "Add Feedback",
     body: "How was the response?",
-    submit: "Submit Feedback",
     Close: "Close",
   }
 };

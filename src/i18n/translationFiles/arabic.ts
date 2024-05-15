@@ -88,6 +88,7 @@ const Arabic = {
     forgetPassword: "نسيت كلمة المرور",
     settings: "الإعدادات",
     serverError: "خطأ في الخادم!",
+    submit: "تأكيد",
   },
   errorPage: {
     header: "404 الصفحة غير موجودة",
@@ -95,11 +96,9 @@ const Arabic = {
     backToHome: "الرجوع الى الصفحة الرئيسية",
   },
   feedback: {
-    title: "أضف تغذية راجعة",
+    title: "أضف رأيك",
     body: "كيف كانت الاجابة؟",
-    submit: "تأكيد",
     Close: "أغلاق",
-
   }
 };
 
