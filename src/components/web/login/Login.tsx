@@ -10,8 +10,8 @@ import { useState, useEffect } from "react";
 import authService from "../../../services/authService";
 import { login } from "./api";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../../redux/userSlice';
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../redux/userSlice";
 
 interface FormValues {
   email: string;
@@ -46,7 +46,7 @@ const Login: React.FC = () => {
       const { data } = response;
       authService.saveToken(data.token);
       authService.saveRefreshToken(data.refreshToken);
-      toast.success(`${t("login.loginSuccess")}`, {
+      toast.success(`${t("login.success")}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -59,10 +59,22 @@ const Login: React.FC = () => {
       });
       dispatch(setUser(data.user));
       setIsAuth(true);
-    } else {
-      toast.error(response.response.data.stack.split("\n")[0], {
+    } else if (response?.response?.status === 400) {
+      toast.error(`${t("login.invalidCredentials")}`, {
         position: "top-center",
-        autoClose: false,
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    } else {
+      toast.error(`${t("global.serverError")}`, {
+        position: "top-center",
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

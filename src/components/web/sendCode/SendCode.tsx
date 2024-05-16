@@ -36,8 +36,20 @@ const SendCode: React.FC = () => {
         theme: "light",
         transition: Bounce,
       });
+    } else if (response?.response?.status === 404) {
+      toast.error(`${t("sendCode.nonRegiserUser")}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     } else {
-      toast.error(response.response.data.stack.split("\n")[0], {
+      toast.error(`${t("global.serverError")}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

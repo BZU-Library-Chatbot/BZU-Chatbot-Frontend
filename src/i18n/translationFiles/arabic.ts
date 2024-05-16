@@ -20,7 +20,8 @@ const Arabic = {
     rememberMe: "تذكرني",
     forgetPassword: "نسيت كلمة السر؟",
     noAccount: "لا يوجد لديك حساب بعد؟",
-    loginSuccess: "تم تسجيل الدخول بنجاح!",
+    invalidCredentials: "البيانات غير صحيحة",
+    success: "تم تسجيل الدخول بنجاح",
   },
   register: {
     username: "اسم المستخدم",
@@ -28,13 +29,15 @@ const Arabic = {
     password: "كلمة المرور",
     confirmPassword: "تأكيد كلمة المرور",
     alreadyHaveAccount: "لديك حساب بالفعل؟",
-    registerSuccess:
+    duplicatedEmail: "تم استخدام هذا البريد الإلكتروني من قبل",
+    success:
       "تم إنشاء الحساب بنجاح! يرجى التحقق من بريدك الإلكتروني لتسجيل الدخول!",
   },
   sendCode: {
     email: "البريد الالكتروني",
     send:"أرسال",
     login: "عد الى صفحة تسحيل الدخول",
+    nonRegiserUser: " هذا المستخدم لم يقم بتسجيل الدخول",
     success:"تم ارسال الرمز بنجاح تفقد بريدك الالكتروني",
   },
   forgetPassword: {
@@ -43,7 +46,8 @@ const Arabic = {
     confirmPassword: "تأكيد كلمة المرور",
     confirm: "تأكيد",
     login: "عد الى صفحة تسحيل الدخول",
-    success: "تم تحديث كلمة المرور بنجاح"
+    invalidData: "البيانات غير صحيحة",
+    success: "تم تحديث كلمة المرور بنجاح",
   },
   navbar: {
     menu: "القائمة",
@@ -52,12 +56,13 @@ const Arabic = {
     newChat: "دردشة جديدة",
     logout: "تسجيل الخروج",
     faildUpadateTitle: "فشل تحديث عنوان المحادثة",
+    updateForNonReisterd: "فقط المستخدمين اللذين قامو بتسجيل الدخول يمكنهم تحديث عنوان المحادثة",
   },
   settings: {
     language: "اللغة",
     change: "تغيير كلمة المرور",
     saved: "تم حفظ الإعدادات بنجاح!",
-    passwordChanged: "تم تغيير كلمة المرور بنجاح!",
+    passwordChanged: "تم تغيير كلمة المرور بنجاح",
     changeImage: "تغيير الصورة",
     oldPassword: "كلمة المرور القديمة",
     newPassword: "كلمة المرور الجديدة",
@@ -72,10 +77,10 @@ const Arabic = {
       "على الأقل رقم واحد",
       "لا يمكن أن تكون نفس كلمة المرور السابقة",
     ],
-    errorPicture: "خطأ في تغيير الصورة!",
-    pictureChanged: "تم تغيير الصورة بنجاح!",
-    errorPassword: "خطأ في تغيير كلمة المرور!",
-    differentPassword: "كلمة المرور القديمة والجديدة لا يمكن أن تكونا نفسها!",
+    errorPicture: "خطأ في تغيير الصورة",
+    pictureChanged: "تم تغيير الصورة بنجاح",
+    errorPassword: "خطأ في تغيير كلمة المرور",
+    differentPassword: "كلمة المرور القديمة والجديدة لا يمكن أن تكونا نفسها",
   },
   global: {
     login: "تسجيل الدخول",
@@ -87,7 +92,7 @@ const Arabic = {
     sendCode: "أرسل كود",
     forgetPassword: "نسيت كلمة المرور",
     settings: "الإعدادات",
-    serverError: "خطأ في الخادم!",
+    serverError: "خطأ في الخادم",
   },
   errorPage: {
     header: "404 الصفحة غير موجودة",
