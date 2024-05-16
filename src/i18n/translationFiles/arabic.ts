@@ -96,7 +96,7 @@ const Arabic = {
     backToHome: "الرجوع الى الصفحة الرئيسية",
   },
   feedback: {
-    title: "أضف رأيك",
+    title: "أضف مراجعة",
     body: "كيف كانت الاجابة؟",
     Close: "أغلاق",
   }

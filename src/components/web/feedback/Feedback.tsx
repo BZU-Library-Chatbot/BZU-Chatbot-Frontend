@@ -18,14 +18,6 @@ function Feedback({ show, handleClose, rating, interactionId }: FeedbackProps) {
 
   const handleSubmit = async () => {
     if (feedbackText.trim() !== "") {
-      console.log(
-        "feedbackText: " +
-          feedbackText +
-          " Rating: " +
-          rating +
-          " ID: " +
-          interactionId
-      );
       const response = await sendFeedback(
         { rating, text: feedbackText },
         interactionId
@@ -33,8 +25,6 @@ function Feedback({ show, handleClose, rating, interactionId }: FeedbackProps) {
       setFeedbackText("");
       handleClose();
     } else {
-      console.log("Rating: " + rating + " ID: " + interactionId);
-
       const response = await sendFeedback({ rating }, interactionId);
       handleClose();
     }

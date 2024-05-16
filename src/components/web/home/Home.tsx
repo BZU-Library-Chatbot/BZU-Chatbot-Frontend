@@ -157,10 +157,11 @@ const Home: React.FC = () => {
       }
 
       const botResponse = response.data.response;
+      const {_id} = response.data;
       const lastIdx = updatedConversation.length - 1;
       const updatedConversationWithResponse = [
         ...updatedConversation.slice(0, lastIdx),
-        { ...updatedConversation[lastIdx], botResponse },
+        { ...updatedConversation[lastIdx], botResponse, _id},
       ];
       setConversation(updatedConversationWithResponse);
       stopUpdatingDots(intervalId);
