@@ -31,7 +31,7 @@ const Register: React.FC = () => {
       formik.resetForm();
       toast.success(`${t("register.registerSuccess")}`, {
         position: "top-center",
-        autoClose: false,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -43,7 +43,7 @@ const Register: React.FC = () => {
     } else {
       toast.error(response.response.data.stack.split("\n")[0], {
         position: "top-center",
-        autoClose: false,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
