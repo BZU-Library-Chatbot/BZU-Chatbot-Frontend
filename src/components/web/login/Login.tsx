@@ -23,7 +23,6 @@ const Login: React.FC = () => {
   const [isAuth, setIsAuth] = useState(authService.isAuthenticated());
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const validationSchema = LoginSchema();
 
   useEffect(() => {
     if (isAuth) {
@@ -78,7 +77,7 @@ const Login: React.FC = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema: validationSchema,
+    validationSchema: LoginSchema,
   });
 
   const inputs = [

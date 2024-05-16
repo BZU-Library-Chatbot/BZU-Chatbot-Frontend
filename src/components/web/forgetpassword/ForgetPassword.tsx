@@ -18,7 +18,6 @@ const Register: React.FC = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
-  const validationSchema = ForgetPasswordSchema();
 
   const queryParams = new URLSearchParams(location.search);
   const email = queryParams.get("email") || "";
@@ -65,7 +64,7 @@ const Register: React.FC = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema: validationSchema,
+    validationSchema: ForgetPasswordSchema,
   });
 
   const inputs = [

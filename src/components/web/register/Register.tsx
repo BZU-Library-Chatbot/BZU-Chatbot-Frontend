@@ -17,7 +17,6 @@ interface FormValues {
 
 const Register: React.FC = () => {
   const { t } = useTranslation();
-  const validationSchema = RegisterSchema();
 
   const initialValues: FormValues = {
     userName: "",
@@ -60,7 +59,7 @@ const Register: React.FC = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema: validationSchema,
+    validationSchema: RegisterSchema,
   });
 
   const inputs = [

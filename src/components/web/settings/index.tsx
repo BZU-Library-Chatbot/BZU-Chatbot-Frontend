@@ -25,7 +25,6 @@ const index = () => {
   const { user } = useSelector((state: any) => state.user);
   const { t }: any = useTranslation();
   const dispatch = useDispatch();
-  const validationSchema = ChangePasswordSchema();
 
   const initialValues: FormValues = {
     oldPassword: "",
@@ -81,7 +80,7 @@ const index = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema: validationSchema,
+    validationSchema: ChangePasswordSchema,
   });
 
   const inputs = [

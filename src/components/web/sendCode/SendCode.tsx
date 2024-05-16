@@ -14,7 +14,6 @@ interface FormValues {
 const SendCode: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const validationSchema = SendCodeSchema();
 
   const initialValues: FormValues = {
     email: "",
@@ -55,7 +54,7 @@ const SendCode: React.FC = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema: validationSchema,
+    validationSchema: SendCodeSchema,
   });
 
   const inputs = [
