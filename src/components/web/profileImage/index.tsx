@@ -19,7 +19,7 @@ const index = () => {
     const image: any = document.getElementById("output");
     image.src = URL.createObjectURL(file);
     const response = await changeProfilePicture(file);
-    if (response.status === 200) {
+    if (response?.status < 300) {
       const updatedUser = { ...user, profilePic: response.data.profilePic };
       dispatch(setUser(updatedUser));
       toast.success(`${t("settings.imageChanged")}`);

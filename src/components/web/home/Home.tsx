@@ -102,7 +102,7 @@ const Home: React.FC = () => {
     const fetchUser = async () => {
       if (!user && authService.isAuthenticated()) {
         const response = await getProfile();
-        if (response?.response?.status < 300) {
+        if (response?.status < 300) {
           const userData = response.data.user;
           dispatch(setUser(userData));
         } else {

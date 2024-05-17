@@ -26,7 +26,7 @@ const Register: React.FC = () => {
 
   const onSubmit = async (user: FormValues) => {
     const response = await register(user);
-    if (response?.status < 300 && response.data.message == "success") {
+    if (response?.status < 300) {
       const { data } = response;
       formik.resetForm();
       toast.success(`${t("register.success")}`, {
@@ -40,7 +40,7 @@ const Register: React.FC = () => {
         theme: "light",
         transition: Bounce,
       });
-    } else if (response?.response?.status === 400) {
+    } else if (response?.response?.status < 500) {
       toast.error(`${t("register.duplicatedEmail")}`, {
         position: "top-center",
         autoClose: 5000,

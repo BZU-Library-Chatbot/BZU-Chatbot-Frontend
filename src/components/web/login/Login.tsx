@@ -42,7 +42,7 @@ const Login: React.FC = () => {
 
   const onSubmit = async (user: FormValues) => {
     const response = await login(user);
-    if (response?.status < 300 && response.data.message == "success") {
+    if (response?.status < 300) {
       const { data } = response;
       authService.saveToken(data.token);
       authService.saveRefreshToken(data.refreshToken);
@@ -59,7 +59,7 @@ const Login: React.FC = () => {
       });
       dispatch(setUser(data.user));
       setIsAuth(true);
-    } else if (response?.response?.status === 400) {
+    } else if (response?.response?.status < 500) {
       toast.error(`${t("login.invalidCredentials")}`, {
         position: "top-center",
         autoClose: 5000,

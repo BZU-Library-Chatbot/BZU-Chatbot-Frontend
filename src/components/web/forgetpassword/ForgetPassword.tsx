@@ -46,7 +46,7 @@ const Register: React.FC = () => {
         theme: "light",
         transition: Bounce,
       });
-    } else if (response?.response?.status === 400) {
+    } else if (response?.response?.status < 500) {
       toast.error(`${t("forgetPassword.invalidData")}`, {
         position: "top-center",
         autoClose: 5000,

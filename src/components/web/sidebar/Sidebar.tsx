@@ -102,7 +102,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       updatedSessions[index].title = newTitle;
       setSessions(updatedSessions);
       setEditingIndex(null);
-    } else if (response?.status < 500) {
+    } else if (response?.response?.status < 500) {
       toast.error(`sidebar.faildUpadateTitle`, {
         position: "top-center",
         autoClose: 5000,
