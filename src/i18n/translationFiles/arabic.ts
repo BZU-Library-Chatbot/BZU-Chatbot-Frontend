@@ -88,6 +88,7 @@ const Arabic = {
     forgetPassword: "نسيت كلمة المرور",
     settings: "الإعدادات",
     serverError: "خطأ في الخادم!",
+    submit: "تأكيد",
   },
   errorPage: {
     header: "404 الصفحة غير موجودة",
@@ -110,8 +111,12 @@ const Arabic = {
     codeRequired: "يرجى ادخال الكود",
     codeLength: "يجب أن يكون الرمز 4 أحرف فقط",
     newPasswordRequired: "يجب أن تختلف كلمة السر الجديدة عن القديمة",
-
-  }
+  },
+  feedback: {
+    title: "أضف مراجعة",
+    body: "كيف كانت الاجابة؟",
+    Close: "أغلاق",
+  },
 };
 
 export default Arabic;
