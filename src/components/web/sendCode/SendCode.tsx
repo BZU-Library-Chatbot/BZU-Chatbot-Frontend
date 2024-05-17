@@ -1,7 +1,7 @@
 import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
-import { sendCodeSchema } from "../validation/validate";
+import { SendCodeSchema } from "../validation/validate";
 import styles from "./SendCode.module.scss";
 import { sendCode } from "./api";
 import { useTranslation } from "react-i18next";
@@ -54,7 +54,7 @@ const SendCode: React.FC = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema: sendCodeSchema,
+    validationSchema: SendCodeSchema,
   });
 
   const inputs = [

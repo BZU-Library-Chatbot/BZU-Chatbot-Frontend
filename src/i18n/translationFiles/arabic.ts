@@ -95,11 +95,28 @@ const Arabic = {
     body: "للاسف، الصفحة التي تبحث عنها غير موجودة.",
     backToHome: "الرجوع الى الصفحة الرئيسية",
   },
+  validation: {
+    usernameRequired: "يرجى ادخال اسم المستخدم",
+    userNameMinLength: "يجب أن يكون اسم المستخدم على الأقل ثلاث أحرف",
+    userNameMaxLength: "يجب أن يكون اسم المستخدم على الأكثر 30 حرف",
+    emailRequired: "يرجى ادخال البريد الالكتروني ",
+    validEmail: "يرجى ادخال بريد الكتروني صحيح",
+    passwordLength: "كلمة السر يجب أن تكون 8 أحرف على الأقل",
+    containsNumber: "كلمة السر يجب أن تحتوي رقم على الأقل",
+    containsLowercase: "كلمة السر يجب أن تحتوي حرف صغير على الأقل",
+    containsUppercase: "كلمة السر يجب أن تحتوي حرف كبير على الأقل",
+    PasswordRequired: "يرجى ادخال كلمة السر ",
+    passwordMatch: "يجب أن تتطابق كلمتا السر",
+    cPasswordRequired: "يرجى تأكيد كلمة المرور  ",
+    codeRequired: "يرجى ادخال الكود",
+    codeLength: "يجب أن يكون الرمز 4 أحرف فقط",
+    newPasswordRequired: "يجب أن تختلف كلمة السر الجديدة عن القديمة",
+  },
   feedback: {
     title: "أضف مراجعة",
     body: "كيف كانت الاجابة؟",
     Close: "أغلاق",
-  }
+  },
 };
 
 export default Arabic;

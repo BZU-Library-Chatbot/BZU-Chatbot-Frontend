@@ -1,68 +1,87 @@
 import * as yup from "yup";
+import i18n from "../../../i18n/config";
 
-export const registerSchema = yup.object({
+export const RegisterSchema = yup.object({
   userName: yup
     .string()
-    .required("Username is required")
-    .min(3, "Must be at least three char")
-    .max(30, "Maximum 30 char"),
-  email: yup.string().required("Email is Required").email(),
+    .required(i18n.t("validation.usernameRequired"))
+    .min(3, i18n.t("validation.userNameMinLength"))
+    .max(30, i18n.t("validation.userNameMaxLength")),
+  email: yup
+    .string()
+    .required(i18n.t("validation.emailRequired"))
+    .email(i18n.t("validation.validEmail")),
   password: yup
     .string()
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[0-9]/, "Password must contain at least one number")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .required("Password is required"),
+    .min(8, i18n.t("validation.passwordLength"))
+    .matches(/[0-9]/, i18n.t("validation.containsNumber"))
+    .matches(/[a-z]/, i18n.t("validation.containsLowercase"))
+    .matches(/[A-Z]/, i18n.t("validation.containsUppercase"))
+    .required(i18n.t("validation.PasswordRequired")),
   cPassword: yup
     .string()
-    .oneOf([yup.ref("password"), undefined], "Passwords must match")
-    .required("Confirm Password is required"),
+    .oneOf([yup.ref("password"), undefined], i18n.t("validation.passwordMatch"))
+    .required(i18n.t("validation.cPasswordRequired")),
 });
 
-export const loginSchema = yup.object({
-  email: yup.string().required("Email is Required").email(),
+export const LoginSchema = yup.object({
+  email: yup
+    .string()
+    .required(i18n.t("validation.emailRequired"))
+    .email(i18n.t("validation.validEmail")),
   password: yup
     .string()
-    .min(8, "Password must be at least 8 characters long")
-    .required("Password is required"),
+    .min(8, i18n.t("validation.passwordLength"))
+    .required(i18n.t("validation.PasswordRequired")),
 });
 
-export const sendCodeSchema = yup.object({
-  email: yup.string().required("Email is Required").email(),
+export const SendCodeSchema = yup.object({
+  email: yup
+    .string()
+    .required(i18n.t("validation.emailRequired"))
+    .email(i18n.t("validation.validEmail")),
 });
 
-export const forgetPasswordSchema = yup.object({
-  code: yup.string().min(4).max(4).required("Code is Required"),
+export const ForgetPasswordSchema = yup.object({
+  code: yup
+    .string()
+    .min(4, i18n.t("validation.codeLength"))
+    .max(4, i18n.t("validation.codeLength"))
+    .required(i18n.t("validation.codeRequired")),
   password: yup
     .string()
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[0-9]/, "Password must contain at least one number")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .required("Password is required"),
+    .min(8, i18n.t("validation.passwordLength"))
+    .matches(/[0-9]/, i18n.t("validation.containsNumber"))
+    .matches(/[a-z]/, i18n.t("validation.containsLowercase"))
+    .matches(/[A-Z]/, i18n.t("validation.containsUppercase"))
+    .required(i18n.t("validation.PasswordRequired")),
   cPassword: yup
     .string()
-    .oneOf([yup.ref("password"), undefined], "Passwords must match")
-    .required("Confirm Password is required"),
+    .oneOf([yup.ref("password"), undefined], i18n.t("validation.passwordMatch"))
+    .required(i18n.t("validation.cPasswordRequired")),
 });
 
-export const changePasswordSchema = yup.object({
+export const ChangePasswordSchema = yup.object({
   oldPassword: yup
     .string()
-    .required("Password is Required")
-    .min(8, "Must be at least three characters")
-    .max(30, "Maximum 30 characters"),
+    .min(8, i18n.t("validation.passwordLength"))
+    .required(i18n.t("validation.PasswordRequired")),
   newPassword: yup
     .string()
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[0-9]/, "Password must contain at least one number")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .required("Password is required")
-    .notOneOf([yup.ref("oldPassword")]),
+    .min(8, i18n.t("validation.passwordLength"))
+    .matches(/[0-9]/, i18n.t("validation.containsNumber"))
+    .matches(/[a-z]/, i18n.t("validation.containsLowercase"))
+    .matches(/[A-Z]/, i18n.t("validation.containsUppercase"))
+    .required(i18n.t("validation.PasswordRequired"))
+    .notOneOf(
+      [yup.ref("oldPassword")],
+      i18n.t("validation.newPasswordRequired")
+    ),
   cPassword: yup
     .string()
-    .oneOf([yup.ref("newPassword"), undefined], "Passwords must match")
-    .required("Confirm Password is required"),
+    .oneOf(
+      [yup.ref("newPassword"), undefined],
+      i18n.t("validation.passwordMatch")
+    )
+    .required(i18n.t("validation.cPasswordRequired")),
 });

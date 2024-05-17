@@ -2,7 +2,7 @@ import React from "react";
 import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
-import { loginSchema } from "../validation/validate";
+import { LoginSchema } from "../validation/validate";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
 import { jwtDecode } from "jwt-decode";
@@ -10,8 +10,8 @@ import { useState, useEffect } from "react";
 import authService from "../../../services/authService";
 import { login } from "./api";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../../redux/userSlice';
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../redux/userSlice";
 
 interface FormValues {
   email: string;
@@ -77,7 +77,7 @@ const Login: React.FC = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema: loginSchema,
+    validationSchema: LoginSchema,
   });
 
   const inputs = [
