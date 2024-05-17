@@ -36,7 +36,7 @@ const SendCode: React.FC = () => {
         theme: "light",
         transition: Bounce,
       });
-    } else if (response?.response?.status === 404) {
+    } else if (response?.response?.status < 500) {
       toast.error(`${t("sendCode.nonRegiserUser")}`, {
         position: "top-center",
         autoClose: 5000,

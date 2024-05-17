@@ -76,7 +76,7 @@ const index = () => {
         if (response?.status < 300) {
           const userData = response.data.user;
           dispatch(setUser(userData));
-        } else if (response?.status >= 500) {
+        } else {
           toast.error(`${t("global.serverError")}`, {
             position: "top-center",
             autoClose: false,
