@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../../common/api";
 import { setUser } from "../../../redux/userSlice";
 import { toast, Bounce } from "react-toastify";
+import RatingStar from "../ratingStar/RatingStar";
+import Feedback from "../feedback/Feedback";
 
 interface FormValues {
   message: string;
@@ -38,6 +40,17 @@ const Home: React.FC = () => {
   const { user } = useSelector((state: any) => state.user);
   const [userImage, setUserImage] = useState<string>("");
   const dispatch = useDispatch();
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [rating, setRating] = useState<number>(0);
+
+  const handleStarClick = (rating: number) => {
+    setRating(rating);
+    setShowFeedback(true);
+  };
+
+  const handleCloseFeedback = () => {
+    setShowFeedback(false);
+  };
 
   const activeSessionIndex = () => {
     const index = sessions.findIndex((session: any) => session._id == id);
@@ -121,6 +134,7 @@ const Home: React.FC = () => {
               return {
                 userMessage: message.message,
                 botResponse: message.response,
+                _id: message._id,
               };
             })
           );
@@ -173,10 +187,11 @@ const Home: React.FC = () => {
       }
 
       const botResponse = response.data.response;
+      const {_id} = response.data;
       const lastIdx = updatedConversation.length - 1;
       const updatedConversationWithResponse = [
         ...updatedConversation.slice(0, lastIdx),
-        { ...updatedConversation[lastIdx], botResponse },
+        { ...updatedConversation[lastIdx], botResponse, _id},
       ];
       setConversation(updatedConversationWithResponse);
       stopUpdatingDots(intervalId);
@@ -253,7 +268,7 @@ const Home: React.FC = () => {
     </>
   ));
 
-  const renderConversation = conversation?.map((item, index) => (
+  const renderConversation = conversation?.map((item: any, index) => (
     <div key={index} className={styles.cont}>
       <div className={styles.userMessageContainer}>
         <div className={styles.msgContainer}>
@@ -270,10 +285,22 @@ const Home: React.FC = () => {
           >
             {item.botResponse ? item.botResponse : dots}
           </p>
-
           <img src={chatbotImage} alt="chatbotImage" />
         </div>
+
+        <div className={styles.ratingStar}></div>
       </div>
+      {item.botResponse ? (
+        <>
+          <RatingStar onStarClick={handleStarClick} />
+          <Feedback
+            show={showFeedback}
+            handleClose={handleCloseFeedback}
+            rating={rating}
+            interactionId={item._id}
+          />
+        </>
+      ) : null}
     </div>
   ));
 
