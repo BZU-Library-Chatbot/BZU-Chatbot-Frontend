@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { fetchSessions, loadMessages, sendMessage } from "./api";
 import authService from "../../../services/authService";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import chatbotImage from "../../../assets/Images/chatbot-icon.svg";
 import userImageIcon from "../../../assets/Images/user-icon.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,6 +42,7 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
   const [showFeedback, setShowFeedback] = useState(false);
   const [rating, setRating] = useState<number>(0);
+  const [allMessagesLoaded, setAllMessagesLoaded] = useState<boolean>(false);
 
   const handleStarClick = (rating: number) => {
     setRating(rating);
@@ -61,15 +62,54 @@ const Home: React.FC = () => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
   };
 
-  const loadMoreMessages = async () => {
-    console.log("====================================");
-    console.log("load more messages");
-    console.log("====================================");
+  const loadMoreMessages = async (currentScrollHeight: number) => {
+    if (allMessagesLoaded) return;
+
+    const currentPage = Math.ceil(conversation.length / 10 + 1);
+    const response = await loadMessages(id, currentPage);
+
+    if (conversation.length >= response.data.totalMessages) {
+      setAllMessagesLoaded(true);
+      return;
+    }
+
+    if (response?.status < 300) {
+      const newMessages = response.data.messages.map((message: any) => {
+        return {
+          userMessage: message.message,
+          botResponse: message.response,
+          _id: message._id,
+        };
+      });
+      setConversation((prevConversation) => [
+        ...newMessages,
+        ...prevConversation,
+      ]);
+
+      setTimeout(() => {
+        const newScrollHeight = chatContainerRef.current.scrollHeight;
+        const scrollOffset = newScrollHeight - currentScrollHeight;
+        chatContainerRef.current.scrollTop = scrollOffset;
+      }, 0);
+    } else {
+      toast.error(t("global.serverError"), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
   };
 
   const handleScroll = () => {
     if (chatContainerRef.current.scrollTop === 0) {
-      loadMoreMessages();
+      const currentScrollHeight = chatContainerRef.current.scrollHeight;
+      loadMoreMessages(currentScrollHeight);
     }
   };
 
@@ -104,10 +144,9 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    setSessionId(id);
-    if (id && conversation.length === 0) {
+    if (sessionId && !conversation.length) {
       const loader = async () => {
-        const response = await loadMessages(id);
+        const response = await loadMessages(sessionId, 1);
         if (response?.status < 300) {
           setConversation(
             response?.data?.messages?.map((message: any) => {
@@ -124,6 +163,11 @@ const Home: React.FC = () => {
       };
       loader();
     }
+  }, [sessionId]);
+
+  useEffect(() => {
+    setSessionId(id);
+    setAllMessagesLoaded(false);
   }, [id]);
 
   useEffect(() => {
@@ -157,11 +201,11 @@ const Home: React.FC = () => {
       }
 
       const botResponse = response.data.response;
-      const {_id} = response.data;
+      const { _id } = response.data;
       const lastIdx = updatedConversation.length - 1;
       const updatedConversationWithResponse = [
         ...updatedConversation.slice(0, lastIdx),
-        { ...updatedConversation[lastIdx], botResponse, _id},
+        { ...updatedConversation[lastIdx], botResponse, _id },
       ];
       setConversation(updatedConversationWithResponse);
       stopUpdatingDots(intervalId);
