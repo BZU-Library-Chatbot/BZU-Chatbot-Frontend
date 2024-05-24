@@ -27,10 +27,22 @@ const Register: React.FC = () => {
 
   const onSubmit = async (user: FormValues) => {
     const response = await register(user);
-    if (response?.status < 300 && response.data.message == "success") {
+    if (response?.status < 300) {
       const { data } = response;
       formik.resetForm();
-      toast.success(`${t("register.registerSuccess")}`, {
+      toast.success(`${t("register.success")}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    } else if (response?.response?.status < 500) {
+      toast.error(`${t("register.duplicatedEmail")}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -42,7 +54,7 @@ const Register: React.FC = () => {
         transition: Bounce,
       });
     } else {
-      toast.error(response.response.data.stack.split("\n")[0], {
+      toast.error(`${t("global.serverError")}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

@@ -42,11 +42,11 @@ const Login: React.FC = () => {
 
   const onSubmit = async (user: FormValues) => {
     const response = await login(user);
-    if (response?.status < 300 && response.data.message == "success") {
+    if (response?.status < 300) {
       const { data } = response;
       authService.saveToken(data.token);
       authService.saveRefreshToken(data.refreshToken);
-      toast.success(`${t("login.loginSuccess")}`, {
+      toast.success(`${t("login.success")}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -59,8 +59,20 @@ const Login: React.FC = () => {
       });
       dispatch(setUser(data.user));
       setIsAuth(true);
+    } else if (response?.response?.status < 500) {
+      toast.error(`${t("login.invalidCredentials")}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     } else {
-      toast.error(response.response.data.stack.split("\n")[0], {
+      toast.error(`${t("global.serverError")}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

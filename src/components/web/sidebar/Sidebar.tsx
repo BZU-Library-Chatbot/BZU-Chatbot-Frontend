@@ -77,8 +77,8 @@ const Sidebar: React.FC<SidebarProps> = ({
       setEditingIndex(index);
       setNewTitle(sessions[index].title);
     } else {
-      toast.error("Only registered users can edit session title", {
-        position: "top-right",
+      toast.error(t("sidebar.updateForNonReisterd"), {
+        position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -102,9 +102,9 @@ const Sidebar: React.FC<SidebarProps> = ({
       updatedSessions[index].title = newTitle;
       setSessions(updatedSessions);
       setEditingIndex(null);
-    } else if (response?.status < 500) {
+    } else if (response?.response?.status < 500) {
       toast.error(`sidebar.faildUpadateTitle`, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -115,7 +115,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       });
     } else {
       toast.error(t(`global.serverError`), {
-        position: "top-right",
+        position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,

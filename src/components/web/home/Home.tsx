@@ -8,12 +8,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { fetchSessions, loadMessages, sendMessage } from "./api";
 import authService from "../../../services/authService";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 import chatbotImage from "../../../assets/Images/chatbot-icon.svg";
 import userImageIcon from "../../../assets/Images/user-icon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../../common/api";
 import { setUser } from "../../../redux/userSlice";
+import { toast, Bounce } from "react-toastify";
 import RatingStar from "../ratingStar/RatingStar";
 import Feedback from "../feedback/Feedback";
 
@@ -80,7 +80,17 @@ const Home: React.FC = () => {
         if (response?.status < 300) {
           setSessions(response.data.sessions);
         } else {
-          toast.error(t("global.serverError"));
+          toast.error(`${t("global.serverError")}`, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
         }
       }
     };
@@ -92,11 +102,21 @@ const Home: React.FC = () => {
     const fetchUser = async () => {
       if (!user && authService.isAuthenticated()) {
         const response = await getProfile();
-        if (response?.response?.status < 300) {
+        if (response?.status < 300) {
           const userData = response.data.user;
           dispatch(setUser(userData));
-        } else if (response?.response?.status >= 500) {
-          toast.error(`${t("global.serverError")}`);
+        } else {
+          toast.error(`${t("global.serverError")}`, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
         }
       }
     };
@@ -119,7 +139,17 @@ const Home: React.FC = () => {
             })
           );
         } else {
-          toast.error(t("global.serverError"));
+          toast.error(`${t("global.serverError")}`, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
         }
       };
       loader();
@@ -166,7 +196,17 @@ const Home: React.FC = () => {
       setConversation(updatedConversationWithResponse);
       stopUpdatingDots(intervalId);
     } else {
-      toast.error(t("global.serverError"));
+      toast.error(`${t("global.serverError")}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     }
   };
 
