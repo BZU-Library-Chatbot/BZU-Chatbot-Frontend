@@ -65,13 +65,8 @@ const Home: React.FC = () => {
   const loadMoreMessages = async (currentScrollHeight: number) => {
     if (allMessagesLoaded) return;
 
-    const currentPage = Math.ceil(conversation.length / 10 + 1);
-    const response = await loadMessages(id, currentPage);
-
-    if (conversation.length >= response.data.totalMessages) {
-      setAllMessagesLoaded(true);
-      return;
-    }
+    const page = Math.ceil(conversation.length / 10 + 1);
+    const response = await loadMessages(id, page);
 
     if (response?.status < 300) {
       const newMessages = response.data.messages.map((message: any) => {
@@ -81,6 +76,10 @@ const Home: React.FC = () => {
           _id: message._id,
         };
       });
+      if (conversation.length >= response.data.totalMessages) {
+        setAllMessagesLoaded(true);
+        return;
+      }
       setConversation((prevConversation) => [
         ...newMessages,
         ...prevConversation,

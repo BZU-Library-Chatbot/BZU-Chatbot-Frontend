@@ -9,10 +9,10 @@ export const fetchSessions = async (page = 1, size = 15) => {
   }
 };
 
-export const loadMessages = async (id: any, currentPage: any) => {
+export const loadMessages = async (id: any, page: any) => {
   try {
     if (!id) return [];
-    const response = await axiosInstance.get(`/session/${id}`, {params: { page: currentPage }});
+    const response = await axiosInstance.get(`/session/${id}`, {params: { page: page }});
     return response;
   } catch (error: any) {
     return error;

@@ -36,7 +36,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [newTitle, setNewTitle] = useState("");
   const sidebarRef: any = useRef(null);
-  const [isFetching, setIsFetching] = useState(false);
   const [allSessionsLoaded, setAllSessionsLoaded] = useState<boolean>(false);
 
   const handleResize = () => {
@@ -141,19 +140,17 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const fetchMoreSessions = async () => {
-    if (isFetching || allSessionsLoaded) return;
-    setIsFetching(true);
+    if (allSessionsLoaded) return;
     const page = Math.ceil(sessions.length / 15 + 1);
     const response = await fetchSessions(page);
     if (response?.status < 300) {
-      if (response.data.sessions.length === 0) {
+      if (sessions.length === response.data.totalSessions) {
         setAllSessionsLoaded(true);
-      } else {
-        setSessions((prevSessions: any) => [
-          ...prevSessions,
-          ...response.data.sessions,
-        ]);
       }
+      setSessions((prevSessions: any) => [
+        ...prevSessions,
+        ...response.data.sessions,
+      ]);
     } else {
       toast.error(t(`global.serverError`), {
         position: "top-right",
@@ -166,7 +163,6 @@ const Sidebar: React.FC<SidebarProps> = ({
         transition: Bounce,
       });
     }
-    setIsFetching(false);
   };
 
   const handleScroll = () => {
