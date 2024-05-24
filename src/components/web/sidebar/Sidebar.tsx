@@ -37,6 +37,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [newTitle, setNewTitle] = useState("");
   const sidebarRef: any = useRef(null);
   const [allSessionsLoaded, setAllSessionsLoaded] = useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState(false);
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth);
@@ -140,7 +141,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const fetchMoreSessions = async () => {
-    if (allSessionsLoaded) return;
+    if (isFetching || allSessionsLoaded) return;
+    setIsFetching(true);
     const page = Math.ceil(sessions.length / 15 + 1);
     const response = await fetchSessions(page);
     if (response?.status < 300) {
@@ -163,6 +165,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         transition: Bounce,
       });
     }
+    setIsFetching(false);
   };
 
   const handleScroll = () => {
