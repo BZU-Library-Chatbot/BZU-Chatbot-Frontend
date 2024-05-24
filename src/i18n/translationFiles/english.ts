@@ -22,7 +22,8 @@ const English = {
     rememberMe: "Remember me",
     forgetPassword: "Forget Password?",
     noAccount: "Don't have an account?",
-    loginSuccess: "Login Successful!",
+    invalidCredentials: "Invalid Credentials",
+    success: "Login Successful!",
   },
   register: {
     username: "Username",
@@ -30,13 +31,15 @@ const English = {
     password: "Password",
     confirmPassword: "Confirm Password",
     alreadyHaveAccount: "Already have an account?",
-    registerSuccess:
+    duplicatedEmail: "Duplicated Email",
+    success:
       "Account created successfully! Please verify your email to login!",
   },
   sendCode: {
     email: "Email",
     send: "send",
     login: "Back to Login",
+    nonRegiserUser: "Non Register Account",
     success:"Code sent successfully, Check your email.",
   },
   forgetPassword: {
@@ -45,7 +48,8 @@ const English = {
     confirmPassword: "Confirm Password",
     confirm: "Confirm",
     login: "Back to Login",
-    success: "Password updated successfully"
+    success: "Password updated successfully",
+    invalidData: "Invalid Data",
   },
   navbar: {
     menu: "Menu",
@@ -54,6 +58,7 @@ const English = {
     newChat: "New Chat",
     logout: "Logout",
     faildUpadateTitle: "Faild to Upaate Conversation Title",
+    updateForNonReisterd: "Only registered users can edit session title",
   },
   settings: {
     language: "Language",

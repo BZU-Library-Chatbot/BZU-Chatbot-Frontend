@@ -45,8 +45,19 @@ const index = () => {
         progress: undefined,
         theme: "light",
       });
-    } else if(response?.response?.status < 500) {
-      toast.error(t("settings.differentPassword") , {
+    } else if (response?.response?.status < 500) {
+      toast.error(t("settings.differentPassword"), {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      toast.error(`${t("global.serverError")}`, {
         position: "top-center",
         autoClose: false,
         hideProgressBar: false,
@@ -57,9 +68,6 @@ const index = () => {
         theme: "light",
       });
     }
-    else {
-      toast.error(`${t("global.serverError")}`);
-    }
   };
 
   useEffect(() => {
@@ -69,8 +77,17 @@ const index = () => {
         if (response?.status < 300) {
           const userData = response.data.user;
           dispatch(setUser(userData));
-        } else if (response?.status >= 500) {
-          toast.error(`${t("global.serverError")}`);
+        } else {
+          toast.error(`${t("global.serverError")}`, {
+            position: "top-center",
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         }
       }
     };

@@ -46,8 +46,20 @@ const Register: React.FC = () => {
         theme: "light",
         transition: Bounce,
       });
+    } else if (response?.response?.status < 500) {
+      toast.error(`${t("forgetPassword.invalidData")}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     } else {
-      toast.error(response.response.data.stack.split("\n")[0], {
+      toast.error(`${t("global.serverError")}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
