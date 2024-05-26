@@ -1,11 +1,12 @@
 import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
-import { SendCodeSchema } from "../validation/validate";
 import styles from "./SendCode.module.scss";
 import { sendCode } from "./api";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
+import * as yup from "yup";
+
 
 interface FormValues {
   email: string;
@@ -14,6 +15,13 @@ interface FormValues {
 const SendCode: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const SendCodeSchema = yup.object({
+    email: yup
+      .string()
+      .required(t("validation.emailRequired"))
+      .email(t("validation.validEmail")),
+  });
 
   const initialValues: FormValues = {
     email: "",

@@ -43,6 +43,9 @@ const Home: React.FC = () => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [rating, setRating] = useState<number>(0);
   const [allMessagesLoaded, setAllMessagesLoaded] = useState<boolean>(false);
+  const [firstRender, setFirstRender] = useState <boolean>(false);
+  const [moreMessegesLoaded, setMoreMessegesLoaded] = useState<boolean>(false);
+  const [currentScrollHeight, setCurrentScrollHeight] = useState<number>(0);
 
   const handleStarClick = (rating: number) => {
     setRating(rating);
@@ -62,13 +65,14 @@ const Home: React.FC = () => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
   };
 
-  const loadMoreMessages = async (currentScrollHeight: number) => {
+  const loadMoreMessages = async () => {
     if (allMessagesLoaded) return;
 
     const page = Math.ceil(conversation.length / 10 + 1);
     const response = await loadMessages(id, page);
 
     if (response?.status < 300) {
+      setCurrentScrollHeight(chatContainerRef.current.scrollHeight);
       const newMessages = response.data.messages.map((message: any) => {
         return {
           userMessage: message.message,
@@ -84,12 +88,7 @@ const Home: React.FC = () => {
         ...newMessages,
         ...prevConversation,
       ]);
-
-      setTimeout(() => {
-        const newScrollHeight = chatContainerRef.current.scrollHeight;
-        const scrollOffset = newScrollHeight - currentScrollHeight;
-        chatContainerRef.current.scrollTop = scrollOffset;
-      }, 0);
+      setMoreMessegesLoaded(true);
     } else {
       toast.error(t("global.serverError"), {
         position: "top-center",
@@ -107,8 +106,7 @@ const Home: React.FC = () => {
 
   const handleScroll = () => {
     if (chatContainerRef.current.scrollTop === 0) {
-      const currentScrollHeight = chatContainerRef.current.scrollHeight;
-      loadMoreMessages(currentScrollHeight);
+      loadMoreMessages();
     }
   };
 
@@ -176,6 +174,7 @@ const Home: React.FC = () => {
               };
             })
           );
+          setFirstRender(true);
         } else {
           toast.error(`${t("global.serverError")}`, {
             position: "top-center",
@@ -206,8 +205,20 @@ const Home: React.FC = () => {
   }, [sessions, id]);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [conversation]);
+    if (firstRender) {
+      scrollToBottom();
+    }
+    setFirstRender(false);
+  }, [firstRender]);
+
+  useEffect(() => {
+    if (moreMessegesLoaded) {
+      const newScrollHeight = chatContainerRef.current.scrollHeight;
+      const scrollOffset = newScrollHeight - currentScrollHeight;
+      chatContainerRef.current.scrollTop = scrollOffset;
+    }
+    setMoreMessegesLoaded(false);
+  }, [moreMessegesLoaded]);
 
   const initialValues: FormValues = {
     message: "",

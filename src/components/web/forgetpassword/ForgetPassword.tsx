@@ -1,12 +1,12 @@
 import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
-import { ForgetPasswordSchema } from "../validation/validate";
 import styles from "./ForgetPassword.module.scss";
 import { forgetPassword } from "./api";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
+import * as yup from "yup";
 
 interface FormValues {
   code: string;
@@ -18,6 +18,25 @@ const Register: React.FC = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+
+  const ForgetPasswordSchema = yup.object({
+    code: yup
+      .string()
+      .min(4, t("validation.codeLength"))
+      .max(4, t("validation.codeLength"))
+      .required(t("validation.codeRequired")),
+    password: yup
+      .string()
+      .min(8, t("validation.passwordLength"))
+      .matches(/[0-9]/, t("validation.containsNumber"))
+      .matches(/[a-z]/, t("validation.containsLowercase"))
+      .matches(/[A-Z]/, t("validation.containsUppercase"))
+      .required(t("validation.PasswordRequired")),
+    cPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), undefined], t("validation.passwordMatch"))
+      .required(t("validation.cPasswordRequired")),
+  });
 
   const queryParams = new URLSearchParams(location.search);
   const email = queryParams.get("email") || "";
