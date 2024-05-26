@@ -6,7 +6,6 @@ import Input from "../../pages/Input";
 import { changePassword } from "./api";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { ChangePasswordSchema } from "../validation/validate";
 import { SelectButton } from "primereact/selectbutton";
 import languageService from "../../../services/languageService";
 import i18n from "i18next";
@@ -14,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../../common/api";
 import { setUser } from "../../../redux/userSlice";
 import authService from "../../../services/authService";
+import * as yup from "yup";
 
 interface FormValues {
   oldPassword: string;
@@ -25,6 +25,31 @@ const index = () => {
   const { user } = useSelector((state: any) => state.user);
   const { t }: any = useTranslation();
   const dispatch = useDispatch();
+
+  const ChangePasswordSchema = yup.object({
+    oldPassword: yup
+      .string()
+      .min(8, t("validation.passwordLength"))
+      .required(t("validation.PasswordRequired")),
+    newPassword: yup
+      .string()
+      .min(8, t("validation.passwordLength"))
+      .matches(/[0-9]/, t("validation.containsNumber"))
+      .matches(/[a-z]/, t("validation.containsLowercase"))
+      .matches(/[A-Z]/, t("validation.containsUppercase"))
+      .required(t("validation.PasswordRequired"))
+      .notOneOf(
+        [yup.ref("oldPassword")],
+        t("validation.newPasswordRequired")
+      ),
+    cPassword: yup
+      .string()
+      .oneOf(
+        [yup.ref("newPassword"), undefined],
+        t("validation.passwordMatch")
+      )
+      .required(t("validation.cPasswordRequired")),
+  });
 
   const initialValues: FormValues = {
     oldPassword: "",

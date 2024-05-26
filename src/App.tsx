@@ -6,12 +6,12 @@ import languageService from "./services/languageService.ts";
 import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "primereact/resources/primereact.min.css";
-import i18n from "i18next";
+import i18n from "./i18n/config.ts";
 
 const App: React.FC = () => {
   useEffect(() => {
     const changeLanguage = async () => {
-      if (!languageService.hasLanguage) {
+      if (!languageService.hasLanguage()) {
         languageService.saveLanguage("ar");
       }
       await i18n.changeLanguage(languageService.loadLanguage());

@@ -2,11 +2,11 @@ import React from "react";
 import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
-import { RegisterSchema } from "../validation/validate";
 import styles from "./Register.module.scss";
 import { Link } from "react-router-dom";
 import { register } from "./api";
 import { useTranslation } from "react-i18next";
+import * as yup from "yup";
 
 interface FormValues {
   userName: string;
@@ -17,6 +17,29 @@ interface FormValues {
 
 const Register: React.FC = () => {
   const { t } = useTranslation();
+
+  const RegisterSchema = yup.object({
+    userName: yup
+      .string()
+      .required(t("validation.usernameRequired"))
+      .min(3, t("validation.userNameMinLength"))
+      .max(30, t("validation.userNameMaxLength")),
+    email: yup
+      .string()
+      .required(t("validation.emailRequired"))
+      .email(t("validation.validEmail")),
+    password: yup
+      .string()
+      .min(8, t("validation.passwordLength"))
+      .matches(/[0-9]/, t("validation.containsNumber"))
+      .matches(/[a-z]/, t("validation.containsLowercase"))
+      .matches(/[A-Z]/, t("validation.containsUppercase"))
+      .required(t("validation.PasswordRequired")),
+    cPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), undefined], t("validation.passwordMatch"))
+      .required(t("validation.cPasswordRequired")),
+  });
 
   const initialValues: FormValues = {
     userName: "",

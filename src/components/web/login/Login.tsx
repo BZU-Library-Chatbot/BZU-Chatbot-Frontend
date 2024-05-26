@@ -2,7 +2,6 @@ import React from "react";
 import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
-import { LoginSchema } from "../validation/validate";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
 import { jwtDecode } from "jwt-decode";
@@ -12,6 +11,8 @@ import { login } from "./api";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../redux/userSlice";
+import * as yup from "yup";
+
 
 interface FormValues {
   email: string;
@@ -23,6 +24,17 @@ const Login: React.FC = () => {
   const [isAuth, setIsAuth] = useState(authService.isAuthenticated());
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const LoginSchema = yup.object({
+    email: yup
+      .string()
+      .required(t("validation.emailRequired"))
+      .email(t("validation.validEmail")),
+    password: yup
+      .string()
+      .min(8, t("validation.passwordLength"))
+      .required(t("validation.PasswordRequired")),
+  });
 
   useEffect(() => {
     if (isAuth) {

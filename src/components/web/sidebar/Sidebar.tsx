@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./Sidebar.module.scss";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoChatbubbleSharp } from "react-icons/io5";
@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { clearUser } from "../../../redux/userSlice";
 import { toast, Bounce } from "react-toastify";
 import { changeSessionTitle } from "./api";
+import { fetchSessions } from "../home/api";
 
 interface SidebarProps {
   onSessionClick: (sessionId: string) => void;
@@ -34,6 +35,9 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [, setScreenWidth] = useState(window.innerWidth);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [newTitle, setNewTitle] = useState("");
+  const sidebarRef: any = useRef(null);
+  const [allSessionsLoaded, setAllSessionsLoaded] = useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState(false);
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth);
@@ -136,6 +140,43 @@ const Sidebar: React.FC<SidebarProps> = ({
     }
   };
 
+  const fetchMoreSessions = async () => {
+    if (isFetching || allSessionsLoaded) return;
+    setIsFetching(true);
+    const page = Math.ceil(sessions.length / 15 + 1);
+    const response = await fetchSessions(page);
+    if (response?.status < 300) {
+      if (sessions.length === response.data.totalSessions) {
+        setAllSessionsLoaded(true);
+      }
+      setSessions((prevSessions: any) => [
+        ...prevSessions,
+        ...response.data.sessions,
+      ]);
+    } else {
+      toast.error(t(`global.serverError`), {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Bounce,
+      });
+    }
+    setIsFetching(false);
+  };
+
+  const handleScroll = () => {
+    if (sidebarRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = sidebarRef.current;
+      if (scrollTop + clientHeight >= scrollHeight - 10) {
+        fetchMoreSessions();
+      }
+    }
+  };
+
   return (
     <div
       className={`${styles.sidenav} ${
@@ -153,7 +194,11 @@ const Sidebar: React.FC<SidebarProps> = ({
         )}
         {collapsed && null}
       </div>
-      <ul className={styles["sidenav-nav"]}>
+      <ul
+        className={styles["sidenav-nav"]}
+        ref={sidebarRef}
+        onScroll={handleScroll}
+      >
         {sessions?.map((session: any, index) => (
           <li
             key={index}
