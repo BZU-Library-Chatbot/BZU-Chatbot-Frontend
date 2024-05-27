@@ -22,7 +22,8 @@ The BZU Library Chatbot is a solution designed to enhance the user experience an
   npm run dev
 ```
 
-## Authers 
+## Authors 
+
 👤 **Raghad Aqel**
 👤 **Aziza Karakra**
 👤 **Tariq Quraan**
