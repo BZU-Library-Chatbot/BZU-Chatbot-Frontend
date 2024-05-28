@@ -43,7 +43,7 @@ const Home: React.FC = () => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [rating, setRating] = useState<number>(0);
   const [allMessagesLoaded, setAllMessagesLoaded] = useState<boolean>(false);
-  const [firstRender, setFirstRender] = useState <boolean>(false);
+  const [firstRender, setFirstRender] = useState<boolean>(false);
   const [moreMessegesLoaded, setMoreMessegesLoaded] = useState<boolean>(false);
   const [currentScrollHeight, setCurrentScrollHeight] = useState<number>(0);
 
@@ -331,30 +331,33 @@ const Home: React.FC = () => {
         </div>
       </div>
       <div className={styles.botMessageContainer}>
-        <div className={styles.msgContainer}>
-          <p
-            className={`${styles.botMessage} ${
-              !item.botResponse ? styles.dots : ""
-            }`}
-          >
-            {item.botResponse ? item.botResponse : dots}
-          </p>
-          <img src={chatbotImage} alt="chatbotImage" />
-        </div>
+        <div className={styles.botInnerContainer}>
+          <div className={styles.msgContainer}>
+            <p
+              className={`${styles.botMessage} ${
+                !item.botResponse ? styles.dots : ""
+              }`}
+            >
+              {item.botResponse ? item.botResponse : dots}
+            </p>
+            <img src={chatbotImage} alt="chatbotImage" />
+          </div>
 
-        <div className={styles.ratingStar}></div>
+          <div className={styles.ratingStars}>
+            {item.botResponse ? (
+              <>
+                <RatingStar onStarClick={handleStarClick} />
+                <Feedback
+                  show={showFeedback}
+                  handleClose={handleCloseFeedback}
+                  rating={rating}
+                  interactionId={item._id}
+                />
+              </>
+            ) : null}
+          </div>
+        </div>
       </div>
-      {item.botResponse ? (
-        <>
-          <RatingStar onStarClick={handleStarClick} />
-          <Feedback
-            show={showFeedback}
-            handleClose={handleCloseFeedback}
-            rating={rating}
-            interactionId={item._id}
-          />
-        </>
-      ) : null}
     </div>
   ));
 
