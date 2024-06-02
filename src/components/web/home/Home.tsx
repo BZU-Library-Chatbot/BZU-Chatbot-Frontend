@@ -325,14 +325,14 @@ const Home: React.FC = () => {
   const renderConversation = conversation?.map((item: any, index) => (
     <div key={index} className={styles.cont}>
       <div className={styles.userMessageContainer}>
-        <div className={styles.msgContainer}>
+        <div className={styles.msgContainerUser}>
           <img src={userImage || userImageIcon} alt="userImageIcon" />
           <p className={styles.userMessage}>{item.userMessage}</p>
         </div>
       </div>
       <div className={styles.botMessageContainer}>
         <div className={styles.botInnerContainer}>
-          <div className={styles.msgContainer}>
+          <div className={styles.msgContainerBot}>
             <p
               className={`${styles.botMessage} ${
                 !item.botResponse ? styles.dots : ""
@@ -340,22 +340,21 @@ const Home: React.FC = () => {
             >
               {item.botResponse ? item.botResponse : dots}
             </p>
-            <img src={chatbotImage} alt="chatbotImage" />
+            <div className={styles.ratingStars}>
+              {item.botResponse ? (
+                <>
+                  <RatingStar onStarClick={handleStarClick} />
+                  <Feedback
+                    show={showFeedback}
+                    handleClose={handleCloseFeedback}
+                    rating={rating}
+                    interactionId={item._id}
+                  />
+                </>
+              ) : null}
+            </div>
           </div>
-
-          <div className={styles.ratingStars}>
-            {item.botResponse ? (
-              <>
-                <RatingStar onStarClick={handleStarClick} />
-                <Feedback
-                  show={showFeedback}
-                  handleClose={handleCloseFeedback}
-                  rating={rating}
-                  interactionId={item._id}
-                />
-              </>
-            ) : null}
-          </div>
+          <img src={chatbotImage} alt="chatbotImage" />
         </div>
       </div>
     </div>
