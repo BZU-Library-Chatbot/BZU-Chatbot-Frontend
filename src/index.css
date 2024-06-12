@@ -1,7 +1,7 @@
 body {
   height: max-content;
   min-height: 100vh;
-  background-color: white;
+  /* background-color: white; */
   color: darkslategray;
 }
 

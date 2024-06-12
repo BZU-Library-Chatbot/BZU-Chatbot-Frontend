@@ -7,8 +7,6 @@ import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import authService from "../../../services/authService";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { clearUser } from "../../../redux/userSlice";
 import { toast, Bounce } from "react-toastify";
 import { changeSessionTitle } from "./api";
 import { fetchSessions } from "../home/api";
@@ -30,7 +28,6 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const [, setScreenWidth] = useState(window.innerWidth);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
@@ -60,16 +57,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   const createNewChat = async () => {
     setConversation([]);
     navigate("/home");
-  };
-
-  const handleLogout = () => {
-    authService.removeToken();
-    dispatch(clearUser());
-    navigate("/login");
-  };
-
-  const handleSettings = () => {
-    navigate("/settings");
   };
 
   const handleSessionClick = (index: number) => {
@@ -238,28 +225,6 @@ const Sidebar: React.FC<SidebarProps> = ({
           </li>
         ))}
       </ul>
-
-      <div className={styles.buttons}>
-        <button className={styles["btn"]} onClick={handleLogout}>
-          <FiLogOut />
-          {collapsed && (
-            <span className={styles["sidenav-link-text"]}>
-              {t("sidebar.logout")}
-            </span>
-          )}
-        </button>
-        <button
-          className={`${styles["btn"]} ${!collapsed && styles.settings}`}
-          onClick={handleSettings}
-        >
-          <i className="fa-solid fa-gear"></i>
-          {collapsed && (
-            <span className={`${styles["sidenav-link-text"]}`}>
-              {t("global.settings")}
-            </span>
-          )}
-        </button>
-      </div>
     </div>
   );
 };
