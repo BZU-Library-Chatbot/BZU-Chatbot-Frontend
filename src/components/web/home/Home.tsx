@@ -244,9 +244,7 @@ const Home: React.FC = () => {
         setActiveIndex(sessions.length - 1);
         if (authService.isAuthenticated()) {
           navigate(`/home/${response.data.sessionId}`);
-        } else {
-          navigate(`/home`);
-        }
+        } 
       }
 
       const botResponse = response.data.response;
