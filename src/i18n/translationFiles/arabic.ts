@@ -35,10 +35,10 @@ const Arabic = {
   },
   sendCode: {
     email: "البريد الالكتروني",
-    send:"أرسال",
+    send: "أرسال",
     login: "عد الى صفحة تسحيل الدخول",
     nonRegiserUser: " هذا المستخدم لم يقم بتسجيل الدخول",
-    success:"تم ارسال الرمز بنجاح تفقد بريدك الالكتروني",
+    success: "تم ارسال الرمز بنجاح تفقد بريدك الالكتروني",
   },
   forgetPassword: {
     code: "الرمز",
@@ -56,7 +56,8 @@ const Arabic = {
     newChat: "دردشة جديدة",
     logout: "تسجيل الخروج",
     faildUpadateTitle: "فشل تحديث عنوان المحادثة",
-    updateForNonReisterd: "فقط المستخدمين اللذين قامو بتسجيل الدخول يمكنهم تحديث عنوان المحادثة",
+    updateForNonReisterd:
+      "فقط المستخدمين اللذين قامو بتسجيل الدخول يمكنهم تحديث عنوان المحادثة",
   },
   settings: {
     language: "اللغة",
@@ -85,6 +86,7 @@ const Arabic = {
   global: {
     login: "تسجيل الدخول",
     register: "إنشاء حساب",
+    logout: "تسجيل الخروج",
     copyRights: "© 2023-2024 BZU-Library-Chatbot - جميع الحقوق محفوظة.",
     title: "BZU Library Chatbot",
     home: "الصفحة الرئيسية",

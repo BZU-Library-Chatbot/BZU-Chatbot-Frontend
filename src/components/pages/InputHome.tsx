@@ -24,9 +24,10 @@ const InputHome: React.FC<InputProps> = ({
   message,
   handleSendMessage,
 }) => {
-  const handleKeyPress = (event: any) => {
-    if (event.key == "Enter" && message.trim() != "") {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && message.trim() !== "") {
       handleSendMessage();
+      event.preventDefault();
     }
   };
   return (
@@ -39,11 +40,11 @@ const InputHome: React.FC<InputProps> = ({
         placeholder={placeholder}
         className={styles.message}
         id={id}
+        onKeyDown={handleKeyPress}
       />
       <div
         className={styles.submit}
         onClick={message.trim() !== "" ? handleSendMessage : undefined}
-        onKeyDown={handleKeyPress}
         style={{
           cursor: message.trim() === "" ? "not-allowed" : "pointer",
         }}

@@ -1,4 +1,3 @@
-
 const English = {
   admin: {},
   about: {
@@ -32,15 +31,14 @@ const English = {
     confirmPassword: "Confirm Password",
     alreadyHaveAccount: "Already have an account?",
     duplicatedEmail: "Duplicated Email",
-    success:
-      "Account created successfully! Please verify your email to login!",
+    success: "Account created successfully! Please verify your email to login!",
   },
   sendCode: {
     email: "Email",
     send: "send",
     login: "Back to Login",
     nonRegiserUser: "Non Register Account",
-    success:"Code sent successfully, Check your email.",
+    success: "Code sent successfully, Check your email.",
   },
   forgetPassword: {
     code: "Code",
@@ -87,6 +85,7 @@ const English = {
   global: {
     login: "Login",
     register: "Register",
+    logout: "Logout",
     copyRights: "© 2023-2024 BZU-Library-Chatbot - All Right Reserved.",
     title: "BZU Library Chatbot",
     home: "Home",
@@ -117,13 +116,14 @@ const English = {
     cPasswordRequired: "Confirm Password is required",
     codeRequired: "Code is Required",
     codeLength: "code must be 4 only characters",
-    newPasswordRequired: "Your new password cannot be the same as your old password",
+    newPasswordRequired:
+      "Your new password cannot be the same as your old password",
   },
   feedback: {
     title: "Add Feedback",
     body: "How was the response?",
     Close: "Close",
-  }
+  },
 };
 
 export default English;

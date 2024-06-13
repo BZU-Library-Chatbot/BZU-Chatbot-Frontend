@@ -38,16 +38,10 @@ const index = () => {
       .matches(/[a-z]/, t("validation.containsLowercase"))
       .matches(/[A-Z]/, t("validation.containsUppercase"))
       .required(t("validation.PasswordRequired"))
-      .notOneOf(
-        [yup.ref("oldPassword")],
-        t("validation.newPasswordRequired")
-      ),
+      .notOneOf([yup.ref("oldPassword")], t("validation.newPasswordRequired")),
     cPassword: yup
       .string()
-      .oneOf(
-        [yup.ref("newPassword"), undefined],
-        t("validation.passwordMatch")
-      )
+      .oneOf([yup.ref("newPassword"), undefined], t("validation.passwordMatch"))
       .required(t("validation.cPasswordRequired")),
   });
 
@@ -105,7 +99,7 @@ const index = () => {
         } else {
           toast.error(`${t("global.serverError")}`, {
             position: "top-center",
-            autoClose: false,
+            autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -228,31 +222,33 @@ const index = () => {
                 </div>
               </div>
               <hr className="mt-4" />
-              <form className="row" onSubmit={formik.handleSubmit}>
-                <div className="col-md-6">{renderInputs}</div>
-                <div className="col-md-6 requirements">
-                  <p className="mb-2">{t("settings.passwordRequirements")}</p>
-                  <p className="small text-muted mb-2">
-                    {t("settings.requirementsText")}
-                  </p>
-                  <ul className="small text-muted pl-4 mb-0">
-                    {t("settings.requirements", { returnObjects: true }).map(
-                      (requirement: any, index: any) => (
-                        <li key={index}>{requirement}</li>
-                      )
-                    )}
-                  </ul>
-                </div>
-                <div className="d-flex justify-content-center">
-                  <button
-                    type="submit"
-                    className="btn-custom"
-                    disabled={!formik.isValid}
-                  >
-                    {t("settings.change")}
-                  </button>
-                </div>
-              </form>
+              {authService.isAuthenticated() && (
+                <form className="row" onSubmit={formik.handleSubmit}>
+                  <div className="col-md-6">{renderInputs}</div>
+                  <div className="col-md-6 requirements">
+                    <p className="mb-2">{t("settings.passwordRequirements")}</p>
+                    <p className="small text-muted mb-2">
+                      {t("settings.requirementsText")}
+                    </p>
+                    <ul className="small text-muted pl-4 mb-0">
+                      {t("settings.requirements", { returnObjects: true }).map(
+                        (requirement: any, index: any) => (
+                          <li key={index}>{requirement}</li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+                  <div className="d-flex justify-content-center">
+                    <button
+                      type="submit"
+                      className="btn-custom"
+                      disabled={!formik.isValid}
+                    >
+                      {t("settings.change")}
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
         </div>

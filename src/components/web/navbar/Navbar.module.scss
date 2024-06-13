@@ -1,11 +1,11 @@
 .navbarCustom {
   height: 8vh;
   border-bottom: 1.5px solid gray;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.5rem 0.5rem,
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0.3rem 0.3rem,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-  background: linear-gradient(to bottom, #4f709c, #545b77);
-}
+    background: linear-gradient(to top, #4f709c, #545b77);
+  }
 
 .container {
   display: flex;
@@ -32,9 +32,10 @@
 }
 
 .logo {
-  color: burlywood;
+  color: rgb(50, 48, 48);
   font-weight: 550;
   font-size: 1.4rem;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
 .toggleBtn {
@@ -57,18 +58,21 @@
   color: maroon;
 }
 
-@media screen and (max-width: 991px) {
-  .rightNavBar {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background: linear-gradient(to top, #4f709c, #545b77);
-    width: max-content;
-    height: max-content;
-    z-index: 4;
-    .navListItem {
-      margin: 2rem 0;
-      height: 40%;
-    }
-  }
+.userIcon {
+  cursor: pointer;
+  width: 2.8rem;
+  height: 2.8rem;
+  margin: 0 1rem;
+  border-radius: 50%;
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
 }

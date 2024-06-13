@@ -46,6 +46,7 @@ const Home: React.FC = () => {
   const [firstRender, setFirstRender] = useState<boolean>(false);
   const [moreMessegesLoaded, setMoreMessegesLoaded] = useState<boolean>(false);
   const [currentScrollHeight, setCurrentScrollHeight] = useState<number>(0);
+  const [conversationLoader, setConversationLoader] = useState<any>();
 
   const handleStarClick = (rating: number) => {
     setRating(rating);
@@ -105,6 +106,9 @@ const Home: React.FC = () => {
   };
 
   const handleScroll = () => {
+    if (!authService.isAuthenticated()) {
+      return;
+    }
     if (chatContainerRef.current.scrollTop === 0) {
       loadMoreMessages();
     }
@@ -142,6 +146,7 @@ const Home: React.FC = () => {
         if (response?.status < 300) {
           const userData = response.data.user;
           dispatch(setUser(userData));
+          setUserImage(userData?.profilePic?.secure_url);
         } else {
           toast.error(`${t("global.serverError")}`, {
             position: "top-center",
@@ -237,7 +242,9 @@ const Home: React.FC = () => {
       if (!sessionId) {
         sessions.unshift(response.data.session);
         setActiveIndex(sessions.length - 1);
-        navigate(`/home/${response.data.sessionId}`);
+        if (authService.isAuthenticated()) {
+          navigate(`/home/${response.data.sessionId}`);
+        } 
       }
 
       const botResponse = response.data.response;
@@ -326,7 +333,10 @@ const Home: React.FC = () => {
     <div key={index} className={styles.cont}>
       <div className={styles.userMessageContainer}>
         <div className={styles.msgContainerUser}>
-          <img src={userImage || userImageIcon} alt="userImageIcon" />
+          <img
+            src={userImage ? userImage : userImageIcon}
+            alt="userImageIcon"
+          />
           <p className={styles.userMessage}>{item.userMessage}</p>
         </div>
       </div>
@@ -360,6 +370,10 @@ const Home: React.FC = () => {
     </div>
   ));
 
+  useEffect(() => {
+    setConversationLoader(renderConversation);
+  }, [userImage]);
+
   const handleSessionClick = (sessionId: string) => {
     if (id != sessionId) {
       navigate(`/home/${sessionId}`);
@@ -370,13 +384,15 @@ const Home: React.FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <Sidebar
-          onSessionClick={handleSessionClick}
-          setConversation={setConversation}
-          sessions={sessions}
-          activeIndex={activeIndex}
-          setSessions={setSessions}
-        />
+        {authService.isAuthenticated() && (
+          <Sidebar
+            onSessionClick={handleSessionClick}
+            setConversation={setConversation}
+            sessions={sessions}
+            activeIndex={activeIndex}
+            setSessions={setSessions}
+          />
+        )}
         <section className={styles.main}>
           <div
             className={styles.feed}
