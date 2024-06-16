@@ -54,7 +54,6 @@ const English = {
     password: "Password",
     confirmPassword: "Confirm Password",
     confirm: "Confirm",
-    login: "Back to Login",
     success: "Password updated successfully",
     invalidData: "Invalid Data",
   },
@@ -94,7 +93,7 @@ const English = {
   global: {
     login: "Login",
     register: "Register",
-    aadminRegister: "Create Admin Account",
+    adminRegister: "Create Admin Account",
     logout: "Logout",
     copyRights: "© 2023-2024 BZU-Library-Chatbot - All Right Reserved.",
     title: "BZU Library Chatbot",

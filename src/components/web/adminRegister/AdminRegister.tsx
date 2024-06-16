@@ -156,7 +156,7 @@ const AdminRegister: React.FC = () => {
     <div className={styles.body}>
       <div className={styles.wrapper}>
         <form onSubmit={formik.handleSubmit} action="">
-          <h1>{t("global.aadminRegister")}</h1>
+          <h1>{t("global.adminRegister")}</h1>
           <div className={styles.inputBox}>{renderInputs[0]}</div>
           <div className={styles.inputBox}>{renderInputs[1]}</div>
           <div className={styles.inputBox}>{renderInputs[2]}</div>
@@ -170,14 +170,6 @@ const AdminRegister: React.FC = () => {
             {t("global.register")}
           </button>
 
-          <div className={styles.loginLink}>
-            <p>
-              {t("adminRegister.alreadyHaveAccount")}
-              <Link to="/login" className={`${styles.link}`}>
-                {t("global.login")}
-              </Link>
-            </p>
-          </div>
         </form>
       </div>
     </div>

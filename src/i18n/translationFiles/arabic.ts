@@ -55,7 +55,6 @@ const Arabic = {
     password: "كلمة المرور",
     confirmPassword: "تأكيد كلمة المرور",
     confirm: "تأكيد",
-    login: "عد الى صفحة تسحيل الدخول",
     invalidData: "البيانات غير صحيحة",
     success: "تم تحديث كلمة المرور بنجاح",
   },
@@ -96,7 +95,7 @@ const Arabic = {
   global: {
     login: "تسجيل الدخول",
     register: "إنشاء حساب",
-    aadminRegister: " إنشاء حساب مسؤول",
+    adminRegister: " إنشاء حساب مسؤول",
     logout: "تسجيل الخروج",
     copyRights: "© 2023-2024 BZU-Library-Chatbot - جميع الحقوق محفوظة.",
     title: "BZU Library Chatbot",
