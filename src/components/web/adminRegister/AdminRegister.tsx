@@ -1,0 +1,187 @@
+import React from "react";
+import Input from "../../pages/Input";
+import { useFormik } from "formik";
+import { toast, Bounce } from "react-toastify";
+import styles from "./AdminRegister.module.scss";
+import { Link } from "react-router-dom";
+import { adminRegister } from './api'
+import { useTranslation } from "react-i18next";
+import * as yup from "yup";
+
+interface FormValues {
+  userName: string;
+  email: string;
+  password: string;
+  cPassword: string;
+}
+
+const AdminRegister: React.FC = () => {
+  const { t } = useTranslation();
+
+  const RegisterSchema = yup.object({
+    userName: yup
+      .string()
+      .required(t("validation.usernameRequired"))
+      .min(3, t("validation.userNameMinLength"))
+      .max(30, t("validation.userNameMaxLength")),
+    email: yup
+      .string()
+      .required(t("validation.emailRequired"))
+      .email(t("validation.validEmail")),
+    password: yup
+      .string()
+      .min(8, t("validation.passwordLength"))
+      .matches(/[0-9]/, t("validation.containsNumber"))
+      .matches(/[a-z]/, t("validation.containsLowercase"))
+      .matches(/[A-Z]/, t("validation.containsUppercase"))
+      .required(t("validation.PasswordRequired")),
+    cPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), undefined], t("validation.passwordMatch"))
+      .required(t("validation.cPasswordRequired")),
+  });
+
+  const initialValues: FormValues = {
+    userName: "",
+    email: "",
+    password: "",
+    cPassword: "",
+  };
+
+  const onSubmit = async (admin: FormValues) => {
+    const response = await adminRegister(admin);
+    if (response?.status < 300) {
+      const { data } = response;
+      formik.resetForm();
+      toast.success(`${t("adminRegister.success")}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    } else if (response?.response?.status < 500) {
+      toast.error(`${t("adminRegister.duplicatedEmail")}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    } else {
+      toast.error(`${t("global.serverError")}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validationSchema: RegisterSchema,
+  });
+
+  const inputs = [
+    {
+      id: "username",
+      type: "text",
+      name: "userName",
+      title: `${t("adminRegister.username")}`,
+      placeholder: `${t("adminRegister.username")}`,
+      value: formik.values.userName,
+      onChange: formik.handleChange,
+    },
+    {
+      id: "email",
+      type: "email",
+      name: "email",
+      placeholder: `${t("adminRegister.email")}`,
+      title: `${t("adminRegister.email")}`,
+      value: formik.values.email,
+      onChange: formik.handleChange,
+    },
+    {
+      id: "password",
+      type: "password",
+      name: "password",
+      placeholder: `${t("adminRegister.password")}`,
+      title: `${t("adminRegister.password")}`,
+      value: formik.values.password,
+      onChange: formik.handleChange,
+    },
+    {
+      id: "cPassword",
+      type: "password",
+      name: "cPassword",
+      placeholder: `${t("adminRegister.confirmPassword")}`,
+      title: `${t("adminRegister.confirmPassword")}`,
+      value: formik.values.cPassword,
+      onChange: formik.handleChange,
+    },
+  ];
+
+  const renderInputs = inputs.map((input, index) => (
+    <Input
+      type={input.type}
+      id={input.id}
+      name={input.name}
+      title={input.title}
+      value={input.value}
+      key={index}
+      placeholder={input.placeholder}
+      errors={formik.errors}
+      onChange={formik.handleChange}
+      onBlur={formik.handleBlur}
+      touched={formik.touched}
+    />
+  ));
+
+  return (
+    <div className={styles.body}>
+      <div className={styles.wrapper}>
+        <form onSubmit={formik.handleSubmit} action="">
+          <h1>{t("global.aadminRegister")}</h1>
+          <div className={styles.inputBox}>{renderInputs[0]}</div>
+          <div className={styles.inputBox}>{renderInputs[1]}</div>
+          <div className={styles.inputBox}>{renderInputs[2]}</div>
+          <div className={styles.inputBox}>{renderInputs[3]}</div>
+
+          <button
+            type="submit"
+            className={styles.btn}
+            disabled={!formik.isValid}
+          >
+            {t("global.register")}
+          </button>
+
+          <div className={styles.loginLink}>
+            <p>
+              {t("adminRegister.alreadyHaveAccount")}
+              <Link to="/login" className={`${styles.link}`}>
+                {t("global.login")}
+              </Link>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default AdminRegister;

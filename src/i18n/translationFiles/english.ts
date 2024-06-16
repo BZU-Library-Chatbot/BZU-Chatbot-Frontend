@@ -33,6 +33,15 @@ const English = {
     duplicatedEmail: "Duplicated Email",
     success: "Account created successfully! Please verify your email to login!",
   },
+   adminRegister: {
+    username: "Username",
+    email: "Email",
+    password: "Password",
+    confirmPassword: "Confirm Password",
+    alreadyHaveAccount: "Already have an account?",
+    duplicatedEmail: "Duplicated Email",
+    success: "Admin Account created successfully! Please verify your email to login!",
+  },
   sendCode: {
     email: "Email",
     send: "send",
@@ -85,6 +94,7 @@ const English = {
   global: {
     login: "Login",
     register: "Register",
+    aadminRegister: "Create Admin Account",
     logout: "Logout",
     copyRights: "© 2023-2024 BZU-Library-Chatbot - All Right Reserved.",
     title: "BZU Library Chatbot",
