@@ -2,7 +2,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "@fortawesome/fontawesome-free/js/all.min.js";
 import React, { useEffect } from "react";
 import AdminRouter from "./layouts/AdminRouter.tsx";
-import UserRoutes from "./layouts/UserRouter.tsx";
+import UserRouter from "./layouts/UserRouter.tsx";
 import languageService from "./services/languageService.ts";
 import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
@@ -63,7 +63,7 @@ const App: React.FC = () => {
     if (user?.role === "Admin") {
       return <AdminRouter />;
     } else {
-      return <UserRoutes />;
+      return <UserRouter />;
     } 
   };
 
