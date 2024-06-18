@@ -33,6 +33,16 @@ const Arabic = {
     success:
       "تم إنشاء الحساب بنجاح! يرجى التحقق من بريدك الإلكتروني لتسجيل الدخول!",
   },
+  adminRegister: {
+    username: "اسم المستخدم",
+    email: "البريد الالكتروني",
+    password: "كلمة المرور",
+    confirmPassword: "تأكيد كلمة المرور",
+    save: "حفظ",
+    duplicatedEmail: "تم استخدام هذا البريد الإلكتروني من قبل",
+    success:
+      "تم إنشاء الحساب بنجاح! يرجى التحقق من بريدك الإلكتروني لتسجيل الدخول!",
+  },
   sendCode: {
     email: "البريد الالكتروني",
     send: "أرسال",
@@ -45,7 +55,6 @@ const Arabic = {
     password: "كلمة المرور",
     confirmPassword: "تأكيد كلمة المرور",
     confirm: "تأكيد",
-    login: "عد الى صفحة تسحيل الدخول",
     invalidData: "البيانات غير صحيحة",
     success: "تم تحديث كلمة المرور بنجاح",
   },
@@ -86,6 +95,7 @@ const Arabic = {
   global: {
     login: "تسجيل الدخول",
     register: "إنشاء حساب",
+    adminRegister: "  إنشاء حساب مسؤول جديد",
     logout: "تسجيل الخروج",
     copyRights: "© 2023-2024 BZU-Library-Chatbot - جميع الحقوق محفوظة.",
     title: "BZU Library Chatbot",

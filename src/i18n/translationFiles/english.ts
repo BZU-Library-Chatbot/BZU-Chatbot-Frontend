@@ -33,6 +33,15 @@ const English = {
     duplicatedEmail: "Duplicated Email",
     success: "Account created successfully! Please verify your email to login!",
   },
+   adminRegister: {
+    username: "Username",
+    email: "Email",
+    password: "Password",
+    confirmPassword: "Confirm Password",
+    save: "Save",
+    duplicatedEmail: "Duplicated Email",
+    success: "Admin Account created successfully! Please verify your email to login!",
+  },
   sendCode: {
     email: "Email",
     send: "send",
@@ -45,7 +54,6 @@ const English = {
     password: "Password",
     confirmPassword: "Confirm Password",
     confirm: "Confirm",
-    login: "Back to Login",
     success: "Password updated successfully",
     invalidData: "Invalid Data",
   },
@@ -85,6 +93,7 @@ const English = {
   global: {
     login: "Login",
     register: "Register",
+    adminRegister: "Create New Admin Account",
     logout: "Logout",
     copyRights: "© 2023-2024 BZU-Library-Chatbot - All Right Reserved.",
     title: "BZU Library Chatbot",
