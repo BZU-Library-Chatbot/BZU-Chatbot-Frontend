@@ -38,7 +38,7 @@ const Arabic = {
     email: "البريد الالكتروني",
     password: "كلمة المرور",
     confirmPassword: "تأكيد كلمة المرور",
-    alreadyHaveAccount: "لديك حساب بالفعل؟",
+    save: "حفظ",
     duplicatedEmail: "تم استخدام هذا البريد الإلكتروني من قبل",
     success:
       "تم إنشاء الحساب بنجاح! يرجى التحقق من بريدك الإلكتروني لتسجيل الدخول!",
@@ -95,7 +95,7 @@ const Arabic = {
   global: {
     login: "تسجيل الدخول",
     register: "إنشاء حساب",
-    adminRegister: " إنشاء حساب مسؤول",
+    adminRegister: "  إنشاء حساب مسؤول جديد",
     logout: "تسجيل الخروج",
     copyRights: "© 2023-2024 BZU-Library-Chatbot - جميع الحقوق محفوظة.",
     title: "BZU Library Chatbot",

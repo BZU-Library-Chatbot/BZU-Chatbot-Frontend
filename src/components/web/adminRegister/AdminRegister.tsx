@@ -1,10 +1,9 @@
 import React from "react";
-import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
 import styles from "./AdminRegister.module.scss";
-import { Link } from "react-router-dom";
-import { adminRegister } from './api'
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { adminRegister } from './api';
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 
@@ -51,9 +50,8 @@ const AdminRegister: React.FC = () => {
   const onSubmit = async (admin: FormValues) => {
     const response = await adminRegister(admin);
     if (response?.status < 300) {
-      const { data } = response;
       formik.resetForm();
-      toast.success(`${t("adminRegister.success")}`, {
+      toast.success(t("adminRegister.success"), {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -65,7 +63,7 @@ const AdminRegister: React.FC = () => {
         transition: Bounce,
       });
     } else if (response?.response?.status < 500) {
-      toast.error(`${t("adminRegister.duplicatedEmail")}`, {
+      toast.error(t("adminRegister.duplicatedEmail"), {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -77,7 +75,7 @@ const AdminRegister: React.FC = () => {
         transition: Bounce,
       });
     } else {
-      toast.error(`${t("global.serverError")}`, {
+      toast.error(t("global.serverError"), {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -97,81 +95,40 @@ const AdminRegister: React.FC = () => {
     validationSchema: RegisterSchema,
   });
 
-  const inputs = [
-    {
-      id: "username",
-      type: "text",
-      name: "userName",
-      title: `${t("adminRegister.username")}`,
-      placeholder: `${t("adminRegister.username")}`,
-      value: formik.values.userName,
-      onChange: formik.handleChange,
-    },
-    {
-      id: "email",
-      type: "email",
-      name: "email",
-      placeholder: `${t("adminRegister.email")}`,
-      title: `${t("adminRegister.email")}`,
-      value: formik.values.email,
-      onChange: formik.handleChange,
-    },
-    {
-      id: "password",
-      type: "password",
-      name: "password",
-      placeholder: `${t("adminRegister.password")}`,
-      title: `${t("adminRegister.password")}`,
-      value: formik.values.password,
-      onChange: formik.handleChange,
-    },
-    {
-      id: "cPassword",
-      type: "password",
-      name: "cPassword",
-      placeholder: `${t("adminRegister.confirmPassword")}`,
-      title: `${t("adminRegister.confirmPassword")}`,
-      value: formik.values.cPassword,
-      onChange: formik.handleChange,
-    },
-  ];
-
-  const renderInputs = inputs.map((input, index) => (
-    <Input
-      type={input.type}
-      id={input.id}
-      name={input.name}
-      title={input.title}
-      value={input.value}
-      key={index}
-      placeholder={input.placeholder}
-      errors={formik.errors}
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
-      touched={formik.touched}
-    />
-  ));
-
   return (
-    <div className={styles.body}>
-      <div className={styles.wrapper}>
-        <form onSubmit={formik.handleSubmit} action="">
-          <h1>{t("global.adminRegister")}</h1>
-          <div className={styles.inputBox}>{renderInputs[0]}</div>
-          <div className={styles.inputBox}>{renderInputs[1]}</div>
-          <div className={styles.inputBox}>{renderInputs[2]}</div>
-          <div className={styles.inputBox}>{renderInputs[3]}</div>
-
-          <button
-            type="submit"
-            className={styles.btn}
-            disabled={!formik.isValid}
-          >
-            {t("global.register")}
-          </button>
-
-        </form>
-      </div>
+    <div className={styles.registerContainer}>
+      <h2 className={styles.title}>{t("global.adminRegister")}</h2>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={RegisterSchema}
+        onSubmit={onSubmit}
+      >
+        {({ touched, errors }) => (
+          <Form className={styles.form}>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="userName">{t("adminRegister.username")}</label>
+              <Field name="userName" type="text" className={touched.userName && errors.userName ? styles.error : ''} />
+              <ErrorMessage name="userName" component="div" className={styles.errorMessage} />
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="email">{t("adminRegister.email")}</label>
+              <Field name="email" type="email" className={touched.email && errors.email ? styles.error : ''} />
+              <ErrorMessage name="email" component="div" className={styles.errorMessage} />
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="password">{t("adminRegister.password")}</label>
+              <Field name="password" type="password" className={touched.password && errors.password ? styles.error : ''} />
+              <ErrorMessage name="password" component="div" className={styles.errorMessage} />
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="cPassword">{t("adminRegister.confirmPassword")}</label>
+              <Field name="cPassword" type="password" className={touched.cPassword && errors.cPassword ? styles.error : ''} />
+              <ErrorMessage name="cPassword" component="div" className={styles.errorMessage} />
+            </div>
+            <button type="submit" className={styles.btn} >{t("adminRegister.save")}</button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };

@@ -1,73 +1,134 @@
-* {
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-  }
-  
-  .body {
+.registerContainer {
+  max-width: 50%; 
+  margin: 5% auto 0;  
+  padding: 2rem;  
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;  
+  font-family: "Times New Roman", Times, serif;
+  font-size: 2rem;
+  font-weight: 550;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  .field {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 90vh;
+    flex-direction: column;  
+    margin-bottom: 1.2rem; 
+
+    .label {
+      font-weight: bold;
+      color: #444;
+      margin-bottom: .3rem;
+      font-family: "Times New Roman", Times, serif;
+    }
+
+    input {
+      padding: .6rem; 
+      border: 1px solid #ccc;
+      border-radius: 4px;
+
+      &.error {
+        border-color: #f00;
+      }
+    }
+
+    .errorMessage {
+      color: #f00;
+      font-size: 0.8rem;
+      margin-top: .2rem;  
+    }
   }
-  
-  .wrapper {
-    width: 30%;
-    min-width: 400px;
-    background-color: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 10px rgba(61, 6, 6, 0.8);
-    border-radius: 10px;
-    padding: 2rem 3rem;
-  }
-  
-  .wrapper h1 {
-    font-size: 2.5rem;
-    font-weight: 550;
-    text-align: center;
-    font-family: "Times New Roman", Times, serif;
-  }
-  
-  .wrapper .inputBox {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 0 0 3.5rem 0;
-  }
-  
-  .wrapper .btn {
-    width: 100%;
-    background: darkslategray;
-    height: 45px;
+
+  .btn {
+    width: 20%;  
+    align-self: flex-end; 
+    padding: .8rem;  
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    outline: none;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1.5rem;
-    color: white;
-    font-weight: 600;
+    transition: background-color 0.3s;
     font-family: "Times New Roman", Times, serif;
+
+
+    &:hover {
+      background-color: #0056b3;
+    }
   }
-  
-  .wrapper .btn:hover {
-    background-color: darkgoldenrod;
-    color: darkslategray;
+}
+
+@media (max-width: 900px) {
+  .registerContainer {
+    max-width: 50rem;
   }
-  
-  .wrapper .loginLink {
-    font-size: 1rem;
-    text-align: center;
-    margin: 1.2rem 0 1rem;
+
+  .title {
+    font-size: 1.8rem;  
   }
-  
-  .link {
-    margin: 1rem;
-    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+
+  .title {
+    font-size: 1.6rem;  
   }
-  
-  .link:hover {
-    text-decoration: underline;
-    color: red;
+
+  .form {
+    .field {
+      .label {
+        font-size: 1rem;  
+      }
+
+      input {
+        font-size: 1rem;  
+      }
+    }
+
+    .btn {
+      width: 20%;  
+    }
   }
-  
+}
+
+@media (max-width: 600px) {
+  .registerContainer {
+    padding: 2rem; 
+  }
+
+  .form {
+    .field {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .label {
+        width: 100%;
+        text-align: start;
+        margin-bottom: 0.5rem;
+      }
+
+      input {
+        width: 100%;
+      }
+
+      .errorMessage {
+        margin-left: 0;
+        margin-top: 0.5rem;
+      }
+    }
+
+    .btn {
+      width: 20%;  
+    }
+  }
+}

@@ -38,7 +38,7 @@ const English = {
     email: "Email",
     password: "Password",
     confirmPassword: "Confirm Password",
-    alreadyHaveAccount: "Already have an account?",
+    save: "Save",
     duplicatedEmail: "Duplicated Email",
     success: "Admin Account created successfully! Please verify your email to login!",
   },
@@ -93,7 +93,7 @@ const English = {
   global: {
     login: "Login",
     register: "Register",
-    adminRegister: "Create Admin Account",
+    adminRegister: "Create New Admin Account",
     logout: "Logout",
     copyRights: "© 2023-2024 BZU-Library-Chatbot - All Right Reserved.",
     title: "BZU Library Chatbot",
