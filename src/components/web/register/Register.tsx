@@ -3,7 +3,7 @@ import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
 import styles from "./Register.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "./api";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
@@ -17,6 +17,7 @@ interface FormValues {
 
 const Register: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const RegisterSchema = yup.object({
     userName: yup
@@ -53,6 +54,7 @@ const Register: React.FC = () => {
     if (response?.status < 300) {
       const { data } = response;
       formik.resetForm();
+      navigate("/login");
       toast.success(`${t("register.success")}`, {
         position: "top-center",
         autoClose: 5000,

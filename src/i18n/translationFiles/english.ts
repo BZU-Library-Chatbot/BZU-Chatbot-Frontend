@@ -18,7 +18,6 @@ const English = {
   login: {
     email: "Email",
     password: "Password",
-    rememberMe: "Remember me",
     forgetPassword: "Forget Password?",
     noAccount: "Don't have an account?",
     invalidCredentials: "Invalid Credentials",
@@ -40,7 +39,7 @@ const English = {
     confirmPassword: "Confirm Password",
     save: "Save",
     duplicatedEmail: "Duplicated Email",
-    success: "Admin Account created successfully! Please verify your email to login!",
+    success: "Admin Account created successfully!",
   },
   sendCode: {
     email: "Email",
@@ -56,6 +55,7 @@ const English = {
     confirm: "Confirm",
     success: "Password updated successfully",
     invalidData: "Invalid Data",
+    login: "Back to Login",
   },
   navbar: {
     menu: "Menu",

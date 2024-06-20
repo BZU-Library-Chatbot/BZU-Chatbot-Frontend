@@ -89,9 +89,8 @@ ul {
 }
 
 .sidenav-collapsed {
-  width: 15%;
+  width: 17%;
   min-width: 12rem;
-  margin-right: 1rem;
 }
 
 .sidenav-nav {
@@ -133,6 +132,7 @@ ul {
       .sidenav-link-text {
         width: 90%;
         text-align: center;
+        margin: 0 1rem 0 0;
       }
     }
   }
