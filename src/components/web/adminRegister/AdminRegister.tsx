@@ -2,10 +2,11 @@ import React from "react";
 import { useFormik } from "formik";
 import { toast, Bounce } from "react-toastify";
 import styles from "./AdminRegister.module.scss";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { adminRegister } from './api';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { adminRegister } from "./api";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 interface FormValues {
   userName: string;
@@ -16,6 +17,7 @@ interface FormValues {
 
 const AdminRegister: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const RegisterSchema = yup.object({
     userName: yup
@@ -90,6 +92,10 @@ const AdminRegister: React.FC = () => {
     }
   };
 
+  const onclick = () => {
+    navigate("/admin");
+  };
+
   const formik = useFormik({
     initialValues,
     onSubmit,
@@ -107,26 +113,86 @@ const AdminRegister: React.FC = () => {
         {({ touched, errors }) => (
           <Form className={styles.form}>
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="userName">{t("adminRegister.username")}</label>
-              <Field name="userName" type="text" className={touched.userName && errors.userName ? styles.error : ''} />
-              <ErrorMessage name="userName" component="div" className={styles.errorMessage} />
+              <label className={styles.label} htmlFor="userName">
+                {t("adminRegister.username")}
+              </label>
+              <Field
+                name="userName"
+                type="text"
+                className={
+                  touched.userName && errors.userName ? styles.error : ""
+                }
+              />
+              <ErrorMessage
+                name="userName"
+                component="div"
+                className={styles.errorMessage}
+              />
             </div>
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="email">{t("adminRegister.email")}</label>
-              <Field name="email" type="email" className={touched.email && errors.email ? styles.error : ''} />
-              <ErrorMessage name="email" component="div" className={styles.errorMessage} />
+              <label className={styles.label} htmlFor="email">
+                {t("adminRegister.email")}
+              </label>
+              <Field
+                name="email"
+                type="email"
+                className={touched.email && errors.email ? styles.error : ""}
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className={styles.errorMessage}
+              />
             </div>
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="password">{t("adminRegister.password")}</label>
-              <Field name="password" type="password" className={touched.password && errors.password ? styles.error : ''} />
-              <ErrorMessage name="password" component="div" className={styles.errorMessage} />
+              <label className={styles.label} htmlFor="password">
+                {t("adminRegister.password")}
+              </label>
+              <Field
+                name="password"
+                type="password"
+                className={
+                  touched.password && errors.password ? styles.error : ""
+                }
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className={styles.errorMessage}
+              />
             </div>
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="cPassword">{t("adminRegister.confirmPassword")}</label>
-              <Field name="cPassword" type="password" className={touched.cPassword && errors.cPassword ? styles.error : ''} />
-              <ErrorMessage name="cPassword" component="div" className={styles.errorMessage} />
+              <label className={styles.label} htmlFor="cPassword">
+                {t("adminRegister.confirmPassword")}
+              </label>
+              <Field
+                name="cPassword"
+                type="password"
+                className={
+                  touched.cPassword && errors.cPassword ? styles.error : ""
+                }
+              />
+              <ErrorMessage
+                name="cPassword"
+                component="div"
+                className={styles.errorMessage}
+              />
             </div>
-            <button type="submit" className={styles.btn} >{t("adminRegister.save")}</button>
+            <div
+              style={{ display: "flex" }}
+              className="justify-content-between w-full"
+            >
+              <button
+                onClick={onclick}
+                style={{ width: "20%" }}
+                className="btn btn-danger"
+              >
+                {t("adminRegister.cancel")}
+              </button>
+              <button type="submit" className={styles.btn}>
+                {t("adminRegister.save")}
+              </button>
+            </div>
           </Form>
         )}
       </Formik>

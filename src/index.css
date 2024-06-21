@@ -1,3 +1,9 @@
+@import "tabulator-tables/dist/css/tabulator.css";
+@import "./common/_tabulator.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   height: max-content;
   min-height: 100vh;
