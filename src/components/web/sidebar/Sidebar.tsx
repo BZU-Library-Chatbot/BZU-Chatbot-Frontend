@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import styles from "./Sidebar.module.scss";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoChatbubbleSharp } from "react-icons/io5";
-import { FiLogOut } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import authService from "../../../services/authService";

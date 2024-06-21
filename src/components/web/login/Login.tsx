@@ -149,11 +149,7 @@ const Login: React.FC = () => {
           <div className={styles.inputBox}>{renderInputs[0]}</div>
           <div className={styles.inputBox}>{renderInputs[1]}</div>
 
-          <div className={styles.rememberForgot}>
-            <label>
-              <input type="checkbox" />
-              {t("login.rememberMe")}
-            </label>
+          <div className={styles.Forgot}>
             <Link to="/send-code">{t("login.forgetPassword")}</Link>
           </div>
           <button

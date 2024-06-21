@@ -11,7 +11,7 @@
 }
 
 .wrapper {
-  width: 30%;
+  width: 28%;
   min-width: 400px;
   background-color: transparent;
   border: 2px solid rgba(255, 255, 255, 0.8);
@@ -22,7 +22,7 @@
 }
 
 .wrapper h1 {
-  font-size: 3rem;
+  font-size: 2.6rem;
   font-weight: 550;
   text-align: center;
   font-family: "Times New Roman", Times, serif;
@@ -32,25 +32,21 @@
   position: relative;
   width: 100%;
   height: 50px;
-  margin: 0 0 3.5rem 0;
+  margin: 0 0 3rem 0;
 }
 
-.wrapper .rememberForgot {
+.wrapper .Forgot {
   display: flex;
   justify-content: space-evenly;
   font-size: 0.8rem;
   margin-bottom: 1rem;
 }
 
-.rememberForgot label input {
-  margin-right: 3px;
-}
-
-.rememberForgot a {
+.Forgot a {
   text-decoration: none;
 }
 
-.rememberForgot a:hover {
+.Forgot a:hover {
   text-decoration: underline;
 }
 
