@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { ReactTabulator } from "react-tabulator";
 import { ColumnDefinitionAlign, VerticalAlign } from "tabulator-tables";
 import userImageIcon from "../../../assets/Images/user-icon.svg";
@@ -8,11 +8,14 @@ import { activateUser, deactivateUser, fetchTableData } from "./api";
 import { Bounce, toast } from "react-toastify";
 import { createIcons, icons } from "lucide";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 const Admin: React.FC = () => {
   const navigate = useNavigate();
   const ref = useRef<any>(null);
   const { t } = useTranslation();
+  const [activeFilterValue, setActiveFilterValue] = useState(t("global.any"));
+
   interface Column {
     title: string;
     field: string;
@@ -276,16 +279,41 @@ const Admin: React.FC = () => {
     filterMode: "remote",
   };
 
+  const selectorOptions: any = [
+    { value: "any", label: t("global.any") },
+    { value: "Active", label: t("global.active") },
+    { value: "Not Active", label: t("global.inactive") },
+  ];
+
   const onclick = () => {
     navigate("/admin/create");
   };
 
+  const onChange = (selectedOption: any) => {
+    setActiveFilterValue(selectedOption);
+    ref.current.setFilter("active", "=", selectedOption.value);
+  };
+
   return (
     <div className="d-flex justify-content-center mt-5 flex-wrap flex-column align-items-center">
-      <div className="border-solid border-dark border rounded w-2/5 min-w-96 min-h-96 border-t-0">
-        <div className="d-flex justify-content-end m-1 mb-0">
+      <div style={{minWidth:"597px"}} className="border-solid border-dark border rounded w-2/5 min-h-96 border-t-0">
+        <div className="d-flex justify-content-between m-1 mb-0">
+          <div className="ms-3">
+            <Select
+              value={activeFilterValue}
+              onChange={onChange}
+              options={selectorOptions}
+              className="text-center"
+              styles={{
+                control: (baseStyles, state) => ({
+                  ...baseStyles,
+                  width: "12rem",
+                }),
+              }}
+            />
+          </div>
           <button
-            className="btn btn-outline-success w-full"
+            className="btn btn-outline-primary w-full me-3"
             onClick={onclick}
           >
             {t("admin.create")}
