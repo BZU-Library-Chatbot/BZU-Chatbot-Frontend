@@ -1,7 +1,13 @@
-import { sendCode } from "../../components/web/sendCode/api";
-
 const Arabic = {
-  admin: {},
+  admin: {
+    email: "البريد الالكتروني",
+    name: "الاسم",
+    activateSuccess: "تم تفعيل حساب المسؤول بنجاح",
+    deactivcateSuccess: "تم إلغاء تفعيل حساب المسؤول بنجاح",
+    activateFail: "فشل في تفعيل حساب المسؤول",
+    deactivateFail: "فشل في إلغاء تفعيل حساب المسؤول",
+    create: "إنشاء مسؤول جديد",
+  },
   about: {
     team: "فريقنا المبدع",
     whoWeAre: "من نحن",
@@ -30,7 +36,7 @@ const Arabic = {
     alreadyHaveAccount: "لديك حساب بالفعل؟",
     duplicatedEmail: "تم استخدام هذا البريد الإلكتروني من قبل",
     success:
-    "تم إنشاء الحساب بنجاح! يرجى التحقق من بريدك الإلكتروني لتسجيل الدخول!",
+      "تم إنشاء الحساب بنجاح! يرجى التحقق من بريدك الإلكتروني لتسجيل الدخول!",
   },
   adminRegister: {
     username: "اسم المستخدم",
@@ -38,9 +44,9 @@ const Arabic = {
     password: "كلمة المرور",
     confirmPassword: "تأكيد كلمة المرور",
     save: "حفظ",
+    cancel: "إلغاء",
     duplicatedEmail: "تم استخدام هذا البريد الإلكتروني من قبل",
-    success:
-      "تم إنشاء الحساب بنجاح!",
+    success: "تم إنشاء الحساب بنجاح!",
   },
   sendCode: {
     email: "البريد الالكتروني",
@@ -56,7 +62,7 @@ const Arabic = {
     confirm: "تأكيد",
     invalidData: "البيانات غير صحيحة",
     success: "تم تحديث كلمة المرور بنجاح",
-    login: "عد الى صفحة تسحيل الدخول", 
+    login: "عد الى صفحة تسحيل الدخول",
   },
   navbar: {
     menu: "القائمة",
@@ -106,6 +112,14 @@ const Arabic = {
     settings: "الإعدادات",
     serverError: "خطأ في الخادم",
     submit: "تأكيد",
+    status: "الحالة",
+    actions: "الإجراءات",
+    deactivate: "إلغاء التفعيل",
+    activate: "تفعيل",
+    active: "نشط",
+    inactive: "غير نشط",
+    admins: "المسؤولين",
+    any: "الكل",
   },
   errorPage: {
     header: "404 الصفحة غير موجودة",

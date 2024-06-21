@@ -1,5 +1,13 @@
 const English = {
-  admin: {},
+  admin: {
+    email: "Email",
+    name: "Name",
+    activateSuccess: "Admin account activated successfully",
+    deactivcateSuccess: "Admin account deactivated successfully",
+    activateFail: "Failed to activate admin account",
+    deactivateFail: "Failed to deactivate admin account",
+    create: "Create New Admin",
+  },
   about: {
     team: "The creative crew",
     whoWeAre: "Who we are",
@@ -32,12 +40,13 @@ const English = {
     duplicatedEmail: "Duplicated Email",
     success: "Account created successfully! Please verify your email to login!",
   },
-   adminRegister: {
+  adminRegister: {
     username: "Username",
     email: "Email",
     password: "Password",
     confirmPassword: "Confirm Password",
     save: "Save",
+    cancel: "Cancel",
     duplicatedEmail: "Duplicated Email",
     success: "Admin Account created successfully!",
   },
@@ -104,6 +113,14 @@ const English = {
     sendCode: "Send Code",
     forgetPassword: "Forget Password",
     submit: "Submit Feedback",
+    status: "Status",
+    actions: "Actions",
+    deactivate: "Deactivate",
+    activate: "Activate",
+    active: "Active",
+    inactive: "Inactive",
+    admins: "Admins",
+    any: "Any",
   },
   errorPage: {
     header: "404 Error Page",

@@ -79,6 +79,13 @@ const Navbar: React.FC = () => {
                       {t("global.home")}
                     </Link>
                   </li>
+                  {authService.isAdministrator() && (
+                    <li>
+                      <Link className="dropdown-item" to="/admin">
+                        {t("global.admins")}
+                      </Link>
+                    </li>
+                  )}
                   <li>
                     <Link className="dropdown-item" to="/about">
                       {t("global.about")}
