@@ -20,6 +20,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  img {
+    width: 2rem;
+    height: 2rem;
+    margin: 0 1rem;
+    border-radius: 50%;
+  }
 }
 
 .info {
@@ -88,12 +94,6 @@
   }
 }
 
-img {
-  width: 2rem;
-  height: 2rem;
-  margin: 0 1rem;
-  border-radius: 50%;
-}
 
 .userMessage {
   background-color: transparent;

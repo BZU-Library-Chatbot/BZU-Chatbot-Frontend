@@ -58,7 +58,7 @@ const Router = () => {
           element: <Settings />,
         },
         {
-          path: "create-admin",
+          path: "admin/create",
           element: <AdminRegister />,
         },
         {

@@ -1,5 +1,7 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "@fortawesome/fontawesome-free/js/all.min.js";
+import "react-tabulator/lib/styles.css";
+import "react-tabulator/lib/css/tabulator.min.css";
 import React, { useEffect } from "react";
 import AdminRouter from "./layouts/AdminRouter.tsx";
 import UserRouter from "./layouts/UserRouter.tsx";
@@ -64,14 +66,10 @@ const App: React.FC = () => {
       return <AdminRouter />;
     } else {
       return <UserRouter />;
-    } 
+    }
   };
 
-  return (
-    <PrimeReactProvider>
-      {renderRoutes()}
-    </PrimeReactProvider>
-  );
+  return <PrimeReactProvider>{renderRoutes()}</PrimeReactProvider>;
 };
 
 export default App;
