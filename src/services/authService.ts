@@ -20,7 +20,6 @@ const authService = {
     if (token) {
       const payload = token.split(".")[1];
       const data = JSON.parse(atob(payload));
-      console.log(data);
       return data.role === "Admin";
     }
     return false;
