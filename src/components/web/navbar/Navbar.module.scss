@@ -4,7 +4,7 @@
   box-shadow: rgba(0, 0, 0, 0.15) 0px 0.3rem 0.3rem,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    background: linear-gradient(to top, #4f709c, #545b77);
+    background-color: #344C64;
   }
 
 .container {
@@ -32,10 +32,11 @@
 }
 
 .logo {
-  color: rgb(50, 48, 48);
+  color: #F0EBE3;
   font-weight: 550;
   font-size: 1.4rem;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  text-decoration: none;
 }
 
 .toggleBtn {

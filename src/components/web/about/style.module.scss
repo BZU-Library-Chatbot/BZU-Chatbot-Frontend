@@ -31,18 +31,24 @@
     .title {
       h3 {
         font-size: 36px;
+        margin-top: 4.5rem;
+        font-family: "Times New Roman", Times, serif;
       }
     }
 
     .content {
       h5 {
-        font-size: 16px;
-        margin-bottom: 10px;
+        font-size: 18px;
+        margin-top: 3.5rem;
+        margin-bottom: 1rem;
         text-transform: uppercase;
         font-weight: 600;
+        color: #ab2f40;
+        font-family: "Times New Roman", Times, serif;
       }
       p {
-        font-size: 14px;
+        font-size: 16px;
+        font-family: "Times New Roman", Times, serif;
       }
     }
   }
@@ -82,6 +88,7 @@
             font-weight: 550;
             text-transform: capitalize;
             width: 60%;
+            font-family: 'Times New Roman', Times, serif;
           }
           .social {
             width: 40%;
@@ -90,8 +97,12 @@
             font-size: 20px;
             margin-top: 0;
 
+            .link {
+              color: #6a8db2;
+            }
+
             .link:hover {
-              color: #974205;
+              color: #344C64;
             }
           }
         }
@@ -104,7 +115,7 @@
           text-transform: uppercase;
           font-size: 12px;
           right: -92%;
-          color: #974205;
+          color: #ab2f40;
         }
 
         [dir="rtl"] &::after {
@@ -116,7 +127,7 @@
           text-transform: uppercase;
           font-size: 12px;
           right: -40px;
-          color: #974205;
+          color: #ab2f40;
         }
       }
 

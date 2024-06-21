@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
         <div
           className={`container ${styles.container} ${styles.navbarContainer}`}
         >
-          <Link className={`navbar-brand ${styles.logo}`} to="/">
+          <Link className={`${styles.logo}`} to="/">
             {t("global.title")}
           </Link>
           <div className={` ${styles.rightNavBar}`} id="navbarSupportedContent">

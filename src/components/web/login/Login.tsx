@@ -161,7 +161,7 @@ const Login: React.FC = () => {
           </button>
 
           <div className={styles.registerLink}>
-            <p>
+            <p className={`${styles.haveAnAccount}`}>
               {t("login.noAccount")}{" "}
               <Link to="/register" className={`${styles.link}`}>
                 {t("global.register")}

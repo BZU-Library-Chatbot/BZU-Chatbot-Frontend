@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 90vh;
+  min-height: 92vh;
 }
 
 .wrapper {
@@ -26,6 +26,7 @@
   font-weight: 550;
   text-align: center;
   font-family: "Times New Roman", Times, serif;
+  color: #ab2f40;
 }
 
 .wrapper .inputBox {
@@ -38,7 +39,7 @@
 .wrapper .btn {
   width: 100%;
   height: 45px;
-  background: darkslategray;
+  background: #344C64;
   border: none;
   outline: none;
   border-radius: 15px;
@@ -53,18 +54,19 @@
 }
 
 .wrapper .btn:hover {
-  background-color: darkgoldenrod;
-  color: darkslategray;
+  background-color: #6a8db2;
 }
 
 .wrapper .loginLink {
-  font-size: 1rem;
+  font-size:1.2rem;
   text-align: center;
 }
 
 .link {
-  margin: 1rem;
+  margin: 2rem;
   text-decoration: none;
+  color: #6a8db2;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .link:hover {
