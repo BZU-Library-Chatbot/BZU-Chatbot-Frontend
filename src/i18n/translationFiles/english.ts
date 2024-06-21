@@ -46,7 +46,7 @@ const English = {
     password: "Password",
     confirmPassword: "Confirm Password",
     save: "Save",
-    cancel:"Cancel",
+    cancel: "Cancel",
     duplicatedEmail: "Duplicated Email",
     success: "Admin Account created successfully!",
   },
@@ -120,6 +120,7 @@ const English = {
     active: "Active",
     inactive: "Inactive",
     admins: "Admins",
+    any: "Any",
   },
   errorPage: {
     header: "404 Error Page",
