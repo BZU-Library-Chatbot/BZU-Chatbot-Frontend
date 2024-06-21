@@ -49,7 +49,7 @@ const Admin: React.FC = () => {
     return `<div class="image-fit zoom-in h-8">
                     <img src= ${fullUrl}
                         class="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                        alt="User image" style="height: 32px; margin: 0 0.5rem;">
+                        alt="User image" style="height: 25px; margin: 0 0.5rem;">
                     </img>
                 </div>`;
   };
@@ -60,7 +60,7 @@ const Admin: React.FC = () => {
     onRendered: any
   ): HTMLElement | any => {
     const email: string = cell.getRow().getData().email;
-    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction:ltr" title="${email}">
+    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction:ltr; margin:0 0.5rem;" class="md:px-96" title="${email}">
                     ${email}
                 </div>`;
   };
@@ -71,7 +71,7 @@ const Admin: React.FC = () => {
     onRendered: any
   ): HTMLElement | any => {
     const name: string = cell.getRow().getData().userName;
-    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${name}">
+    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin:0 0.5rem;" title="${name}" class="md:px-96 text-danger">
                     ${name}
                 </div>`;
   };
@@ -83,9 +83,9 @@ const Admin: React.FC = () => {
   ): HTMLElement | any => {
     const active: boolean =
       cell.getRow().getData().status.toLowerCase() == "active";
-    return `<div class="flex items-center lg:justify-center ${
+    return `<div class="md:px-96 flex items-center lg:justify-center ${
       active ? "text-success" : "text-danger"
-    }" style="font-size:1rem;">
+    }" style="font-size:1rem; margin: 0 0.5rem;">
               <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> ${
                 active ? t("global.active") : t("global.inactive")
               }
@@ -113,7 +113,7 @@ const Admin: React.FC = () => {
                         </a>`;
     }
 
-    const actionsElement = `<div class="flex lg:justify-center items-center" style="font-size:1rem;">${activeElement}</div>`;
+    const actionsElement = `<div class="md:px-96 flex lg:justify-center items-center" style="font-size:1rem; margin-right:0.5rem;">${activeElement}</div>`;
     const a = stringToHTML(actionsElement);
 
     a.querySelectorAll("a").forEach((link) => {
@@ -296,7 +296,10 @@ const Admin: React.FC = () => {
 
   return (
     <div className="d-flex justify-content-center mt-5 flex-wrap flex-column align-items-center">
-        <div className="d-flex justify-content-between m-1 mb-3 mt-5" style={{width:"597px"}}>
+      <div>
+        <div
+          className="d-flex justify-content-between m-1 mb-3 mt-5"
+        >
           <div className="ms-3">
             <Select
               value={activeFilterValue}
@@ -318,16 +321,20 @@ const Admin: React.FC = () => {
             {t("admin.create")}
           </button>
         </div>
-      <div style={{minWidth:"597px"}} className="border-solid border-dark border rounded w-2/5 min-h-96 border-t-0">
-        <ReactTabulator
-          onRef={(r) => {
-            ref.current = r.current;
-          }}
-          columns={columns}
-          events={events}
-          options={options}
-          style={{ minWidth: "400px" }}
-        />
+        <div
+          style={{ minWidth: "300px" }}
+          className="border-solid border-dark border rounded w-2/5 min-h-96 border-t-0"
+        >
+          <ReactTabulator
+            onRef={(r) => {
+              ref.current = r.current;
+            }}
+            columns={columns}
+            events={events}
+            options={options}
+            style={{ minWidth: "400px" }}
+          />
+        </div>
       </div>
     </div>
   );
