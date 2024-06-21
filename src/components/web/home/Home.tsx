@@ -217,6 +217,14 @@ const Home: React.FC = () => {
   }, [firstRender]);
 
   useEffect(() => {
+    scrollToBottom(); 
+  
+    if (conversation.length > 0) {
+      scrollToBottom(); 
+    }
+  }, [conversation]);
+  
+  useEffect(() => {
     if (moreMessegesLoaded) {
       const newScrollHeight = chatContainerRef.current.scrollHeight;
       const scrollOffset = newScrollHeight - currentScrollHeight;
@@ -256,6 +264,7 @@ const Home: React.FC = () => {
       ];
       setConversation(updatedConversationWithResponse);
       stopUpdatingDots(intervalId);
+      scrollToBottom();
     } else {
       toast.error(`${t("global.serverError")}`, {
         position: "top-center",
@@ -351,7 +360,7 @@ const Home: React.FC = () => {
               {item.botResponse ? item.botResponse : dots}
             </p>
             <div className={styles.ratingStars}>
-              {item.botResponse ? (
+              {item.botResponse && authService.isAuthenticated() ? (
                 <>
                   <RatingStar onStarClick={handleStarClick} />
                   <Feedback

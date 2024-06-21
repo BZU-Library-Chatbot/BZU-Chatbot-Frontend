@@ -49,10 +49,11 @@ const AdminRegister: React.FC = () => {
     cPassword: "",
   };
 
-  const onSubmit = async (admin: FormValues) => {
+  const onSubmit = async (admin: FormValues, { resetForm }: { resetForm: () => void }) => {
     const response = await adminRegister(admin);
     if (response?.status < 300) {
-      formik.resetForm();
+      resetForm();
+      //Navigate to the admins table
       toast.success(t("adminRegister.success"), {
         position: "top-center",
         autoClose: 5000,
