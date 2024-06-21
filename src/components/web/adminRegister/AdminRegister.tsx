@@ -53,7 +53,7 @@ const AdminRegister: React.FC = () => {
     const response = await adminRegister(admin);
     if (response?.status < 300) {
       resetForm();
-      //Navigate to the admins table
+      navigate("/admin");
       toast.success(t("adminRegister.success"), {
         position: "top-center",
         autoClose: 5000,
@@ -185,7 +185,7 @@ const AdminRegister: React.FC = () => {
               <button
                 onClick={onclick}
                 style={{ width: "20%" }}
-                className="btn btn-danger"
+                className={styles.btnCancel}
               >
                 {t("adminRegister.cancel")}
               </button>
