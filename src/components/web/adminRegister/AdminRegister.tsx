@@ -49,7 +49,10 @@ const AdminRegister: React.FC = () => {
     cPassword: "",
   };
 
-  const onSubmit = async (admin: FormValues, { resetForm }: { resetForm: () => void }) => {
+  const onSubmit = async (
+    admin: FormValues,
+    { resetForm }: { resetForm: () => void }
+  ) => {
     const response = await adminRegister(admin);
     if (response?.status < 300) {
       resetForm();
@@ -183,6 +186,7 @@ const AdminRegister: React.FC = () => {
               className="justify-content-between w-full"
             >
               <button
+                type="button"
                 onClick={onclick}
                 style={{ width: "20%" }}
                 className={styles.btnCancel}

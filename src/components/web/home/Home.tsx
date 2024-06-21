@@ -217,13 +217,13 @@ const Home: React.FC = () => {
   }, [firstRender]);
 
   useEffect(() => {
-    scrollToBottom(); 
-  
+    scrollToBottom();
+
     if (conversation.length > 0) {
-      scrollToBottom(); 
+      scrollToBottom();
     }
   }, [conversation]);
-  
+
   useEffect(() => {
     if (moreMessegesLoaded) {
       const newScrollHeight = chatContainerRef.current.scrollHeight;
@@ -252,7 +252,7 @@ const Home: React.FC = () => {
         setActiveIndex(sessions.length - 1);
         if (authService.isAuthenticated()) {
           navigate(`/home/${response.data.sessionId}`);
-        } 
+        }
       }
 
       const botResponse = response.data.response;

@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
-
 interface FormValues {
   email: string;
 }

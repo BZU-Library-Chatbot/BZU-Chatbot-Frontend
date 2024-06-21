@@ -6,8 +6,9 @@ export const changeProfilePicture = async (image: any) => {
     formData.append("file", image);
     const response = await axiosInstance.patch("/user/profile", formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }});
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response;
   } catch (error: any) {
     return error;

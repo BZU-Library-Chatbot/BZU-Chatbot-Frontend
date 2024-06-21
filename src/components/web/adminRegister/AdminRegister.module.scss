@@ -1,14 +1,14 @@
 .registerContainer {
-  max-width: 50%; 
-  margin: 5% auto 0;  
-  padding: 2rem;  
+  max-width: 50%;
+  margin: 5% auto 0;
+  padding: 2rem;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 .title {
   text-align: center;
-  margin-bottom: 1rem;  
+  margin-bottom: 1rem;
   font-family: "Times New Roman", Times, serif;
   font-size: 2rem;
   font-weight: 550;
@@ -21,18 +21,18 @@
 
   .field {
     display: flex;
-    flex-direction: column;  
-    margin-bottom: 1.2rem; 
+    flex-direction: column;
+    margin-bottom: 1.2rem;
 
     .label {
       font-weight: bold;
       color: #444;
-      margin-bottom: .3rem;
+      margin-bottom: 0.3rem;
       font-family: "Times New Roman", Times, serif;
     }
 
     input {
-      padding: .6rem; 
+      padding: 0.6rem;
       border: 1px solid #ccc;
       border-radius: 4px;
 
@@ -44,15 +44,15 @@
     .errorMessage {
       color: #ab2f40;
       font-size: 0.8rem;
-      margin-top: .2rem;  
+      margin-top: 0.2rem;
     }
   }
 
   .btn {
-    width: 20%;  
-    align-self: flex-end; 
-    padding: .8rem;  
-    background: #344C64;
+    width: 20%;
+    align-self: flex-end;
+    padding: 0.8rem;
+    background: #344c64;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -60,16 +60,15 @@
     transition: background-color 0.3s;
     font-family: "Times New Roman", Times, serif;
 
-
     &:hover {
       background-color: #6a8db2;
     }
   }
 
   .btnCancel {
-    width: 20%;  
-    align-self: flex-end; 
-    padding: .8rem;  
+    width: 20%;
+    align-self: flex-end;
+    padding: 0.8rem;
     background: #ab2f40;
     color: #fff;
     border: none;
@@ -78,14 +77,11 @@
     transition: background-color 0.3s;
     font-family: "Times New Roman", Times, serif;
 
-
     &:hover {
       background-color: #972635;
     }
   }
 }
-
-
 
 @media (max-width: 900px) {
   .registerContainer {
@@ -93,36 +89,36 @@
   }
 
   .title {
-    font-size: 1.8rem;  
+    font-size: 1.8rem;
   }
 }
 
 @media (max-width: 768px) {
-
   .title {
-    font-size: 1.6rem;  
+    font-size: 1.6rem;
   }
 
   .form {
     .field {
       .label {
-        font-size: 1rem;  
+        font-size: 1rem;
       }
 
       input {
-        font-size: 1rem;  
+        font-size: 1rem;
       }
     }
 
-    .btn, .btnCancel {
-      width: 20%;  
+    .btn,
+    .btnCancel {
+      width: 20%;
     }
   }
 }
 
 @media (max-width: 600px) {
   .registerContainer {
-    padding: 2rem; 
+    padding: 2rem;
   }
 
   .form {
@@ -146,8 +142,9 @@
       }
     }
 
-    .btn , .btnCancel {
-      width: 20%;  
+    .btn,
+    .btnCancel {
+      width: 20%;
     }
   }
 }

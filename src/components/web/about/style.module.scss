@@ -52,7 +52,7 @@
       }
     }
   }
-  
+
   main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -88,7 +88,7 @@
             font-weight: 550;
             text-transform: capitalize;
             width: 60%;
-            font-family: 'Times New Roman', Times, serif;
+            font-family: "Times New Roman", Times, serif;
           }
           .social {
             width: 40%;
@@ -102,7 +102,7 @@
             }
 
             .link:hover {
-              color: #344C64;
+              color: #344c64;
             }
           }
         }

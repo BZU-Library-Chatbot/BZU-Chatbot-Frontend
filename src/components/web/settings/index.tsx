@@ -233,7 +233,9 @@ const index = () => {
                     <ul className="small text-muted pl-4 mb-0">
                       {t("settings.requirements", { returnObjects: true }).map(
                         (requirement: any, index: any) => (
-                          <li  className="reqLi" key={index}>{requirement}</li>
+                          <li className="reqLi" key={index}>
+                            {requirement}
+                          </li>
                         )
                       )}
                     </ul>

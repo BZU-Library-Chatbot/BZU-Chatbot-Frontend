@@ -296,29 +296,35 @@ const Admin: React.FC = () => {
 
   return (
     <div className="d-flex justify-content-center mt-5 flex-wrap flex-column align-items-center">
-        <div className="d-flex justify-content-between m-1 mb-3 mt-5" style={{width:"597px"}}>
-          <div className="ms-3">
-            <Select
-              value={activeFilterValue}
-              onChange={onChange}
-              options={selectorOptions}
-              className="text-center"
-              styles={{
-                control: (baseStyles, state) => ({
-                  ...baseStyles,
-                  width: "12rem",
-                }),
-              }}
-            />
-          </div>
-          <button
-            className="btn btn-outline-primary w-full me-3"
-            onClick={onclick}
-          >
-            {t("admin.create")}
-          </button>
+      <div
+        className="d-flex justify-content-between m-1 mb-3 mt-5"
+        style={{ width: "597px" }}
+      >
+        <div className="ms-3">
+          <Select
+            value={activeFilterValue}
+            onChange={onChange}
+            options={selectorOptions}
+            className="text-center"
+            styles={{
+              control: (baseStyles, state) => ({
+                ...baseStyles,
+                width: "12rem",
+              }),
+            }}
+          />
         </div>
-      <div style={{minWidth:"597px"}} className="border-solid border-dark border rounded w-2/5 min-h-96 border-t-0">
+        <button
+          className="btn btn-outline-primary w-full me-3"
+          onClick={onclick}
+        >
+          {t("admin.create")}
+        </button>
+      </div>
+      <div
+        style={{ minWidth: "597px" }}
+        className="border-solid border-dark border rounded w-2/5 min-h-96 border-t-0"
+      >
         <ReactTabulator
           onRef={(r) => {
             ref.current = r.current;

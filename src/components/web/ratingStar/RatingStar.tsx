@@ -29,11 +29,7 @@ const RatingStar: React.FC<{
         return (
           <FaStar
             key={index}
-            className={
-              index <= (hover || rating)
-                ? `${styles.active}`
-                : ""
-            }
+            className={index <= (hover || rating) ? `${styles.active}` : ""}
             onClick={() => handleClick(index)}
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={() => handleMouseLeave()}

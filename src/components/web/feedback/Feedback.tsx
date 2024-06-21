@@ -38,7 +38,7 @@ function Feedback({ show, handleClose, rating, interactionId }: FeedbackProps) {
   return (
     <>
       <Modal show={show} onHide={handleCancle}>
-        <Modal.Header >
+        <Modal.Header>
           <Modal.Title>{t("feedback.title")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
