@@ -335,7 +335,7 @@ const Admin: React.FC = () => {
         </button>
       </div>
       <div
-        style={{ minWidth: "597px" }}
+        style={{ minWidth: "300px" }}
         className="border-solid border-dark border rounded w-2/5 min-h-96 border-t-0"
       >
         <ReactTabulator
@@ -345,7 +345,7 @@ const Admin: React.FC = () => {
           columns={columns}
           events={events}
           options={options}
-          style={{ minWidth: "400px" }}
+          style={{ minWidth: "300px" }}
         />
       </div>
     </div>
