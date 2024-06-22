@@ -61,7 +61,7 @@ const Admin: React.FC = () => {
     onRendered: any
   ): HTMLElement | any => {
     const email: string = cell.getRow().getData().email;
-    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction:ltr; margin:0 0.5rem;" class="md:px-96" title="${email}">
+    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction:ltr" title="${email}">
                     ${email}
                 </div>`;
   };
@@ -72,7 +72,7 @@ const Admin: React.FC = () => {
     onRendered: any
   ): HTMLElement | any => {
     const name: string = cell.getRow().getData().userName;
-    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin:0 0.5rem;" title="${name}" class="md:px-96 text-danger">
+    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${name}">
                     ${name}
                 </div>`;
   };
@@ -84,9 +84,9 @@ const Admin: React.FC = () => {
   ): HTMLElement | any => {
     const active: boolean =
       cell.getRow().getData().status.toLowerCase() == "active";
-    return `<div class="md:px-96 flex items-center lg:justify-center ${
+    return `<div class="flex items-center lg:justify-center ${
       active ? "text-success" : "text-danger"
-    }" style="font-size:1rem; margin: 0 0.5rem;">
+    }" style="font-size:1rem;  margin: 0 0.5rem;">
               <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> ${
                 active ? t("global.active") : t("global.inactive")
               }
@@ -114,7 +114,7 @@ const Admin: React.FC = () => {
                         </a>`;
     }
 
-    const actionsElement = `<div class="md:px-96 flex lg:justify-center items-center" style="font-size:1rem; margin-right:0.5rem;">${activeElement}</div>`;
+    const actionsElement = `<div class="flex lg:justify-center items-center" style="font-size:1rem; margin-right:0.5rem;">${activeElement}</div>`;
     const a = stringToHTML(actionsElement);
 
     a.querySelectorAll("a").forEach((link) => {
