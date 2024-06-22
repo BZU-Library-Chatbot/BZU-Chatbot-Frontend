@@ -3,7 +3,7 @@ const English = {
     email: "Email",
     name: "Name",
     activateSuccess: "Admin account activated successfully",
-    deactivcateSuccess: "Admin account deactivated successfully",
+    deactivateSuccess: "Admin account deactivated successfully",
     activateFail: "Failed to activate admin account",
     deactivateFail: "Failed to deactivate admin account",
     create: "Create New Admin",

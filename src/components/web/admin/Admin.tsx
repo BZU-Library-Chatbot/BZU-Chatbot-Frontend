@@ -174,7 +174,7 @@ const Admin: React.FC = () => {
   const handleDeactivateClick = async (row: any, id: any) => {
     const response: any = await deactivateUser(id);
     if (response.status < 300) {
-      toast.success(`${t("admin.deactivcateSuccess")}`, {
+      toast.success(`${t("admin.deactivateSuccess")}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
