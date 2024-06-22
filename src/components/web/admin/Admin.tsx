@@ -9,6 +9,7 @@ import { Bounce, toast } from "react-toastify";
 import { createIcons, icons } from "lucide";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import styles from "./Admin.module.scss";
 
 const Admin: React.FC = () => {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const Admin: React.FC = () => {
     onRendered: any
   ): HTMLElement | any => {
     const email: string = cell.getRow().getData().email;
-    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction:ltr; margin:0 0.5rem;" class="md:px-96" title="${email}">
+    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction:ltr" title="${email}">
                     ${email}
                 </div>`;
   };
@@ -71,7 +72,7 @@ const Admin: React.FC = () => {
     onRendered: any
   ): HTMLElement | any => {
     const name: string = cell.getRow().getData().userName;
-    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin:0 0.5rem;" title="${name}" class="md:px-96 text-danger">
+    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${name}">
                     ${name}
                 </div>`;
   };
@@ -83,9 +84,9 @@ const Admin: React.FC = () => {
   ): HTMLElement | any => {
     const active: boolean =
       cell.getRow().getData().status.toLowerCase() == "active";
-    return `<div class="md:px-96 flex items-center lg:justify-center ${
+    return `<div class="flex items-center lg:justify-center ${
       active ? "text-success" : "text-danger"
-    }" style="font-size:1rem; margin: 0 0.5rem;">
+    }" style="font-size:1rem;  margin: 0 0.5rem;">
               <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> ${
                 active ? t("global.active") : t("global.inactive")
               }
@@ -113,7 +114,7 @@ const Admin: React.FC = () => {
                         </a>`;
     }
 
-    const actionsElement = `<div class="md:px-96 flex lg:justify-center items-center" style="font-size:1rem; margin-right:0.5rem;">${activeElement}</div>`;
+    const actionsElement = `<div class="flex lg:justify-center items-center" style="font-size:1rem; margin-right:0.5rem;">${activeElement}</div>`;
     const a = stringToHTML(actionsElement);
 
     a.querySelectorAll("a").forEach((link) => {
@@ -296,45 +297,56 @@ const Admin: React.FC = () => {
 
   return (
     <div className="d-flex justify-content-center mt-5 flex-wrap flex-column align-items-center">
-      <div>
-        <div
-          className="d-flex justify-content-between m-1 mb-3 mt-5"
-        >
-          <div className="ms-3">
-            <Select
-              value={activeFilterValue}
-              onChange={onChange}
-              options={selectorOptions}
-              className="text-center"
-              styles={{
-                control: (baseStyles, state) => ({
-                  ...baseStyles,
-                  width: "12rem",
-                }),
-              }}
-            />
-          </div>
-          <button
-            className="btn btn-outline-primary w-full me-3"
-            onClick={onclick}
-          >
-            {t("admin.create")}
-          </button>
-        </div>
-        <div
-          style={{ minWidth: "300px" }}
-          className="border-solid border-dark border rounded w-2/5 min-h-96 border-t-0"
-        >
-          <ReactTabulator
-            onRef={(r) => {
-              ref.current = r.current;
+      <div
+        className="d-flex justify-content-between m-1 mb-3 mt-5"
+        style={{ width: "597px" }}
+      >
+        <div className="ms-3">
+          <Select
+            value={activeFilterValue}
+            onChange={onChange}
+            options={selectorOptions}
+            className="text-center"
+            styles={{
+              control: (baseStyles, state) => ({
+                ...baseStyles,
+                width: "10rem",
+                borderColor: "#344c64",
+                color: "#344c64",
+                fontFamily: "Times New Roman",
+              }),
             }}
-            columns={columns}
-            events={events}
-            options={options}
-            style={{ minWidth: "400px" }}
           />
         </div>
+        <button
+          className="btn btn-outline-primary w-full me-3"
+          style={{
+            borderColor: "#344c64",
+            color: "#344c64",
+            fontFamily: "Times New Roman",
+          }}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.backgroundColor = "#6a8db2")
+          }
+          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "white")}
+          onClick={onclick}
+        >
+          {t("admin.create")}
+        </button>
+      </div>
+      <div
+        style={{ minWidth: "300px" }}
+        className="border-solid border-dark border rounded w-2/5 min-h-96 border-t-0"
+      >
+        <ReactTabulator
+          onRef={(r) => {
+            ref.current = r.current;
+          }}
+          columns={columns}
+          events={events}
+          options={options}
+          style={{ minWidth: "300px" }}
+        />
       </div>
     </div>
   );

@@ -13,7 +13,6 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../../redux/userSlice";
 import * as yup from "yup";
 
-
 interface FormValues {
   email: string;
   password: string;
@@ -161,7 +160,7 @@ const Login: React.FC = () => {
           </button>
 
           <div className={styles.registerLink}>
-            <p>
+            <p className={`${styles.haveAnAccount}`}>
               {t("login.noAccount")}{" "}
               <Link to="/register" className={`${styles.link}`}>
                 {t("global.register")}

@@ -173,7 +173,7 @@ const Register: React.FC = () => {
           </button>
 
           <div className={styles.loginLink}>
-            <p>
+            <p className={`${styles.haveAnAccount}`}>
               {t("register.alreadyHaveAccount")}
               <Link to="/login" className={`${styles.link}`}>
                 {t("global.login")}

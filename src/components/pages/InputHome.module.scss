@@ -18,6 +18,7 @@
   color: darkslategray;
   font-weight: 550;
   resize: none;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .message:focus {
@@ -35,8 +36,7 @@
   padding: 0 1rem;
 }
 
-
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .submit {
     padding-right: 0;
     padding-left: 0.5rem;

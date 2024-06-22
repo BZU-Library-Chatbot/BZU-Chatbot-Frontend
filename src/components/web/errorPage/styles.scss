@@ -133,22 +133,24 @@ textarea {
 }
 h1 {
   text-align: center;
-  margin: 30px 15px;
+  margin: 35px 15px;
   font-size: 3rem;
+  font-family: "Times New Roman", Times, serif;
 }
 .zoom-area {
   max-width: 490px;
   margin: 30px auto 30px;
-  font-size: 19px;
+  font-size: 22px;
   text-align: center;
+  font-family: "Times New Roman", Times, serif;
 }
 .link-container {
   text-align: center;
 }
 a.more-link {
   text-transform: uppercase;
-  font-size: 13px;
-  padding: 1.5rem 2rem;
+  font-size: 15px;
+  padding: 1rem 2rem;
   border-radius: 0;
   color: #fff;
   display: inline-block;
@@ -158,11 +160,11 @@ a.more-link {
   text-decoration: none;
   margin-top: 50px;
   letter-spacing: 1px;
-  background-color: darkslategray;
+  background: #344c64;
   border-radius: 10px;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .more-link:hover {
-  background-color: darkgoldenrod;
-  color: darkslategray;
+  background-color: #6a8db2;
 }

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 const index = () => {
   const { t } = useTranslation();
   return (
-    <div>
+    <div className="container">
       <h1>{t("errorPage.header")}</h1>
       <p className="zoom-area">{t("errorPage.body")}</p>
       <section className="error-container">

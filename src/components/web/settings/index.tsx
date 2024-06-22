@@ -184,7 +184,7 @@ const index = () => {
   }, [language]);
 
   return (
-    <>
+    <div className="body">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-lg-10 col-xl-8 mx-auto">
@@ -212,7 +212,7 @@ const index = () => {
               </div>
               <hr className="mb-4" />
               <div className="d-flex justify-content-between align-items-center w-57">
-                <h4>{t("settings.language")}</h4>
+                <h4 className="lang">{t("settings.language")}</h4>
                 <div dir="ltr">
                   <SelectButton
                     value={language}
@@ -233,7 +233,9 @@ const index = () => {
                     <ul className="small text-muted pl-4 mb-0">
                       {t("settings.requirements", { returnObjects: true }).map(
                         (requirement: any, index: any) => (
-                          <li key={index}>{requirement}</li>
+                          <li className="reqLi" key={index}>
+                            {requirement}
+                          </li>
                         )
                       )}
                     </ul>
@@ -253,7 +255,7 @@ const index = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

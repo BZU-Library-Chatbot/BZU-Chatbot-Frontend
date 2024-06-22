@@ -3,7 +3,7 @@ const Arabic = {
     email: "البريد الالكتروني",
     name: "الاسم",
     activateSuccess: "تم تفعيل حساب المسؤول بنجاح",
-    deactivcateSuccess: "تم إلغاء تفعيل حساب المسؤول بنجاح",
+    deactivateSuccess: "تم إلغاء تفعيل حساب المسؤول بنجاح",
     activateFail: "فشل في تفعيل حساب المسؤول",
     deactivateFail: "فشل في إلغاء تفعيل حساب المسؤول",
     create: "إنشاء مسؤول جديد",
