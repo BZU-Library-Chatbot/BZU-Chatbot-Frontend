@@ -9,6 +9,7 @@ import { Bounce, toast } from "react-toastify";
 import { createIcons, icons } from "lucide";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import styles from "./Admin.module.scss";
 
 const Admin: React.FC = () => {
   const navigate = useNavigate();
@@ -173,7 +174,7 @@ const Admin: React.FC = () => {
   const handleDeactivateClick = async (row: any, id: any) => {
     const response: any = await deactivateUser(id);
     if (response.status < 300) {
-      toast.success(`${t("admin.deactivateSuccess")}`, {
+      toast.success(`${t("admin.deactivcateSuccess")}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -309,13 +310,25 @@ const Admin: React.FC = () => {
             styles={{
               control: (baseStyles, state) => ({
                 ...baseStyles,
-                width: "12rem",
+                width: "10rem",
+                borderColor: "#344c64",
+                color: "#344c64",
+                fontFamily: "Times New Roman",
               }),
             }}
           />
         </div>
         <button
           className="btn btn-outline-primary w-full me-3"
+          style={{
+            borderColor: "#344c64",
+            color: "#344c64",
+            fontFamily: "Times New Roman",
+          }}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.backgroundColor = "#6a8db2")
+          }
+          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "white")}
           onClick={onclick}
         >
           {t("admin.create")}
