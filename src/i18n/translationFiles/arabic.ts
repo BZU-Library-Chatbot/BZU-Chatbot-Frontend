@@ -120,6 +120,8 @@ const Arabic = {
     inactive: "غير نشط",
     admins: "المسؤولين",
     any: "الكل",
+    delete: "حذف",
+    feedbacks: "المراجعات",
   },
   errorPage: {
     header: "404 الصفحة غير موجودة",
@@ -147,6 +149,10 @@ const Arabic = {
     title: "أضف مراجعة",
     body: "كيف كانت الاجابة؟",
     Close: "أغلاق",
+    rating: "التقييم",
+    feedback: "مراجعة",
+    createdAt: "التاريخ",
+    view: "عرض",
   },
 };
 

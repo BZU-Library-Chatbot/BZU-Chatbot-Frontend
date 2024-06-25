@@ -9,7 +9,6 @@ import { Bounce, toast } from "react-toastify";
 import { createIcons, icons } from "lucide";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import styles from "./Admin.module.scss";
 
 const Admin: React.FC = () => {
   const navigate = useNavigate();
