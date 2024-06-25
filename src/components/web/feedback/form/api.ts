@@ -1,4 +1,4 @@
-import axiosInstance from "../../../router/communicator";
+import axiosInstance from "../../../../router/communicator";
 
 export const sendFeedback = async (feedback: any, id: any) => {
   try {

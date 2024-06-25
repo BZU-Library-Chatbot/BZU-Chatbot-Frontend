@@ -147,6 +147,8 @@ const Arabic = {
     title: "أضف مراجعة",
     body: "كيف كانت الاجابة؟",
     Close: "أغلاق",
+    rating: "التقييم",
+    feedback: "مراجعة",
   },
 };
 

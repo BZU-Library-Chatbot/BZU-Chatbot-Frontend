@@ -149,6 +149,8 @@ const English = {
     title: "Add Feedback",
     body: "How was the response?",
     Close: "Close",
+    rating: "Rating",
+    feedback: "Feedback",
   },
 };
 

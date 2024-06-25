@@ -10,6 +10,7 @@ import SendCode from "../components/web/sendCode/SendCode";
 import ForgetPassword from "../components/web/forgetpassword/ForgetPassword";
 import Settings from "../components/web/settings/index";
 import AdminRegister from "../components/web/adminRegister/AdminRegister";
+import Feedback from "../components/web/feedback/page";
 
 const Router = () => {
   const routes = [
@@ -60,6 +61,10 @@ const Router = () => {
         {
           path: "admin/create",
           element: <AdminRegister />,
+        },
+        {
+          path: "feedback",
+          element: <Feedback />,
         },
         {
           path: "*",

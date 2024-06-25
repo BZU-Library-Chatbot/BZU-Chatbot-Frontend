@@ -15,7 +15,7 @@ import { getProfile } from "../../../common/api";
 import { setUser } from "../../../redux/userSlice";
 import { toast, Bounce } from "react-toastify";
 import RatingStar from "../ratingStar/RatingStar";
-import Feedback from "../feedback/Feedback";
+import Feedback from "../feedback/form/Feedback";
 
 interface FormValues {
   message: string;
