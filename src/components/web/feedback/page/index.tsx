@@ -35,10 +35,8 @@ const index = () => {
     onRendered: any
   ): HTMLElement | any => {
     const name: string = cell.getRow().getData().interactionId.userId.userName;
-    console.log("====================================");
-    console.log(name);
-    console.log("====================================");
-    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${name}">
+    const email: string = cell.getRow().getData().interactionId.userId.email;
+    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width:6rem" title="${email}">
                     ${name}
                 </div>`;
   };
@@ -48,43 +46,49 @@ const index = () => {
     formatterParams: any,
     onRendered: any
   ): HTMLElement | any => {
-    // const userId = cell.getRow().getData()._id;
-    // const isActive = cell.getRow().getData().status.toLowerCase() == "active";
-
-    let activeElement = "";
-    // if (isActive) {
-    //   activeElement = `<a id="deactivate" class="flex items-center text-danger mr-3">
-    //                     <i data-lucide="user-x" class="w-4 h-4 mr-1"></i>
-    //                     ${t("global.deactivate")}
-    //                   </a>`;
-    // } else {
-    //   activeElement = `<a id="activate" class="flex items-center text-primary mr-3">
-    //                       <i data-lucide="user-check" class="w-4 h-4 mr-1"></i>
-    //                       ${t("global.activate")}
-    //                     </a>`;
-    // }
-
-    const actionsElement = `<div class="flex lg:justify-center items-center" style="font-size:1rem; margin-right:0.5rem;">${activeElement}</div>`;
-    const a = stringToHTML(actionsElement);
-
-    a.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", function (event) {
-        event.stopPropagation();
-        const target = event.currentTarget as HTMLElement;
-        const buttonId = target.id;
-        switch (buttonId) {
-          case "activate":
-            // handleActivateClick(cell.getRow(), userId);
-            break;
-          case "deactivate":
-            // handleDeactivateClick(cell.getRow(), userId);
-            break;
-          default:
-            break;
-        }
-      });
+    const id = cell.getRow().getData().id;
+    const a = stringToHTML(`<div class="flex lg:justify-center items-center">
+                              <a id="view" class="flex items-center text-primary btn">
+                                <i class="fa-solid fa-binoculars"></i>
+                                ${t("feedback.view")}
+                              </a>
+                              <a id="delete" class="flex items-center text-danger btn">
+                                <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>
+                                ${t("global.delete")}
+                              </a>
+                          </div>`);
+    a.addEventListener("click", function (event) {
+      event.stopPropagation();
+      const target = event.target as HTMLElement;
+      const buttonId = target.id;
+      switch (buttonId) {
+        case "view":
+          handleViewClick(event, cell.getRow());
+          break;
+        case "delete":
+          handleDeleteClick(cell.getRow(), id);
+          break;
+        default:
+          break;
+      }
     });
     return a;
+  };
+
+  const handleViewClick = (event: any, row: any) => {
+    const data = row.getData();
+    // TODO: Implement viewFeedback function when the API is ready
+    console.log(data);
+    alert("view feedback");
+  };
+
+  const handleDeleteClick = (row: any, id: number) => {
+    const confirmDelete = window.confirm(t("admin.deleteConfirm"));
+    if (confirmDelete) {
+      // TODO: Implement deleteFeedback function when the API is ready
+      //   deleteFeedback(id);
+      alert("delete feedback");
+    }
   };
 
   const ratingFormatter = (
@@ -93,7 +97,7 @@ const index = () => {
     onRendered: any
   ): HTMLElement | any => {
     const rating: number = cell.getRow().getData().rating;
-    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width:5rem; min-width:75px">
                     ${rating}
                 </div>`;
   };
@@ -103,10 +107,28 @@ const index = () => {
     formatterParams: any,
     onRendered: any
   ): HTMLElement | any => {
-    const feedback: string = cell.getRow().getData().feedback ? cell.getRow().getData().feedback : "-";
-    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${feedback}">
+    const feedback: string = cell.getRow().getData().feedback
+      ? cell.getRow().getData().feedback
+      : "-";
+    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width:8rem;" title="${feedback}">
                         ${feedback}
                     </div>`;
+  };
+
+  const dateFormatter = (
+    cell: any,
+    formatterParams: any,
+    onRendered: any
+  ): HTMLElement | any => {
+    const date: string = cell.getRow().getData().createdAt;
+    const parsedDate = new Date(date);
+    const day = String(parsedDate.getUTCDate()).padStart(2, "0");
+    const month = String(parsedDate.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const year = parsedDate.getUTCFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
+    return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width:6.5rem;">
+                    ${formattedDate}
+                </div>`;
   };
 
   const columns: Column[] = [
@@ -128,7 +150,6 @@ const index = () => {
       headerHozAlign: "center",
       headerSort: true,
       widthGrow: 1,
-      width: 100,
       formatter: ratingFormatter,
     },
     {
@@ -139,7 +160,19 @@ const index = () => {
       headerHozAlign: "center",
       headerSort: false,
       widthGrow: 1,
+      maxWidth: 150,
       formatter: feedbackFormatter,
+    },
+    {
+      title: t("feedback.createdAt"),
+      field: "createdAt",
+      hozAlign: "center",
+      vertAlign: "middle",
+      headerHozAlign: "center",
+      headerSort: true,
+      minWidth: 110,
+      widthGrow: 1,
+      formatter: dateFormatter,
     },
     {
       title: t("global.actions"),
@@ -163,6 +196,7 @@ const index = () => {
         nameAttr: "data-lucide",
       });
     },
+    rowClick: handleViewClick,
   };
 
   const options = {
@@ -174,60 +208,30 @@ const index = () => {
     ajaxURL: "/feedback/",
     ajaxRequestFunc: fetchTableData,
     filterMode: "remote",
+    sortMode: "remote",
+    initialSort: [{ createdAt: "desc" }],
   };
 
   return (
-    <div className="d-flex justify-content-center mt-5 flex-wrap flex-column align-items-center">
+    <div className="d-flex justify-content-center mt-5 flex-wrap flex-column align-items-center w-full">
       <div
-        className="d-flex justify-content-between m-1 mb-3 mt-5"
-        style={{ width: "597px" }}
+        className="d-flex justify-content-center flex-column align-items-center"
+        style={{ maxWidth: "95%", minWidth: "300px" }}
       >
-        <div className="ms-3">
-          {/* <Select
-            value={activeFilterValue}
-            onChange={onChange}
-            options={selectorOptions}
-            className="text-center"
-            styles={{
-              control: (baseStyles, state) => ({
-                ...baseStyles,
-                width: "10rem",
-                borderColor: "#344c64",
-                color: "#344c64",
-                fontFamily: "Times New Roman",
-              }),
-            }}
-          /> */}
-        </div>
-        {/* <button
-          className="btn btn-outline-primary w-full me-3"
-          style={{
-            borderColor: "#344c64",
-            color: "#344c64",
-            fontFamily: "Times New Roman",
-          }}
-          onMouseOver={(e) =>
-            (e.currentTarget.style.backgroundColor = "#6a8db2")
-          }
-          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "white")}
-          onClick={onclick}
+        <div
+          style={{ minWidth: "300px", width: "100%" }}
+          className="border-solid border-dark border rounded w-2/5 min-h-96 border-t-0"
         >
-          {t("admin.create")}
-        </button> */}
-      </div>
-      <div
-        style={{ minWidth: "300px" }}
-        className="border-solid border-dark border rounded w-2/5 min-h-96 border-t-0"
-      >
-        <ReactTabulator
-          onRef={(r) => {
-            ref.current = r.current;
-          }}
-          columns={columns}
-          events={events}
-          options={options}
-          style={{ minWidth: "300px" }}
-        />
+          <ReactTabulator
+            onRef={(r) => {
+              ref.current = r.current;
+            }}
+            columns={columns}
+            events={events}
+            options={options}
+            style={{ minWidth: "300px", width: "100%" }}
+          />
+        </div>
       </div>
     </div>
   );

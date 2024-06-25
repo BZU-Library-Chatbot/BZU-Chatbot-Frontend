@@ -121,6 +121,8 @@ const English = {
     inactive: "Inactive",
     admins: "Admins",
     any: "Any",
+    delete:"Delete",
+    feedbacks:"Feedbacks",
   },
   errorPage: {
     header: "404 Error Page",
@@ -151,6 +153,8 @@ const English = {
     Close: "Close",
     rating: "Rating",
     feedback: "Feedback",
+    createdAt: "Created At",
+    view: "View",
   },
 };
 
