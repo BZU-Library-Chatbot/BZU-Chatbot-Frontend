@@ -2,9 +2,10 @@ import { createIcons, icons } from "lucide";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ColumnDefinitionAlign, VerticalAlign } from "tabulator-tables";
-import { fetchTableData } from "./api";
+import { deleteFeedback, fetchTableData, getFeedbackById } from "./api";
 import { ReactTabulator } from "react-tabulator";
 import { stringToHTML } from "../../../../helper/helper";
+import { toast, Bounce } from "react-toastify";
 
 const index = () => {
   const { t } = useTranslation();
@@ -75,19 +76,46 @@ const index = () => {
     return a;
   };
 
-  const handleViewClick = (event: any, row: any) => {
-    const data = row.getData();
-    // TODO: Implement viewFeedback function when the API is ready
-    console.log(data);
-    alert("view feedback");
+  const handleViewClick = async (event: any, row: any) => {
+    const id = row.getData().id;
+    const feedback = await getFeedbackById(id);
+    const userName = feedback.feedback.interactionId?.userId?.userName || "-";
+    const message = feedback.feedback.interactionId?.message || "-";
+    const response = feedback.feedback.interactionId?.response || "-";
+    const feedbackText = feedback.feedback.text || "-";
+    const rating = feedback.feedback.rating || "-";
+    const toastMessage = `User: ${userName}\nMessage: ${message}\nResponse: ${response}Feedback: ${feedbackText}\nRating: ${rating}`;
+    alert(toastMessage);
   };
 
-  const handleDeleteClick = (row: any, id: number) => {
+  const handleDeleteClick = async (row: any, id: number) => {
     const confirmDelete = window.confirm(t("admin.deleteConfirm"));
     if (confirmDelete) {
-      // TODO: Implement deleteFeedback function when the API is ready
-      //   deleteFeedback(id);
-      alert("delete feedback");
+      await deleteFeedback(id);
+      row.getTable().deleteRow(row.getData().id);
+      toast.success(t("feedback.deleted"), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    } else {
+      toast.error(t("feedback.deleteFailed"), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     }
   };
 

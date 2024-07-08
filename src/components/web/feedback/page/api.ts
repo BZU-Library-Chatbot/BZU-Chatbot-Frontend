@@ -41,3 +41,21 @@ export const fetchTableData = async (
     return error;
   }
 };
+
+export const getFeedbackById = async (id: number): Promise<any> => {
+  try {
+    const response = await axiosInstance.get(`/feedback/${id}`);
+    return response.data;
+  } catch (error: any) {
+    return error;
+  }
+};
+
+export const deleteFeedback = async (id: number) => {
+  try {
+    const response = await axiosInstance.delete(`/feedback/${id}`);
+    return response.data;
+  } catch (error: any) {
+    return error;
+  }
+};

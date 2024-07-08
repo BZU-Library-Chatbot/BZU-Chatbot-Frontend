@@ -7,6 +7,7 @@ const Arabic = {
     activateFail: "فشل في تفعيل حساب المسؤول",
     deactivateFail: "فشل في إلغاء تفعيل حساب المسؤول",
     create: "إنشاء مسؤول جديد",
+    deleteConfirm: "هل أنت متأكد من أنك تريد حذف هذه المراجعة",
   },
   about: {
     team: "فريقنا المبدع",
@@ -153,6 +154,8 @@ const Arabic = {
     feedback: "مراجعة",
     createdAt: "التاريخ",
     view: "عرض",
+    deleted: "تم حذف المراجعة بنجاح",
+    deleteFailed: "فشل حذف المراجعة",
   },
 };
 
