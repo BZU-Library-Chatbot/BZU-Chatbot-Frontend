@@ -123,6 +123,7 @@ const Arabic = {
     any: "الكل",
     delete: "حذف",
     feedbacks: "المراجعات",
+    close: "اغلاق"
   },
   errorPage: {
     header: "404 الصفحة غير موجودة",
@@ -156,6 +157,10 @@ const Arabic = {
     view: "عرض",
     deleted: "تم حذف المراجعة بنجاح",
     deleteFailed: "فشل حذف المراجعة",
+    feedbackDetails: "تفاصيل المراجعة",
+    username: "اسم المستخدم",
+    message: "الرسالة",
+    response: "الرد",
   },
 };
 

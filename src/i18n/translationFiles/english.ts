@@ -124,6 +124,7 @@ const English = {
     any: "Any",
     delete: "Delete",
     feedbacks: "Feedbacks",
+    close: "Close"
   },
   errorPage: {
     header: "404 Error Page",
@@ -158,6 +159,10 @@ const English = {
     view: "View",
     deleted: "Feedback deleted successfully!",
     deleteFailed: "Faild to delete feedback!",
+    feedbackDetails: "Feedback details",
+    username: "Username",
+    message: "Message",
+    response: "Response",
   },
 };
 

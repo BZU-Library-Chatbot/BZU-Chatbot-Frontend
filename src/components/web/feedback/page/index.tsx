@@ -1,15 +1,25 @@
 import { createIcons, icons } from "lucide";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ColumnDefinitionAlign, VerticalAlign } from "tabulator-tables";
 import { deleteFeedback, fetchTableData, getFeedbackById } from "./api";
 import { ReactTabulator } from "react-tabulator";
 import { stringToHTML } from "../../../../helper/helper";
 import { toast, Bounce } from "react-toastify";
+import { Modal, Button } from "react-bootstrap";
 
 const index = () => {
   const { t } = useTranslation();
   const ref = useRef(null);
+
+  const [modalShow, setModalShow] = useState(false);
+  const [feedbackDetails, setFeedbackDetails] = useState({
+    userName: "-",
+    message: "-",
+    response: "-",
+    feedbackText: "-",
+    rating: "-",
+  });
 
   interface Column {
     title: string;
@@ -84,8 +94,16 @@ const index = () => {
     const response = feedback.feedback.interactionId?.response || "-";
     const feedbackText = feedback.feedback.text || "-";
     const rating = feedback.feedback.rating || "-";
-    const toastMessage = `User: ${userName}\nMessage: ${message}\nResponse: ${response}Feedback: ${feedbackText}\nRating: ${rating}`;
-    alert(toastMessage);
+
+    setFeedbackDetails({
+      userName,
+      message,
+      response,
+      feedbackText,
+      rating,
+    });
+
+    setModalShow(true);
   };
 
   const handleDeleteClick = async (row: any, id: number) => {
@@ -261,6 +279,42 @@ const index = () => {
           />
         </div>
       </div>
+      <Modal show={modalShow} onHide={() => setModalShow(false)} centered>
+        <Modal.Header>
+          <Modal.Title>{t("feedback.feedbackDetails")}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ maxHeight: "400px", overflowY: "auto" }}>
+          <p>
+            <strong>{t("feedback.username")}: </strong>
+            {feedbackDetails.userName}
+          </p>
+          <p>
+            <strong>{t("feedback.message")}: </strong>
+            {feedbackDetails.message}
+          </p>
+          <p>
+            <strong>{t("feedback.response")}: </strong>
+            {feedbackDetails.response}
+          </p>
+          <p>
+            <strong>{t("feedback.feedback")}: </strong>
+            {feedbackDetails.feedbackText}
+          </p>
+          <p>
+            <strong>{t("feedback.rating")}: </strong>
+            {feedbackDetails.rating}
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            style={{ backgroundColor: "#344c64" }}
+            variant="secondary"
+            onClick={() => setModalShow(false)}
+          >
+            {t("global.close")}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
