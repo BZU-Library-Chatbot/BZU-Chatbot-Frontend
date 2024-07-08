@@ -157,7 +157,7 @@ const English = {
     feedback: "Feedback",
     createdAt: "Created At",
     view: "View",
-    deleted: "Feedback deleted successfully!",
+    deleteSuccess: "Feedback deleted successfully!",
     deleteFailed: "Faild to delete feedback!",
     feedbackDetails: "Feedback details",
     username: "Username",

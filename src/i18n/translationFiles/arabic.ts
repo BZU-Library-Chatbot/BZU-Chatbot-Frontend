@@ -155,7 +155,7 @@ const Arabic = {
     feedback: "مراجعة",
     createdAt: "التاريخ",
     view: "عرض",
-    deleted: "تم حذف المراجعة بنجاح",
+    deleteSuccess: "تم حذف المراجعة بنجاح",
     deleteFailed: "فشل حذف المراجعة",
     feedbackDetails: "تفاصيل المراجعة",
     username: "اسم المستخدم",

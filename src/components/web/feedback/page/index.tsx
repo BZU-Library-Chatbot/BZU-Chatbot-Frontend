@@ -89,11 +89,11 @@ const index = () => {
   const handleViewClick = async (event: any, row: any) => {
     const id = row.getData().id;
     const feedback = await getFeedbackById(id);
-    const userName = feedback.feedback.interactionId?.userId?.userName || "-";
-    const message = feedback.feedback.interactionId?.message || "-";
-    const response = feedback.feedback.interactionId?.response || "-";
+    const userName = feedback.feedback.interactionId?.userId?.userName;
+    const message = feedback.feedback.interactionId?.message;
+    const response = feedback.feedback.interactionId?.response;
     const feedbackText = feedback.feedback.text || "-";
-    const rating = feedback.feedback.rating || "-";
+    const rating = feedback.feedback.rating;
 
     setFeedbackDetails({
       userName,
@@ -111,7 +111,7 @@ const index = () => {
     if (confirmDelete) {
       await deleteFeedback(id);
       row.getTable().deleteRow(row.getData().id);
-      toast.success(t("feedback.deleted"), {
+      toast.success(t("feedback.deleteSuccess"), {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
