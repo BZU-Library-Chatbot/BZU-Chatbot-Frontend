@@ -14,11 +14,11 @@ const index = () => {
 
   const [modalShow, setModalShow] = useState(false);
   const [feedbackDetails, setFeedbackDetails] = useState({
-    userName: "-",
-    message: "-",
-    response: "-",
-    feedbackText: "-",
-    rating: "-",
+    userName: "",
+    message: "",
+    response: "",
+    feedbackText: "",
+    rating: "",
   });
 
   interface Column {
