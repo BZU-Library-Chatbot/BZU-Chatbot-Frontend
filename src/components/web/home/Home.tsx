@@ -68,6 +68,10 @@ const Home: React.FC = () => {
 
   const loadMoreMessages = async () => {
     if (allMessagesLoaded) return;
+    if(!id){
+      setAllMessagesLoaded(true);
+      return;
+    } 
 
     const page = Math.ceil(conversation.length / 10 + 1);
     const response = await loadMessages(id, page);
