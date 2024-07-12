@@ -153,8 +153,8 @@ const index = () => {
     formatterParams: any,
     onRendered: any
   ): HTMLElement | any => {
-    const feedback: string = cell.getRow().getData().feedback
-      ? cell.getRow().getData().feedback
+    const feedback: string = cell.getRow().getData().text
+      ? cell.getRow().getData().text
       : "-";
     return `<div style="font-size:1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width:8rem;" title="${feedback}">
                         ${feedback}
