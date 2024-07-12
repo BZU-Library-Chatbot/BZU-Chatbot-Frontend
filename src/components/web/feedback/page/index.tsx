@@ -1,14 +1,25 @@
 import { createIcons, icons } from "lucide";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ColumnDefinitionAlign, VerticalAlign } from "tabulator-tables";
-import { fetchTableData } from "./api";
+import { deleteFeedback, fetchTableData, getFeedbackById } from "./api";
 import { ReactTabulator } from "react-tabulator";
 import { stringToHTML } from "../../../../helper/helper";
+import { toast, Bounce } from "react-toastify";
+import { Modal, Button } from "react-bootstrap";
 
 const index = () => {
   const { t } = useTranslation();
   const ref = useRef(null);
+
+  const [modalShow, setModalShow] = useState(false);
+  const [feedbackDetails, setFeedbackDetails] = useState({
+    userName: "",
+    message: "",
+    response: "",
+    feedbackText: "",
+    rating: "",
+  });
 
   interface Column {
     title: string;
@@ -75,19 +86,54 @@ const index = () => {
     return a;
   };
 
-  const handleViewClick = (event: any, row: any) => {
-    const data = row.getData();
-    // TODO: Implement viewFeedback function when the API is ready
-    console.log(data);
-    alert("view feedback");
+  const handleViewClick = async (event: any, row: any) => {
+    const id = row.getData().id;
+    const feedback = await getFeedbackById(id);
+    const userName = feedback.feedback.interactionId?.userId?.userName;
+    const message = feedback.feedback.interactionId?.message;
+    const response = feedback.feedback.interactionId?.response;
+    const feedbackText = feedback.feedback.text || "-";
+    const rating = feedback.feedback.rating;
+
+    setFeedbackDetails({
+      userName,
+      message,
+      response,
+      feedbackText,
+      rating,
+    });
+
+    setModalShow(true);
   };
 
-  const handleDeleteClick = (row: any, id: number) => {
+  const handleDeleteClick = async (row: any, id: number) => {
     const confirmDelete = window.confirm(t("admin.deleteConfirm"));
     if (confirmDelete) {
-      // TODO: Implement deleteFeedback function when the API is ready
-      //   deleteFeedback(id);
-      alert("delete feedback");
+      await deleteFeedback(id);
+      row.getTable().deleteRow(row.getData().id);
+      toast.success(t("feedback.deleteSuccess"), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    } else {
+      toast.error(t("feedback.deleteFailed"), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     }
   };
 
@@ -233,6 +279,42 @@ const index = () => {
           />
         </div>
       </div>
+      <Modal show={modalShow} onHide={() => setModalShow(false)} centered>
+        <Modal.Header>
+          <Modal.Title>{t("feedback.feedbackDetails")}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ maxHeight: "400px", overflowY: "auto" }}>
+          <p>
+            <strong>{t("feedback.username")}: </strong>
+            {feedbackDetails.userName}
+          </p>
+          <p>
+            <strong>{t("feedback.message")}: </strong>
+            {feedbackDetails.message}
+          </p>
+          <p>
+            <strong>{t("feedback.response")}: </strong>
+            {feedbackDetails.response}
+          </p>
+          <p>
+            <strong>{t("feedback.feedback")}: </strong>
+            {feedbackDetails.feedbackText}
+          </p>
+          <p>
+            <strong>{t("feedback.rating")}: </strong>
+            {feedbackDetails.rating}
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            style={{ backgroundColor: "#344c64" }}
+            variant="secondary"
+            onClick={() => setModalShow(false)}
+          >
+            {t("global.close")}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

@@ -7,6 +7,7 @@ const English = {
     activateFail: "Failed to activate admin account",
     deactivateFail: "Failed to deactivate admin account",
     create: "Create New Admin",
+    deleteConfirm: "Are you sure you want to delete this feedback?",
   },
   about: {
     team: "The creative crew",
@@ -121,8 +122,9 @@ const English = {
     inactive: "Inactive",
     admins: "Admins",
     any: "Any",
-    delete:"Delete",
-    feedbacks:"Feedbacks",
+    delete: "Delete",
+    feedbacks: "Feedbacks",
+    close: "Close"
   },
   errorPage: {
     header: "404 Error Page",
@@ -155,6 +157,12 @@ const English = {
     feedback: "Feedback",
     createdAt: "Created At",
     view: "View",
+    deleteSuccess: "Feedback deleted successfully!",
+    deleteFailed: "Faild to delete feedback!",
+    feedbackDetails: "Feedback details",
+    username: "Username",
+    message: "Message",
+    response: "Response",
   },
 };
 
